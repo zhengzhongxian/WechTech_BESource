@@ -1,0 +1,15 @@
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\bin\Debug\net8.0\WebTechnology.Service.deps.json
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\bin\Debug\net8.0\WebTechnology.Service.dll
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\bin\Debug\net8.0\WebTechnology.Service.pdb
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\bin\Debug\net8.0\WebTechnology.Repository.dll
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\bin\Debug\net8.0\WebTechnology.Repository.pdb
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechnology.Service.csproj.AssemblyReference.cache
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechnology.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechnology.Service.AssemblyInfoInputs.cache
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechnology.Service.AssemblyInfo.cs
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechnology.Service.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechn.5BA91063.Up2Date
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechnology.Service.dll
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\refint\WebTechnology.Service.dll
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechnology.Service.pdb
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\ref\WebTechnology.Service.dll
