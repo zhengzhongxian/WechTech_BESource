@@ -54,11 +54,12 @@ namespace WebTechnology.Service.Services.Implementationns
             return tokenHandler.WriteToken(token);
         }
 
-        public string GenerateRefreshToken()
+        public string GenerateRefreshToken(User user)
         {
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Userid),
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -87,5 +88,32 @@ namespace WebTechnology.Service.Services.Implementationns
             };
         }
 
+        public string? GetUserIdFromToken(string token)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
+                return jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public bool IsTokenExpired(string token)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
+                return jwtToken.ValidTo < DateTime.UtcNow;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

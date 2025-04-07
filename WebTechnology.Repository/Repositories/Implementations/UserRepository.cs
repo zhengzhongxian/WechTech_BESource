@@ -5,29 +5,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebTechnology.API;
+using WebTechnology.Repository.CoreHelpers.Crud;
 using WebTechnology.Repository.Repositories.Interfaces;
 
 namespace WebTechnology.Repository.Repositories.Implementations
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository<User>, IUserRepository
     {
         private readonly WebTech _context;
 
-        public UserRepository(WebTech context)
+        public UserRepository(WebTech context) : base(context)
         {
             _context = context;
         }
         public async Task<User?> AuthenticateAsync(string username, string password)
         {
             var user = await _context.Users
+                .Include(u => u.Role)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Username == username && u.IsActive == true);
+                .Where(u => u.Username == username
+                            && u.IsActive == true
+                            && u.IsDeleted == false
+                            && u.Authenticate == true)
+                .FirstOrDefaultAsync();
 
             if (user == null) return null;
 
             if (!VerifyPassword(password, user.Password)) return null;
 
             return user;
+        }
+
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
         }
 
         public async Task UpdateRefreshTokenAsync(string userId, string? refreshToken)

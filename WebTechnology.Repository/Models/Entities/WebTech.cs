@@ -78,10 +78,6 @@ public partial class WebTech : DbContext
 
     public virtual DbSet<Voucher> Vouchers { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=tamcutephomaique.ddns.net;database=web_tech;user=tam;password=123", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.41-mysql"));
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -1004,19 +1000,20 @@ public partial class WebTech : DbContext
 
             entity.HasIndex(e => e.StatusId, "FK_users_user_status");
 
+            entity.HasIndex(e => e.Email, "unique_email").IsUnique();
+
             entity.Property(e => e.Userid)
                 .HasMaxLength(64)
                 .HasColumnName("userid");
             entity.Property(e => e.Authenticate).HasColumnName("authenticate");
+            entity.Property(e => e.CountAuth).HasColumnName("count_Auth");
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(6)
                 .HasColumnName("created_at");
             entity.Property(e => e.DeletedAt)
                 .HasMaxLength(6)
                 .HasColumnName("deleted_at");
-            entity.Property(e => e.Email)
-                .HasMaxLength(255)
-                .HasColumnName("email");
+            entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.IsActive).HasColumnName("is_active");
             entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
             entity.Property(e => e.Otp)
@@ -1029,7 +1026,7 @@ public partial class WebTech : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("password_reset_token");
             entity.Property(e => e.RefreshToken)
-                .HasMaxLength(255)
+                .HasMaxLength(1024)
                 .HasColumnName("refresh_token");
             entity.Property(e => e.Roleid)
                 .HasMaxLength(64)

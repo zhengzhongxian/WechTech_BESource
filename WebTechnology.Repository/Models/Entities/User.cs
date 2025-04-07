@@ -37,6 +37,8 @@ public partial class User
 
     public string? StatusId { get; set; }
 
+    public int CountAuth { get; set; }
+
     public virtual Customer? Customer { get; set; }
 
     public virtual ICollection<Log> Logs { get; set; } = new List<Log>();

@@ -11,6 +11,8 @@ namespace WebTechnology.Service.Services.Interfaces
     public interface ITokenService
     {
         string GenerateAccessToken(User user);
-        string GenerateRefreshToken();
+        string GenerateRefreshToken(User user);
+        string? GetUserIdFromToken(string token);
+        bool IsTokenExpired(string token);
     }
 }

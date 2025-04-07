@@ -13,3 +13,4 @@ C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Se
 C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\refint\WebTechnology.Service.dll
 C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechnology.Service.pdb
 C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\ref\WebTechnology.Service.dll
+C:\Users\ADMIN\Desktop\HK2-Season3\web-technology\WebTechnology\WebTechnology.Service\obj\Debug\net8.0\WebTechnology.Service.sourcelink.json

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebTechnology.API;
+using WebTechnology.Repository.CoreHelpers.Crud;
 
 namespace WebTechnology.Repository.Repositories.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IGenericRepository<User>
     {
         Task<User?> AuthenticateAsync(string username, string password);
         Task UpdateRefreshTokenAsync(string userId, string? refreshToken);
+        Task <User?> GetUserByEmailAsync(string email);
     }
 }

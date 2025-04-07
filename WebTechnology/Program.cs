@@ -10,6 +10,7 @@ using WebTechnology.Repository.Repositories.Implementations;
 using WebTechnology.Repository.Repositories.Interfaces;
 using WebTechnology.Repository.UnitOfWork;
 using WebTechnology.Service.Models;
+using WebTechnology.Service.Services.BackgroundServices;
 using WebTechnology.Service.Services.Implementationns;
 using WebTechnology.Service.Services.Interfaces;
 
@@ -50,7 +51,10 @@ builder.Services.AddScoped<ITrendService, TrendService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+builder.Services.AddHostedService<UserAuthCleanupService>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -73,6 +77,19 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = jwtSettings.ClockSkew
     };
 });
+builder.Services.AddAuthorization(options =>
+{
+
+    options.AddPolicy("AdminOnly", policy =>
+        policy.RequireRole("Admin"));
+
+    // Policy cho Customer
+    options.AddPolicy("CustomerOnly", policy =>
+        policy.RequireRole("Customer"));
+
+    options.AddPolicy("AdminOrCustomer", policy =>
+        policy.RequireRole("Admin", "Customer"));
+});
 builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("EmailSettings"));
 var app = builder.Build();
 
@@ -86,7 +103,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

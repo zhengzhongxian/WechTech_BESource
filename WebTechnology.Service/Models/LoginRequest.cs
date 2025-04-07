@@ -11,7 +11,7 @@ namespace WebTechnology.Service.Models
     public class LoginRequest
     {
         [Required(ErrorMessage = "Yêu cầu tên đăng nhập")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Tên đăng nhập phải từ 3 đến 50 ký tự")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Tên đăng nhập phải từ 3 đến 20 ký tự")]
         [RegularExpression(@"^[a-zA-Z0-9_]+$", ErrorMessage = "Tên đăng nhập chỉ được chứa chữ cái, số và dấu gạch dưới")]
         public string UserName {  get; set; }
 

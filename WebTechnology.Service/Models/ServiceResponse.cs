@@ -35,6 +35,15 @@ namespace WebTechnology.Service.Models
                 StatusCode = HttpStatusCode.OK
             };
         }
+        public static ServiceResponse<T> FailResponse(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+        {
+            return new ServiceResponse<T>
+            {
+                Success = false,
+                Message = message,
+                StatusCode = statusCode
+            };
+        }
 
         public static ServiceResponse<T> ErrorResponse(string errorMessage, HttpStatusCode statusCode = HttpStatusCode.InternalServerError, IEnumerable<string>? errors = null)
         {
