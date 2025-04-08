@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WebTechnology.Service.Models;
 using WebTechnology.Service.Services.Interfaces;
 using WebTechnology.Service.CoreHelpers;
+using Microsoft.Extensions.Configuration;
 
 namespace WebTechnology.Service.Services.Implementationns
 {

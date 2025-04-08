@@ -769,6 +769,7 @@ public partial class WebTech : DbContext
             entity.Property(e => e.Ppsid)
                 .HasMaxLength(64)
                 .HasColumnName("ppsid");
+            entity.Property(e => e.IsActive).HasColumnName("is_active");
             entity.Property(e => e.IsDefault).HasColumnName("is_default");
             entity.Property(e => e.Price)
                 .HasPrecision(18, 2)

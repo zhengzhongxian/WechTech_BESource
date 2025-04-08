@@ -13,5 +13,7 @@ public partial class ProductPrice
 
     public bool? IsDefault { get; set; }
 
+    public bool IsActive { get; set; }
+
     public virtual Product? Product { get; set; }
 }

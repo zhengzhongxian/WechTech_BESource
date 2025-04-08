@@ -62,7 +62,6 @@ namespace WebTechnology.API.Controllers
         /// <summary>
         /// Sau khi accesstoken hết hạn thì gửi refresh token về server để lấy accesstoken mới (nếu refesh token còn hiệu lực), nếu refesh token hết hai thì customer sẽ phải đăng nhập lại
         /// </summary>
-        /// 
         [HttpPost("refresh-token")]
         public async Task<ActionResult<AuthResponse>> RefreshToken([FromQuery] string refreshToken)
         {

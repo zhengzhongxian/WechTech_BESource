@@ -60,6 +60,10 @@ namespace WebTechnology.Repository.CoreHelpers.Crud
         {
             return await _dbSet.ToListAsync();
         }
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbSet.CountAsync(predicate);
+        }
 
     }
 
