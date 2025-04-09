@@ -32,8 +32,16 @@ builder.Services.AddSwaggerGen(c =>
     }
 });
 builder.Services.AddDbContext<WebTech>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("Connection"),
-    new MySqlServerVersion(new Version(8, 0, 41))));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("Connection"),
+        new MySqlServerVersion(new Version(8, 0, 41)),
+        mySqlOptions => mySqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null
+        )
+    )
+);
 builder.Services.AddCors(option =>
 {
     option.AddDefaultPolicy(policy => policy.AllowAnyHeader()
@@ -50,6 +58,18 @@ builder.Services.AddScoped<ITrendService, TrendService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//product
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IDimensionRepository, DimensionRepository>();
+builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IProductStatusRepository, ProductStatusRespository>();
+
+// Register services
+builder.Services.AddScoped<IProductService, ProductService>();
+
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddAuthentication(options =>
 {
@@ -59,6 +79,11 @@ builder.Services.AddAuthentication(options =>
 .AddJwtBearer(options =>
 {
     var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
+    
+    if (jwtSettings == null)
+    {
+        throw new InvalidOperationException("JWT settings not found in configuration");
+    }
 
     options.TokenValidationParameters = new TokenValidationParameters
     {
