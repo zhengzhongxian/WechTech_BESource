@@ -18,7 +18,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -33,8 +37,12 @@ builder.Services.AddSwaggerGen(c =>
     }
 });
 builder.Services.AddDbContext<WebTech>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("Connection"),
-    new MySqlServerVersion(new Version(8, 0, 41))));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("Connection"),
+        new MySqlServerVersion(new Version(8, 0, 41))
+    )
+);
+
 builder.Services.AddCors(option =>
 {
     option.AddDefaultPolicy(policy => policy.AllowAnyHeader()
@@ -56,6 +64,12 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductTrendsRepository, ProductTrendsRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IDimensionRepository, DimensionRepository>();
+builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IProductStatusRepository, ProductStatusRespository>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddHostedService<UserAuthCleanupService>();
 builder.Services.AddAuthentication(options =>
@@ -66,6 +80,11 @@ builder.Services.AddAuthentication(options =>
 .AddJwtBearer(options =>
 {
     var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
+    
+    if (jwtSettings == null)
+    {
+        throw new InvalidOperationException("JWT settings not found in configuration");
+    }
 
     options.TokenValidationParameters = new TokenValidationParameters
     {

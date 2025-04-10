@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,7 @@ using WebTechnology.Repository.CoreHelpers.Crud;
 
 namespace WebTechnology.Repository.Repositories.Interfaces
 {
-    public interface IProductRepository : IGenericRepository<Product>
+    public interface IImageRepository : IGenericRepository<Image>
     {
-        IQueryable<Product> GetProductAsQueryable();
     }
 }

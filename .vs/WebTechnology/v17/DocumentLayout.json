@@ -1,0 +1,236 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementationns\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\implementationns\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementationns\\trendservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\implementationns\\trendservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementationns\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\implementationns\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\repositories\\implementations\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\implementations\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\repositories\\interfaces\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\interfaces\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\interfaces\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\interfaces\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\mapping\\productprofilemapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\mapping\\productprofilemapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\repositories\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\repositories\\interfaces\\iproductcategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\interfaces\\iproductcategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\repositories\\interfaces\\iproductpricerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\interfaces\\iproductpricerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\repositories\\interfaces\\iproducttrendsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\interfaces\\iproducttrendsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementationns\\AuthService.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementationns\\AuthService.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementationns\\AuthService.cs",
+              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementationns\\AuthService.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAQwEgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:56:30.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TrendService.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementationns\\TrendService.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementationns\\TrendService.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementationns\\TrendService.cs",
+              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementationns\\TrendService.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:56:21.005Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\ProductRepository.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\ProductRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\ProductRepository.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Implementations\\ProductRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:50:58.728Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Program.cs",
+              "RelativeDocumentMoniker": "WebTechnology\\Program.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Program.cs",
+              "RelativeToolTip": "WebTechnology\\Program.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAYwCwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:47:24.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "WebTechnology\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAuwHcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:45:25.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IProductRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductRepository.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductRepository.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:44:29.745Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementationns\\ProductService.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementationns\\ProductService.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementationns\\ProductService.cs",
+              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementationns\\ProductService.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAswC0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:41:13.102Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\IProductService.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Interfaces\\IProductService.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\IProductService.cs",
+              "RelativeToolTip": "WebTechnology.Service\\Services\\Interfaces\\IProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwA0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:38:38.02Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ProductProfileMapping.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Mapping\\ProductProfileMapping.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Mapping\\ProductProfileMapping.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Mapping\\ProductProfileMapping.cs",
+              "RelativeToolTip": "WebTechnology.Service\\Services\\Mapping\\ProductProfileMapping.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:38:24.982Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ICustomerRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\ICustomerRepository.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\ICustomerRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\ICustomerRepository.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Interfaces\\ICustomerRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:38:07.796Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IProductCategoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductCategoryRepository.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductCategoryRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductCategoryRepository.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductCategoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:38:05.586Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IProductPriceRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductPriceRepository.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductPriceRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductPriceRepository.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductPriceRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:38:03.929Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IProductTrendsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductTrendsRepository.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductTrendsRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductTrendsRepository.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductTrendsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:37:58.602Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

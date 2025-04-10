@@ -8,8 +8,7 @@ using WebTechnology.Repository.CoreHelpers.Crud;
 
 namespace WebTechnology.Repository.Repositories.Interfaces
 {
-    public interface IProductRepository : IGenericRepository<Product>
+    public interface IProductPriceRepository : IGenericRepository<ProductPrice>
     {
-        IQueryable<Product> GetProductAsQueryable();
     }
 }
