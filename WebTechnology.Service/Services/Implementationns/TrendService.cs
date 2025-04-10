@@ -73,11 +73,30 @@ namespace WebTechnology.Service.Services.Implementationns
                 patchDoc.ApplyTo(exist);
                 exist.UpdatedAt = DateTime.UtcNow;
                 await _trendRepository.UpdateAsync(exist);
+                await _unitOfWork.SaveChangesAsync();
                 return ServiceResponse<Trend>.SuccessResponse("Cập nhật xu hướng thành công nhé FE");
             }
             catch (Exception ex)
             {
-                return ServiceResponse<Trend>.ErrorResponse($"Lỗi khi tạo xu hướng nhé FE: {ex.Message}");
+                return ServiceResponse<Trend>.ErrorResponse($"Lỗi khi cập nhật xu hướng nhé FE: {ex.Message}");
+            }
+        }
+        public async Task<ServiceResponse<string>> DeleteTrendAsync(string id)
+        {
+            try
+            {
+                var exist = await _trendRepository.GetByIdAsync(id);
+                if (exist == null)
+                {
+                    return ServiceResponse<string>.NotFoundResponse("Xu hướng không tồn tại nhé FE");
+                }
+                await _trendRepository.DeleteAsync(exist);
+                await _unitOfWork.SaveChangesAsync();
+                return ServiceResponse<string>.SuccessResponse("Xóa xu hướng thành công nhé FE");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<string>.ErrorResponse($"Lỗi khi xóa xu hướng nhé FE: {ex.Message}");
             }
         }
     }

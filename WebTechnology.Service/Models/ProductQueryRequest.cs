@@ -19,6 +19,6 @@ namespace WebTechnology.Service.Models
         public string? TrendId { get; set; }
         public string? SearchTerm { get; set; }
         public string? SortBy { get; set; } = "ProductName";
-        public bool? SortAscending { get; set; }
+        public bool SortAscending { get; set; }
     }
 }

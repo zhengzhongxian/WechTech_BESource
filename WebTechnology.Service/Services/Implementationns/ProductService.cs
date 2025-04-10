@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,72 @@ namespace WebTechnology.Service.Services.Implementationns
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-
-        public ProductService(IProductRepository productRepository, IMapper mapper)
+        private readonly IProductTrendsRepository _productTrendsRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        public ProductService(IProductRepository productRepository,
+            IMapper mapper,
+            IProductTrendsRepository productTrendsRepositoy,
+            IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _productTrendsRepository = productTrendsRepositoy;
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task<ServiceResponse<string>> CreateProductTrendsAsync(CreateProductTrendsDTO createDto)
+        {
+            try
+            {
+                var productTrend = _mapper.Map<ProductTrend>(createDto);
+                productTrend.Ptsid = Guid.NewGuid().ToString();
+                productTrend.CreatedAt = DateTime.UtcNow;
+                await _productTrendsRepository.AddAsync(productTrend);
+                await _unitOfWork.SaveChangesAsync();
+                return ServiceResponse<string>.SuccessResponse("Thêm xu hướng cho sản phẩm thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<string>.ErrorResponse($"Lỗi khi tạo xu hướng cho sản phẩm nhé {ex.Message}");
+            }
+        }
+
+        public async Task<ServiceResponse<string>> DeleteProductTrendsAsync(string id)
+        {
+            try 
+            {
+                var exists = await _productTrendsRepository.GetByIdAsync(id);
+                if (exists == null)
+                {
+                    return ServiceResponse<string>.NotFoundResponse("Không tìm thấy xu hướng sản phẩm");
+                }
+                await _productTrendsRepository.DeleteAsync(exists);
+                await _unitOfWork.SaveChangesAsync();
+                return ServiceResponse<string>.SuccessResponse("Xóa xu hướng sản phẩm thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<string>.ErrorResponse($"Lỗi khi xóa xu hướng cho sản phẩm nhé {ex.Message}");
+            }
+        }
+
+        public async Task<ServiceResponse<List<GetListProductTrends>>> GetListTrendsByProductId(string productId)
+        {
+            try
+            {
+                var exists = await _productRepository.GetByIdAsync(productId);
+                if (exists == null)
+                {
+                    return ServiceResponse<List<GetListProductTrends>>.NotFoundResponse("Không tìm thấy sản phẩm");
+                }
+                var result = await _productTrendsRepository.GetByPropertyAsync(x => x.Productid, productId);
+                var mappedResult = _mapper.Map<List<GetListProductTrends>>(result);
+                return ServiceResponse<List<GetListProductTrends>>.SuccessResponse(mappedResult, "Lấy danh sách xu hướng sản phẩm thành công nhé FE");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<List<GetListProductTrends>>.ErrorResponse($"Lỗi khi lấy danh sách xu hướng sản phẩm nhé {ex.Message}");
+            }
         }
 
         public async Task<ServiceResponse<PaginatedResult<GetProductDTO>>> GetProductsWithDetailsAsync(ProductQueryRequest request)
@@ -53,15 +115,18 @@ namespace WebTechnology.Service.Services.Implementationns
                                        p.Description.Contains(request.SearchTerm));
                 }
 
-                query = request.SortBy.ToLower() switch
+                if (!string.IsNullOrEmpty(request.SortBy))
                 {
-                    "price" => request.SortAscending
-                        ? query.OrderBy(p => p.ProductPrices.FirstOrDefault(pp => pp.IsActive).Price)
-                        : query.OrderByDescending(p => p.ProductPrices.FirstOrDefault(pp => pp.IsActive).Price),
-                    _ => request.SortAscending
-                        ? query.OrderBy(p => p.ProductName)
-                        : query.OrderByDescending(p => p.ProductName)
-                };
+                    query = request.SortBy.ToLower() switch
+                    {
+                        "price" => request.SortAscending
+                            ? query.OrderBy(p => p.ProductPrices.FirstOrDefault(pp => pp.IsActive).Price)
+                            : query.OrderByDescending(p => p.ProductPrices.FirstOrDefault(pp => pp.IsActive).Price),
+                        _ => request.SortAscending
+                            ? query.OrderBy(p => p.ProductName)
+                            : query.OrderByDescending(p => p.ProductName)
+                    };
+                }
 
                 var result = await query
                     .AsSplitQuery()
@@ -76,6 +141,27 @@ namespace WebTechnology.Service.Services.Implementationns
                     "An error occurred while retrieving products",
                     HttpStatusCode.InternalServerError,
                     new List<string> { ex.Message });
+            }
+        }
+
+        public async Task<ServiceResponse<string>> PatchProductTrendsAsync(string id, JsonPatchDocument<ProductTrend> patchDoc)
+        {
+            try
+            {
+                var exists = await _productTrendsRepository.GetByIdAsync(id);
+                if (exists == null)
+                {
+                    return ServiceResponse<string>.NotFoundResponse("Xu hướng sản không tồn tại nhé FE");
+                }
+                patchDoc.ApplyTo(exists);
+                exists.UpdatedAt = DateTime.UtcNow;
+                await _productTrendsRepository.UpdateAsync(exists);
+                await _unitOfWork.SaveChangesAsync();
+                return ServiceResponse<string>.SuccessResponse("Cập nhật xu hướng sản phẩm thành công nhé FE");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<string>.ErrorResponse($"Lỗi khi cập nhật xu hướng sản phẩm nhé FE: {ex.Message}");
             }
         }
     }

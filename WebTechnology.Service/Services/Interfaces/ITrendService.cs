@@ -15,5 +15,6 @@ namespace WebTechnology.Service.Services.Interfaces
         Task<ServiceResponse<Trend>> CreateTrendAsync(CreateTrendDTO createDto);
         Task<ServiceResponse<IEnumerable<Trend>>> GetTrendsAsync();
         Task<ServiceResponse<Trend>> PatchTrendAsync(string id, JsonPatchDocument<Trend> patchDoc);
+        Task<ServiceResponse<string>> DeleteTrendAsync(string id);
     }
 }

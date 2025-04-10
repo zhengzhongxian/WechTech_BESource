@@ -66,5 +66,12 @@ namespace WebTechnology.API.Controllers
 
             return StatusCode((int)response.StatusCode, response);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTrend(string id)
+        {
+            var response = await _trendService.DeleteTrendAsync(id);
+            return StatusCode((int)response.StatusCode, response);
+        }
     }
 }

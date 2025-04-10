@@ -851,6 +851,7 @@ public partial class WebTech : DbContext
 
             entity.HasOne(d => d.TrendNavigation).WithMany(p => p.ProductTrends)
                 .HasForeignKey(d => d.Trend)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_product_trends_trends");
         });
 

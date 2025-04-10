@@ -60,11 +60,29 @@ namespace WebTechnology.Repository.CoreHelpers.Crud
         {
             return await _dbSet.ToListAsync();
         }
-        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await _dbSet.CountAsync(predicate);
-        }
 
+        public async Task<IEnumerable<TEntity>> GetByPropertyAsync<TProperty>(
+            Expression<Func<TEntity, TProperty>> propertySelector,
+            TProperty value)
+        {
+            // Tạo biểu thức so sánh property == value
+            var parameter = Expression.Parameter(typeof(TEntity), "x");
+            var property = Expression.Property(parameter, GetPropertyName(propertySelector));
+            var constant = Expression.Constant(value);
+            var equal = Expression.Equal(property, constant);
+            var lambda = Expression.Lambda<Func<TEntity, bool>>(equal, parameter);
+
+            return await _dbSet.Where(lambda).ToListAsync();
+        }
+        private static string GetPropertyName(LambdaExpression expression)
+        {
+            return expression.Body switch
+            {
+                MemberExpression m => m.Member.Name,
+                UnaryExpression u when u.Operand is MemberExpression m => m.Member.Name,
+                _ => throw new ArgumentException("Expression is not a property access")
+            };
+        }
     }
 
 }

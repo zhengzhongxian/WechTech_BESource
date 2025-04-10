@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,9 @@ namespace WebTechnology.Service.Services.Interfaces
     public interface IProductService
     {
         Task<ServiceResponse<PaginatedResult<GetProductDTO>>> GetProductsWithDetailsAsync(ProductQueryRequest request);
+        Task<ServiceResponse<string>> CreateProductTrendsAsync(CreateProductTrendsDTO createDto);
+        Task<ServiceResponse<string>> PatchProductTrendsAsync(string id, JsonPatchDocument<ProductTrend> patchDoc);
+        Task<ServiceResponse<string>> DeleteProductTrendsAsync(string id);
+        Task<ServiceResponse<List<GetListProductTrends>>> GetListTrendsByProductId(string productId);
     }
 }

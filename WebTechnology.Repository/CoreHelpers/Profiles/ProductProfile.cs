@@ -43,6 +43,7 @@ namespace WebTechnology.Repository.CoreHelpers.Profiles
                         LengthValue = d.LengthValue
                     }).ToList()
                     : new List<DimensionDTO>()));
+            CreateMap<Product, GetListProductTrends>().ReverseMap();
         }
     }
 }

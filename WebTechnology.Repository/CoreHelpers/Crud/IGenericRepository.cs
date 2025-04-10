@@ -16,7 +16,9 @@ namespace WebTechnology.Repository.CoreHelpers.Crud
         Task DeleteAsync(object id);
         Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> GetByPropertyAsync<TProperty>(
+            Expression<Func<TEntity, TProperty>> propertySelector,
+            TProperty value);
     }
 
 }
