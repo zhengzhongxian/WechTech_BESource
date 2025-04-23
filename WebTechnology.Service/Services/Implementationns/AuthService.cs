@@ -31,6 +31,7 @@ namespace WebTechnology.Service.Services.Implementationns
         private readonly IEmailService _emailService;
         private readonly ICustomerRepository _customerRepository;
         private readonly IMapper _mapper;
+        private readonly ICartRepository _cartRepository;
         public AuthService(
             IUserRepository userRepository,
             ITokenService tokenService,
@@ -38,7 +39,8 @@ namespace WebTechnology.Service.Services.Implementationns
             IUnitOfWork unitOfWork,
             IEmailService emailService,
             IMapper mapper,
-            ICustomerRepository customerRepository)
+            ICustomerRepository customerRepository,
+            ICartRepository cartRepository)
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
@@ -47,6 +49,7 @@ namespace WebTechnology.Service.Services.Implementationns
             _emailService = emailService;
             _customerRepository = customerRepository;
             _mapper = mapper;
+            _cartRepository = cartRepository;
         }
         public async Task<AuthResponse> AdminLoginAsync(string username, string password)
         {
@@ -236,9 +239,19 @@ namespace WebTechnology.Service.Services.Implementationns
                 user.Authenticate = true;
                 user.IsActive = true;
                 user.IsDeleted = false;
+
+                // Tạo cart mới
+                var newCart = new Cart
+                {
+                    Cartid = user.Userid,
+                    UpdatedAt = DateTime.Now
+                };
+                await _cartRepository.AddAsync(newCart);
+
                 var newCustomer = _mapper.Map<Customer>(registrationRequest);
                 newCustomer.Customerid = user.Userid;
-                newCustomer.Cart.Cartid = user.Userid;
+                newCustomer.Cart = newCart;
+
                 await _customerRepository.AddAsync(newCustomer);
                 await _unitOfWork.CommitAsync();
                 return ServiceResponse<string>.SuccessResponse("Đăng ký thành công!");
