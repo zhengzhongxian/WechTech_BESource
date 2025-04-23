@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebTechnology.API;
 using WebTechnology.Repository.CoreHelpers.Crud;
+using WebTechnology.Repository.DTOs.Products;
 using WebTechnology.Repository.Repositories.Interfaces;
 
 namespace WebTechnology.Repository.Repositories.Implementations
@@ -15,6 +17,21 @@ namespace WebTechnology.Repository.Repositories.Implementations
         public ProductPriceRepository(WebTech webTech) : base(webTech)
         {
             _webTech = webTech;
+        }
+
+        public async Task<ProductPriceDTO> GetProductPriceAsync(string productId)
+        {
+            var productPriceIsActive = await _webTech.ProductPrices.Where(x => x.Productid == productId && x.IsActive == true)
+                .Select(x => x.Price)
+                .FirstOrDefaultAsync();
+            var productPriceIsDefault = await _webTech.ProductPrices.Where(x => x.Productid == productId && x.IsDefault == true)
+                .Select(x => x.Price)
+                .FirstOrDefaultAsync();
+            return new ProductPriceDTO
+            {
+                PriceIsActive = productPriceIsActive.Value,
+                PriceIsDefault = productPriceIsDefault.Value,
+            };
         }
     }
 }

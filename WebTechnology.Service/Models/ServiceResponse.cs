@@ -56,7 +56,7 @@ namespace WebTechnology.Service.Models
             };
         }
 
-        public static ServiceResponse<T> NotFoundResponse(string message = "Resource not found")
+        public static ServiceResponse<T> NotFoundResponse(string message = "Không tìm thấy thông tin")
         {
             return new ServiceResponse<T>
             {

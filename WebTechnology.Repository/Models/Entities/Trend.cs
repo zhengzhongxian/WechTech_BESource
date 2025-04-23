@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WebTechnology.API;
 
@@ -21,5 +22,6 @@ public partial class Trend
 
     public string? Metadata { get; set; }
 
+    [Newtonsoft.Json.JsonIgnore]
     public virtual ICollection<ProductTrend> ProductTrends { get; set; } = new List<ProductTrend>();
 }

@@ -238,6 +238,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 user.IsDeleted = false;
                 var newCustomer = _mapper.Map<Customer>(registrationRequest);
                 newCustomer.Customerid = user.Userid;
+                newCustomer.Cart.Cartid = user.Userid;
                 await _customerRepository.AddAsync(newCustomer);
                 await _unitOfWork.CommitAsync();
                 return ServiceResponse<string>.SuccessResponse("Đăng ký thành công!");
