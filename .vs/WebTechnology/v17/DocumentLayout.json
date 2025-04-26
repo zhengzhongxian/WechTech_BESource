@@ -314,7 +314,7 @@
               "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
               "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
               "RelativeToolTip": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-26T13:00:31.006Z",
               "EditorCaption": ""
@@ -329,8 +329,7 @@
               "RelativeToolTip": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleType.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T13:00:28.717Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-26T13:00:28.717Z"
             },
             {
               "$type": "Document",
@@ -342,8 +341,7 @@
               "RelativeToolTip": "WebTechnology.Repository\\Migrations\\20250426114744_Init.cs",
               "ViewState": "AgIAAPMDAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T11:47:44.265Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-26T11:47:44.265Z"
             },
             {
               "$type": "Document",

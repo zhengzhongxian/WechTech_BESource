@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\corehelpers\\enums\\rolehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\corehelpers\\enums\\rolehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\corehelpers\\enums\\roletype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\corehelpers\\enums\\roletype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\migrations\\20250426114744_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\migrations\\20250426114744_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -301,6 +309,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "RoleHelper.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T13:00:31.006Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RoleType.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\RoleType.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleType.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\RoleType.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T13:00:28.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "20250426114744_Init.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250426114744_Init.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Migrations\\20250426114744_Init.cs",
@@ -313,7 +347,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Program.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Program.cs",
@@ -325,7 +359,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Microsoft.Common.CurrentVersion.targets",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
@@ -337,7 +371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 64,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\CategoryController.cs",
@@ -349,7 +383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "CategoryService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\CategoryService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\CategoryService.cs",
@@ -361,7 +395,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "secrets.json",
               "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
@@ -373,7 +407,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 63,
               "Title": "CategoryRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\CategoryRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\CategoryRepository.cs",
@@ -385,7 +419,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 65,
               "Title": "ICategoryRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\ICategoryRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\ICategoryRepository.cs",
@@ -397,7 +431,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 66,
               "Title": "ICategoryService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\ICategoryService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Interfaces\\ICategoryService.cs",
@@ -409,7 +443,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 67,
               "Title": "ProductService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\ProductService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\ProductService.cs",
@@ -421,7 +455,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "ICartItemService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\ICartItemService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Interfaces\\ICartItemService.cs",
@@ -433,7 +467,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "WebTech.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\WebTech.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\WebTech.cs",
@@ -445,7 +479,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "CartItemController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CartItemController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\CartItemController.cs",
@@ -457,7 +491,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "CustomerController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CustomerController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\CustomerController.cs",
@@ -469,7 +503,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\ProductController.cs",
@@ -481,7 +515,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 68,
               "Title": "TokenService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\TokenService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\TokenService.cs",
@@ -493,7 +527,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 69,
               "Title": "CartItemService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\CartItemService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\CartItemService.cs",
@@ -505,7 +539,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "ReviewDTO.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Review\\ReviewDTO.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Review\\ReviewDTO.cs",
@@ -517,7 +551,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 70,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\AuthService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\AuthService.cs",
@@ -529,7 +563,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "MailBody.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\CoreHelpers\\MailBody.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\CoreHelpers\\MailBody.cs",
@@ -541,7 +575,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\Product.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\Product.cs",
@@ -553,7 +587,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "ICustomerService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\ICustomerService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Interfaces\\ICustomerService.cs",
@@ -565,7 +599,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "ReviewController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ReviewController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\ReviewController.cs",
@@ -577,7 +611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 71,
               "Title": "ReviewService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\ReviewService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\ReviewService.cs",
@@ -589,7 +623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "ReviewRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\ReviewRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\ReviewRepository.cs",
@@ -601,7 +635,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 72,
               "Title": "CustomerService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\CustomerService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\CustomerService.cs",
@@ -613,7 +647,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "CustomerRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\CustomerRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\CustomerRepository.cs",
@@ -625,7 +659,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "CustomerProfile.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Profiles\\CustomerProfile.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Profiles\\CustomerProfile.cs",
@@ -637,7 +671,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "RegistrationRequestDTO.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Users\\RegistrationRequestDTO.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Users\\RegistrationRequestDTO.cs",
@@ -649,7 +683,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "CustomerDTO.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Users\\CustomerDTO.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Users\\CustomerDTO.cs",
@@ -661,7 +695,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "IReviewService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\IReviewService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Interfaces\\IReviewService.cs",
@@ -673,7 +707,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "UserAuthCleanupService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\BackgroundServices\\UserAuthCleanupService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\BackgroundServices\\UserAuthCleanupService.cs",
@@ -685,7 +719,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "Customer.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\Customer.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\Customer.cs",
@@ -697,7 +731,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\AuthController.cs",
@@ -709,7 +743,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "CreateReviewDTO.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Review\\CreateReviewDTO.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Review\\CreateReviewDTO.cs",
@@ -721,7 +755,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "IReviewRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IReviewRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IReviewRepository.cs",
@@ -733,7 +767,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "WebTechnology.http",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\WebTechnology.http",
               "RelativeDocumentMoniker": "WebTechnology\\WebTechnology.http",
@@ -745,7 +779,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "CreateCartItemDTO.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Cart\\CreateCartItemDTO.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Cart\\CreateCartItemDTO.cs",
@@ -757,7 +791,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "Review.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\Review.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\Review.cs",
@@ -769,7 +803,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 73,
               "Title": "TrendService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\TrendService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\TrendService.cs",
@@ -781,7 +815,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "ITokenService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\ITokenService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Interfaces\\ITokenService.cs",
@@ -793,7 +827,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "CartItemDTO.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Cart\\CartItemDTO.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Cart\\CartItemDTO.cs",
@@ -805,7 +839,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 34,
               "Title": "CartProfile.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Profiles\\CartProfile.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Profiles\\CartProfile.cs",
@@ -817,7 +851,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 33,
               "Title": "CartItem.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\CartItem.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\CartItem.cs",
@@ -829,7 +863,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 36,
               "Title": "GetProductToCart.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\GetProductToCart.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Products\\GetProductToCart.cs",
@@ -841,7 +875,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 37,
               "Title": "ImageRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\ImageRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\ImageRepository.cs",
@@ -853,7 +887,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 35,
               "Title": "ProductPriceRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\ProductPriceRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\ProductPriceRepository.cs",
@@ -865,7 +899,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 38,
               "Title": "Image.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\Image.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\Image.cs",
@@ -877,7 +911,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 39,
               "Title": "ProductPrice.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\ProductPrice.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\ProductPrice.cs",
@@ -889,7 +923,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 40,
               "Title": "IImageRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IImageRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IImageRepository.cs",
@@ -901,7 +935,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 41,
               "Title": "IProductPriceRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductPriceRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductPriceRepository.cs",
@@ -913,7 +947,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 42,
               "Title": "ProductPriceDTO.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
@@ -925,7 +959,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 43,
               "Title": "IProductTrendsRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductTrendsRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductTrendsRepository.cs",
@@ -937,7 +971,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 45,
               "Title": "ICartRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\ICartRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\ICartRepository.cs",
@@ -949,7 +983,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 44,
               "Title": "GetProductDTO.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\GetProductDTO.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Products\\GetProductDTO.cs",
@@ -961,7 +995,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 46,
               "Title": "CartRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\CartRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\CartRepository.cs",
@@ -973,7 +1007,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 47,
               "Title": "CartItemRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\CartItemRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\CartItemRepository.cs",
@@ -985,7 +1019,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 48,
               "Title": "DimensionDTO.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Dimensions\\DimensionDTO.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Dimensions\\DimensionDTO.cs",
@@ -997,7 +1031,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 49,
               "Title": "ICartItemRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\ICartItemRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\ICartItemRepository.cs",
@@ -1009,7 +1043,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 50,
               "Title": "UserRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\UserRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\UserRepository.cs",
@@ -1021,7 +1055,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 51,
               "Title": "Trend.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\Trend.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\Trend.cs",
@@ -1033,7 +1067,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 52,
               "Title": "TrendController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\TrendController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\TrendController.cs",
@@ -1045,7 +1079,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 53,
               "Title": "StringImgLogo.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\CoreHelpers\\ImgBase64\\StringImgLogo.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\CoreHelpers\\ImgBase64\\StringImgLogo.cs",
@@ -1057,7 +1091,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 54,
               "Title": "GenerateOtp.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\CoreHelpers\\Generations\\GenerateOtp.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\CoreHelpers\\Generations\\GenerateOtp.cs",
@@ -1069,7 +1103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 55,
               "Title": "PaginationExtension.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\CoreHelpers\\Extensions\\PaginationExtension.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\CoreHelpers\\Extensions\\PaginationExtension.cs",
@@ -1081,7 +1115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 56,
               "Title": "ProductProfileMapping.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Mapping\\ProductProfileMapping.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Mapping\\ProductProfileMapping.cs",
@@ -1093,7 +1127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 57,
               "Title": "ProductProfile.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Profiles\\ProductProfile.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Profiles\\ProductProfile.cs",
@@ -1105,7 +1139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 58,
               "Title": "ProductRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\ProductRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\ProductRepository.cs",
@@ -1117,7 +1151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 59,
               "Title": "IProductRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductRepository.cs",
@@ -1129,7 +1163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 60,
               "Title": "IProductService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\IProductService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Interfaces\\IProductService.cs",
@@ -1141,7 +1175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 61,
               "Title": "ICustomerRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\ICustomerRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\ICustomerRepository.cs",
@@ -1153,7 +1187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 62,
               "Title": "IProductCategoryRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IProductCategoryRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IProductCategoryRepository.cs",
