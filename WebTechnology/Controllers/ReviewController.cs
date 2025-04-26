@@ -23,10 +23,9 @@ namespace WebTechnology.API.Controllers
             return StatusCode((int)response.StatusCode, response);
         }
         [HttpGet("get-list-review")]
-        public async Task<IActionResult> GetListReview()
+        public async Task<IActionResult> GetListReview(string productId)
         {
-            string token = Request.Headers["Authorization"].ToString();
-            var response = await _reviewService.GetProductReviews(token);
+            var response = await _reviewService.GetProductReviews(productId);
             return StatusCode((int)response.StatusCode, response);
         }
         [HttpDelete("delete-review/{id}")]

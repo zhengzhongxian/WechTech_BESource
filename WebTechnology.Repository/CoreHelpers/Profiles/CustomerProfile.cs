@@ -14,6 +14,7 @@ namespace WebTechnology.Repository.CoreHelpers.Profiles
         public CustomerProfile()
         {
             CreateMap<RegistrationRequestDTO, Customer>().ReverseMap();
+            CreateMap<CustomerDTO, Customer>().ReverseMap();
         }
     }
 }

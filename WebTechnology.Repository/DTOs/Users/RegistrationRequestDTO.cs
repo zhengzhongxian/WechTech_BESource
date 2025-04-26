@@ -44,7 +44,7 @@ namespace WebTechnology.Repository.DTOs.Users
 
         public string Address { get; set; }
 
-        public string Avatar { get; set; }
+        public string? Avatar { get; set; }
 
         [Required(ErrorMessage = "Ngày sinh là bắt buộc")]
         public DateTime Dob { get; set; }

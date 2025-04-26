@@ -51,14 +51,15 @@ namespace WebTechnology.Service.Services.Implementationns
             var serviceResponse = new ServiceResponse<string>();
             try
             {
+                if (_tokenService.IsTokenExpired(token))
+                {
+                    return ServiceResponse<string>.FailResponse("Token đã hết hạn");
+                }
+
                 var userId = _tokenService.GetUserIdFromToken(token);
                 if (userId == null)
                 {
                     return ServiceResponse<string>.FailResponse("Không tìm thấy thông tin người dùng");
-                }
-                if (_tokenService.IsTokenExpired(token))
-                {
-                    return ServiceResponse<string>.FailResponse("Token đã hết hạn");
                 }
                 var cart = await _cartRepository.GetByIdAsync(userId);
                 if (cart == null)

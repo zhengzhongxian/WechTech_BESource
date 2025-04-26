@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,15 +44,15 @@ namespace WebTechnology.Service.Services.Implementationns
             var serviceResponse = new ServiceResponse<ReviewDTO>();
             try
             {
+                if (_tokenService.IsTokenExpired(token))
+                {
+                    return ServiceResponse<ReviewDTO>.FailResponse("Token đã hết hạn");
+                }
+
                 var customerId = _tokenService.GetUserIdFromToken(token);
                 if (customerId == null)
                 {
                     return ServiceResponse<ReviewDTO>.FailResponse("Không tìm thấy thông tin người dùng");
-                }
-
-                if (_tokenService.IsTokenExpired(token))
-                {
-                    return ServiceResponse<ReviewDTO>.FailResponse("Token đã hết hạn");
                 }
 
                 var product = await _productRepository.GetByIdAsync(review.ProductId);
@@ -89,7 +90,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 return ServiceResponse<ReviewDTO>.ErrorResponse($"Có lỗi xảy ra: {ex.Message}");
             }
         }
-
+        [HttpGet("{productId}")]
         public async Task<ServiceResponse<List<ReviewDTO>>> GetProductReviews(string productId)
         {
             var serviceResponse = new ServiceResponse<List<ReviewDTO>>();

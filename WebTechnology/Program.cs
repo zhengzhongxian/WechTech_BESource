@@ -13,6 +13,8 @@ using WebTechnology.Service.Models;
 using WebTechnology.Service.Services.BackgroundServices;
 using WebTechnology.Service.Services.Implementationns;
 using WebTechnology.Service.Services.Interfaces;
+using WebTechnology.Service.CoreHelpers;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,30 @@ builder.Services.AddSwaggerGen(c =>
     {
         c.IncludeXmlComments(xmlPath);
     }
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. Example: \"{token}\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 builder.Services.AddDbContext<WebTech>(options =>
     options.UseMySql(
@@ -76,47 +102,59 @@ builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddHostedService<UserAuthCleanupService>();
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
-    
-    if (jwtSettings == null)
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
-        throw new InvalidOperationException("JWT settings not found in configuration");
-    }
+        var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
+        if (jwtSettings == null)
+        {
+            throw new InvalidOperationException("JWT settings not found in configuration");
+        }
 
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidIssuer = jwtSettings.Issuer,
-        ValidateAudience = true,
-        ValidAudience = jwtSettings.Audience,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(jwtSettings.AccessTokenKey)),
-        ClockSkew = jwtSettings.ClockSkew
-    };
-});
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidateAudience = true,
+            ValidAudience = jwtSettings.Audience,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtSettings.AccessTokenKey)),
+            ClockSkew = TimeSpan.FromMinutes(jwtSettings.ClockSkewMinutes)
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var token = context.Request.Headers["Authorization"].ToString();
+                if (!string.IsNullOrEmpty(token))
+                {
+                    context.Token = token;
+                }
+                return Task.CompletedTask;
+            }
+        };
+    });
 builder.Services.AddAuthorization(options =>
 {
-
+    // Policy cho Admin
     options.AddPolicy("AdminOnly", policy =>
-        policy.RequireRole("Admin"));
+        policy.RequireClaim(ClaimTypes.Role, "Admin"));
 
     // Policy cho Customer
     options.AddPolicy("CustomerOnly", policy =>
-        policy.RequireRole("Customer"));
+        policy.RequireClaim(ClaimTypes.Role, "Customer"));
 
+    // Policy cho cả Admin và Customer
     options.AddPolicy("AdminOrCustomer", policy =>
-        policy.RequireRole("Admin", "Customer"));
+        policy.RequireClaim(ClaimTypes.Role, "Admin", "Customer"));
 });
 builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("EmailSettings"));
 var app = builder.Build();
@@ -125,7 +163,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebTechnology API V1");
+        c.OAuthClientId("swagger-ui");
+        c.OAuthAppName("Swagger UI");
+    });
 }
 
 app.UseHttpsRedirection();
