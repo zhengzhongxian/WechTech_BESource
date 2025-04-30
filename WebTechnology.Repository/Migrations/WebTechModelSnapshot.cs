@@ -585,10 +585,9 @@ namespace WebTechnology.Repository.Migrations
                     b.HasKey("OrderDetailId")
                         .HasName("PRIMARY");
 
-                    b.HasIndex(new[] { "ProductId" }, "FK_order_details_products");
+                    b.HasIndex("OrderId");
 
-                    b.HasIndex(new[] { "OrderId", "ProductId" }, "unique_order_product")
-                        .IsUnique();
+                    b.HasIndex(new[] { "ProductId" }, "FK_order_details_products");
 
                     b.ToTable("order_details", (string)null);
                 });

@@ -507,8 +507,6 @@ public partial class WebTech : DbContext
 
             entity.HasIndex(e => e.ProductId, "FK_order_details_products");
 
-            entity.HasIndex(e => new { e.OrderId, e.ProductId }, "unique_order_product").IsUnique();
-
             entity.Property(e => e.OrderDetailId)
                 .HasMaxLength(64)
                 .HasColumnName("order_detail_id");

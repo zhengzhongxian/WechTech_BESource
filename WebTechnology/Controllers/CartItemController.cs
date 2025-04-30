@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using WebTechnology.Repository.DTOs.Cart;
@@ -8,6 +9,7 @@ namespace WebTechnology.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "CustomerOnly")]
     public class CartItemController : ControllerBase
     {
         private readonly ICartItemService _cartItemService;
