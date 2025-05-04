@@ -3,3 +3,4 @@ obj/
 .vs/
 WebTechnology.Repository/obj/
 WebTechnology.Repository/bin/
+WebTechnology.Service/obj/
