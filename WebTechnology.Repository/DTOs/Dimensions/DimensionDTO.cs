@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebTechnology.Repository.DTOs.Dimensions
+﻿namespace WebTechnology.Repository.DTOs.Dimensions
 {
     public class DimensionDTO
     {
