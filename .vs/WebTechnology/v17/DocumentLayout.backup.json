@@ -38,8 +38,7 @@
               "RelativeToolTip": "WebTechnology\\Configurations\\ServiceConfiguration.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAQwDUAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T05:52:22.841Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-03T05:52:22.841Z"
             },
             {
               "$type": "Document",
@@ -51,8 +50,7 @@
               "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\StatisticsService.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAwCUAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T05:51:40.907Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-03T05:51:40.907Z"
             },
             {
               "$type": "Document",
@@ -62,7 +60,7 @@
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\StatisticsController.cs",
               "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\StatisticsController.cs",
               "RelativeToolTip": "WebTechnology\\Controllers\\StatisticsController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAABXAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-03T05:51:36.85Z",
               "EditorCaption": ""
@@ -77,8 +75,7 @@
               "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Implementations\\StatisticsRepository.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAywIMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T05:53:41.88Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-03T05:53:41.88Z"
             }
           ]
         },
