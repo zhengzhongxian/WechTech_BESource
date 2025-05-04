@@ -98,7 +98,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="patchDoc">Document PATCH</param>
         /// <returns>Sản phẩm đã được cập nhật</returns>
         [HttpPatch("{id}")]
-        [Authorize(Policy = "AdminOnly")]
+        //[Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> PatchProduct(string id, [FromBody] JsonPatchDocument<Product> patchDoc)
         {
             if (patchDoc == null)

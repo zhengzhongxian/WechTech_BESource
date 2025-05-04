@@ -79,8 +79,7 @@ namespace WebTechnology.Service.Services.Implementationns
             {
                 var userId = ValidateAndGetUserId(token);
                 var orders = await _orderRepository.GetAllAsync();
-                var userOrders = orders.Where(o => o.CustomerId == userId);
-                var orderDTOs = _mapper.Map<IEnumerable<OrderResponseDTO>>(userOrders);
+                var orderDTOs = _mapper.Map<IEnumerable<OrderResponseDTO>>(orders);
                 return ServiceResponse<IEnumerable<OrderResponseDTO>>.SuccessResponse(orderDTOs);
             }
             catch (Exception ex)

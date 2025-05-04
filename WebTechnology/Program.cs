@@ -14,6 +14,7 @@ using WebTechnology.Service.Services.BackgroundServices;
 using WebTechnology.Service.Services.Implementationns;
 using WebTechnology.Service.Services.Interfaces;
 using WebTechnology.Service.CoreHelpers;
+using WebTechnology.Service.CoreHelpers.Multimedia;
 using System.Security.Claims;
 using WebTechnology.Configurations;
 using WebTechnology.Service.Services.Implementations;
@@ -59,6 +60,9 @@ AuthenticationConfiguration.ConfigureAuthentication(builder.Services, builder.Co
 
 // Configure email settings
 builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("EmailSettings"));
+
+// Configure Cloudinary
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
 
 // Add background services
 builder.Services.AddHostedService<UserAuthCleanupService>();

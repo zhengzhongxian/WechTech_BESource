@@ -21,4 +21,9 @@
     <ProjectReference Include="..\WebTechnology.Service\WebTechnology.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>

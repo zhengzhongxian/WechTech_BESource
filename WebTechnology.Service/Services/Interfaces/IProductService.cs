@@ -19,7 +19,7 @@ namespace WebTechnology.Service.Services.Interfaces
         Task<ServiceResponse<List<GetListProductTrends>>> GetListTrendsByProductId(string productId);
         Task<ServiceResponse<Product>> CreateProductAsync(CreateProductDTO createDto);
         Task<ServiceResponse<IEnumerable<Product>>> GetProductsAsync();
-        Task<ServiceResponse<Product>> GetProductByIdAsync(string id);
+        Task<ServiceResponse<GetProductDTO>> GetProductByIdAsync(string id);
         Task<ServiceResponse<Product>> PatchProductAsync(string id, JsonPatchDocument<Product> patchDoc);
         Task<ServiceResponse<bool>> DeleteProductAsync(string id);
     }

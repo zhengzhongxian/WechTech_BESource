@@ -31,7 +31,8 @@ namespace WebTechnology.Repository.Repositories.Implementations
         {
             return await _context.Orders
                 .Include(o => o.OrderDetails)
-                .ThenInclude(od => od.Product)
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.ProductPrices)
                 .ToListAsync();
         }
 
@@ -76,6 +77,9 @@ namespace WebTechnology.Repository.Repositories.Implementations
         public async Task<IEnumerable<OrderResponseDTO>> GetOrdersByCustomerIdAsync(string customerId)
         {
             return await _context.Orders
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.ProductPrices)
                 .Where(o => o.CustomerId == customerId)
                 .Select(o => new OrderResponseDTO
                 {
@@ -97,9 +101,9 @@ namespace WebTechnology.Repository.Repositories.Implementations
                         OrderDetailId = od.OrderDetailId,
                         ProductId = od.ProductId,
                         ProductName = od.Product.ProductName,
-                        ProductPrice = od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive)!.Price,
+                        ProductPrice = od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price ?? 0,
                         Quantity = od.Quantity,
-                        SubTotal = od.Quantity * od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive)!.Price
+                        SubTotal = od.Quantity * od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price ?? 0
                     }).ToList()
                 })
                 .ToListAsync();
@@ -108,6 +112,9 @@ namespace WebTechnology.Repository.Repositories.Implementations
         public async Task<OrderResponseDTO?> GetOrderDetailsAsync(string orderId)
         {
             return await _context.Orders
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.ProductPrices)
                 .Where(o => o.Orderid == orderId)
                 .Select(o => new OrderResponseDTO
                 {
@@ -129,9 +136,9 @@ namespace WebTechnology.Repository.Repositories.Implementations
                         OrderDetailId = od.OrderDetailId,
                         ProductId = od.ProductId,
                         ProductName = od.Product.ProductName,
-                        ProductPrice = od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive)!.Price,
+                        ProductPrice = od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price,
                         Quantity = od.Quantity,
-                        SubTotal = od.Quantity * od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive)!.Price
+                        SubTotal = od.Quantity * od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();

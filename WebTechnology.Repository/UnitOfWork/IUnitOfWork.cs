@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebTechnology.Repository.Repositories.Interfaces;
 
 namespace WebTechnology.Repository.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
+        IProductRepository Products { get; }
+        IImageRepository Images { get; }
+
         Task BeginTransactionAsync();
         Task CommitAsync();
         Task RollbackAsync();

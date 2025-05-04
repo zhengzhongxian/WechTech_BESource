@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebTechnology.API;
+using WebTechnology.Repository.Repositories.Interfaces;
 using WebTechnology.Repository.SeedData;
 using WebTechnology.Service.Services.Interfaces;
 
@@ -8,14 +9,19 @@ namespace WebTechnology.Service.Services.Implementations
     public class SeedService : ISeedService
     {
         private readonly WebTech _context;
+        private readonly IUserRepository _userRepository;
 
-        public SeedService(WebTech context)
+        public SeedService(WebTech context, IUserRepository userRepository)
         {
             _context = context;
+            _userRepository = userRepository;
         }
 
         public async Task SeedDataAsync()
         {
+            // Seed Admin User
+            await AdminSeedData.SeedAdminUserAsync(_context, _userRepository);
+
             // Seed Brands
             if (!await _context.Brands.AnyAsync())
             {

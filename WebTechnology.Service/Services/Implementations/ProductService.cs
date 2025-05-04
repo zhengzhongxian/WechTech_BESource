@@ -316,24 +316,27 @@ namespace WebTechnology.Service.Services.Implementationns
             }
         }
 
-        public async Task<ServiceResponse<Product>> GetProductByIdAsync(string id)
+        public async Task<ServiceResponse<GetProductDTO>> GetProductByIdAsync(string id)
         {
             try
             {
-                var product = await _productRepository.GetByIdAsync(id);
+                var product = await _productRepository.GetProductAsQueryable()
+                    .Where(p => p.Productid == id && p.IsActive == true && p.IsDeleted != true)
+                    .ProjectTo<GetProductDTO>(_mapper.ConfigurationProvider)
+                    .FirstOrDefaultAsync();
 
-                if (product == null || product.IsDeleted == true)
+                if (product == null)
                 {
-                    return ServiceResponse<Product>.NotFoundResponse("Sản phẩm không tồn tại nhé FE");
+                    return ServiceResponse<GetProductDTO>.NotFoundResponse("Sản phẩm không tồn tại nhé FE");
                 }
 
-                return ServiceResponse<Product>.SuccessResponse(
+                return ServiceResponse<GetProductDTO>.SuccessResponse(
                     product, "Lấy thông tin sản phẩm thành công nhé FE");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Lỗi khi lấy thông tin sản phẩm: {Message}", ex.Message);
-                return ServiceResponse<Product>.ErrorResponse(
+                return ServiceResponse<GetProductDTO>.ErrorResponse(
                     $"Lỗi khi lấy thông tin sản phẩm nhé FE: {ex.Message}");
             }
         }
@@ -355,8 +358,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 await _productRepository.UpdateAsync(product);
                 await _unitOfWork.SaveChangesAsync();
 
-                return ServiceResponse<Product>.SuccessResponse(
-                    product, "Cập nhật sản phẩm thành công nhé FE");
+                return ServiceResponse<Product>.SuccessResponse("Cập nhật sản phẩm thành công nhé FE");
             }
             catch (Exception ex)
             {

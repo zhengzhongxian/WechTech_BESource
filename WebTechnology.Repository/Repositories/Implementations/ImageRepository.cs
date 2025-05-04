@@ -25,7 +25,8 @@ namespace WebTechnology.Repository.Repositories.Implementations
             {
                 Imageid = x.Imageid,
                 ImageData = x.ImageData,
-                Order = x.Order
+                Order = x.Order,
+                Publicid = x.Publicid
             }).FirstOrDefaultAsync();
             return image;
         }

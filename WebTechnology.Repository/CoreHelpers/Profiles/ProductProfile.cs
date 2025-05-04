@@ -16,8 +16,10 @@ namespace WebTechnology.Repository.CoreHelpers.Profiles
         public ProductProfile()
         {
             CreateMap<Product, GetProductDTO>()
+                .ForMember(dest => dest.Brand1, opt => opt.MapFrom(src => src.BrandNavigation != null ? src.BrandNavigation.Brand1 : null))
                 .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.BrandNavigation != null ? src.BrandNavigation.BrandName : null))
                 .ForMember(dest => dest.Unit, opt => opt.MapFrom(src => src.UnitNavigation != null ? src.UnitNavigation.UnitName : null))
+                .ForMember(dest => dest.UnitId, opt => opt.MapFrom(src => src.UnitNavigation != null ? src.UnitNavigation.Unit1 : null))
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status != null ? src.Status.Name : null))
                 .ForMember(dest => dest.PriceActive, opt => opt.MapFrom(src => src.ProductPrices != null
                     ? src.ProductPrices.Where(pp => pp.IsActive == true).Select(pp => pp.Price).FirstOrDefault()

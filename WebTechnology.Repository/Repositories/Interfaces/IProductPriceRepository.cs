@@ -11,6 +11,6 @@ namespace WebTechnology.Repository.Repositories.Interfaces
 {
     public interface IProductPriceRepository : IGenericRepository<ProductPrice>
     {
-       Task<ProductPriceDTO> GetProductPriceAsync(string productId); 
+       Task<ProductPriceDTO> GetProductPriceAsync(string productId);  
     }
 }

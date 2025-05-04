@@ -4,7 +4,9 @@ using WebTechnology.Repository.CoreHelpers.Crud;
 using WebTechnology.Repository.Repositories.Implementations;
 using WebTechnology.Repository.Repositories.Interfaces;
 using WebTechnology.Repository.UnitOfWork;
+using WebTechnology.Service.CoreHelpers.Multimedia;
 using WebTechnology.Service.Services.Implementationns;
+using WebTechnology.Service.Services.Implementations;
 using WebTechnology.Service.Services.Interfaces;
 
 namespace WebTechnology.Configurations
@@ -15,9 +17,6 @@ namespace WebTechnology.Configurations
         {
             // Add HttpContextAccessor
             services.AddHttpContextAccessor();
-
-            // Unit of Work
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -36,7 +35,12 @@ namespace WebTechnology.Configurations
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IUnitRepository, UnitRepository>();
+            services.AddScoped<IStatisticsRepository, StatisticsRepository>();
 
+            // Unit of Work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             // Services
             services.AddScoped<ITrendService, TrendService>();
             services.AddScoped<IAuthService, AuthService>();
@@ -48,6 +52,14 @@ namespace WebTechnology.Configurations
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IProductStatusService, ProductStatusService>();
+            services.AddScoped<IProductPriceService, ProductPriceService>();
+            services.AddScoped<IBrandService, BrandService>();
+            services.AddScoped<IDimensionService, DimensionService>();
+            services.AddScoped<IUnitService, UnitService>();
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<ICloudinaryService, CloudinaryService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
         }
     }
-} 
+}

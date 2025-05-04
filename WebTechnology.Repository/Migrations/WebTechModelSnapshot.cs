@@ -395,8 +395,7 @@ namespace WebTechnology.Repository.Migrations
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("ImageData")
-                        .HasMaxLength(0)
-                        .HasColumnType("varchar(0)")
+                        .HasColumnType("LONGTEXT")
                         .HasColumnName("image_data");
 
                     b.Property<string>("Metadata")
@@ -413,6 +412,11 @@ namespace WebTechnology.Repository.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)")
                         .HasColumnName("productid");
+
+                    b.Property<string>("Publicid")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)")
+                        .HasColumnName("publicid");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()

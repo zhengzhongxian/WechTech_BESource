@@ -102,7 +102,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 {
                     Data = categoryDto,
                     Message = "Category created successfully",
-                    StatusCode = HttpStatusCode.Created
+                    StatusCode = HttpStatusCode.OK
                 };
             }
             catch (Exception ex)

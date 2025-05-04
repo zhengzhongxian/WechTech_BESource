@@ -9,7 +9,6 @@ namespace WebTechnology.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "CustomerOnly")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -34,6 +33,7 @@ namespace WebTechnology.API.Controllers
         /// Get all orders
         /// </summary>
         [HttpGet]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> GetAllOrders()
         {
             string token = Request.Headers["Authorization"].ToString();
@@ -45,6 +45,7 @@ namespace WebTechnology.API.Controllers
         /// Get orders by current user
         /// </summary>
         [HttpGet("user")]
+        [Authorize(Policy = "CustomerOnly")]
         public async Task<IActionResult> GetOrdersByUserId()
         {
             string token = Request.Headers["Authorization"].ToString();
@@ -56,6 +57,7 @@ namespace WebTechnology.API.Controllers
         /// Create a new order
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = "CustomerOnly")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequestDTO orderRequest)
         {
             string token = Request.Headers["Authorization"].ToString();
@@ -89,6 +91,7 @@ namespace WebTechnology.API.Controllers
         /// Update order status
         /// </summary>
         [HttpPut("{orderId}/status/{statusId}")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> UpdateOrderStatus(string orderId, string statusId)
         {
             string token = Request.Headers["Authorization"].ToString();
@@ -100,6 +103,7 @@ namespace WebTechnology.API.Controllers
         /// Calculate order total
         /// </summary>
         [HttpGet("{orderId}/total")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> CalculateOrderTotal(string orderId)
         {
             string token = Request.Headers["Authorization"].ToString();

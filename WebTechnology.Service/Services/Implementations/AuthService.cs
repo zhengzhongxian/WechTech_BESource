@@ -221,14 +221,17 @@ namespace WebTechnology.Service.Services.Implementationns
                     x.Username == registrationRequest.Username
                     && x.IsActive == true
                     && x.IsDeleted == false);
+
                 if (exists)
                 {
                     return ServiceResponse<string>.FailResponse("Tên đăng nhập đã tồn tại");
                 }
+
                 if (registrationRequest.Otp != user.Otp)
                 {
                     return ServiceResponse<string>.FailResponse("Mã OTP không đúng");
                 }
+
                 if (user.VerifiedAt < DateTime.UtcNow)
                 {
                     return ServiceResponse<string>.FailResponse("Mã OTP đã hết hạn");

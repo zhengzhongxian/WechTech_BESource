@@ -18,6 +18,7 @@ public partial class Image
     public DateTime? UpdatedAt { get; set; }
 
     public string? Metadata { get; set; }
+    public string? Publicid { get; set; }
 
     public virtual Product? Product { get; set; }
 }

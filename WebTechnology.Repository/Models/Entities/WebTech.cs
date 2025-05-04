@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
+using WebTechnology.Repository.CoreHelpers.Enums;
+using WebTechnology.Repository.Repositories.Implementations;
+using WebTechnology.Repository.SeedData;
 
 namespace WebTechnology.API;
 
@@ -378,7 +381,7 @@ public partial class WebTech : DbContext
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.ImageData)
-                .HasMaxLength(0)
+                .HasColumnType("LONGTEXT")
                 .HasColumnName("image_data");
             entity.Property(e => e.Metadata)
                 .HasMaxLength(64)
@@ -393,6 +396,9 @@ public partial class WebTech : DbContext
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
+            entity.Property(e => e.Publicid)
+                .HasMaxLength(64)
+                .HasColumnName("publicid");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Images)
                 .HasForeignKey(d => d.Productid)
@@ -1126,4 +1132,10 @@ public partial class WebTech : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public async Task SeedDataAsync()
+    {
+        var userRepository = new UserRepository(this);
+        await AdminSeedData.SeedAdminUserAsync(this, userRepository);
+    }
 }

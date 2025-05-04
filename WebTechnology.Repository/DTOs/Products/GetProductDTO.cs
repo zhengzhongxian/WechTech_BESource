@@ -21,14 +21,21 @@ namespace WebTechnology.Repository.DTOs.Products
         public string? Sku { get; set; }
 
         public string? Description { get; set; }
-
+        public string? Brand1 { get; set; }
         public string? Brand { get; set; }
-
+        public string? UnitId { get; set; }
         public string? Unit { get; set; }
+        public string? StatusId { get; set; }
         public string? StatusName { get; set; } //trong bảng ProductStatus có property:Name
         public decimal? PriceActive { get; set; } //trong bảng ProductPrice có property: PriceActive (chỉ cần lấy 1 cái đầu tiên)
         public decimal? PriceDefault { get; set; } //trong bảng ProductPrice có property: PriceDefault (chỉ cần lấy 1 cái đầu tiên)
         public List<ImageDTO> imageDTOs { get; set; } = new List<ImageDTO>();
         public List<DimensionDTO> Dimensions { get; set; } = new List<DimensionDTO>();
+        public DateTime? CreatedAt { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
+        public bool? IsActive { get; set; }
+
+        public bool? IsDeleted { get; set; }
     }
 }

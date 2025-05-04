@@ -16,9 +16,15 @@ namespace WebTechnology.Repository.CoreHelpers.Profiles
                 .ForMember(dest => dest.OrderDetailId, opt => opt.MapFrom(src => src.OrderDetailId))
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.ProductName))
-                .ForMember(dest => dest.ProductPrice, opt => opt.MapFrom(src => src.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive)!.Price))
+                .ForMember(dest => dest.ProductPrice, opt => opt.MapFrom(src => 
+                    src.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true) != null 
+                        ? src.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price 
+                        : 0))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
-                .ForMember(dest => dest.SubTotal, opt => opt.MapFrom(src => src.Quantity * src.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive)!.Price));
+                .ForMember(dest => dest.SubTotal, opt => opt.MapFrom(src => 
+                    src.Quantity * (src.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true) != null 
+                        ? src.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price 
+                        : 0)));
         }
     }
 } 
