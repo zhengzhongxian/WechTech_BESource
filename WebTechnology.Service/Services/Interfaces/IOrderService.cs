@@ -10,6 +10,7 @@ namespace WebTechnology.Service.Services.Interfaces
     {
         Task<ServiceResponse<OrderResponseDTO>> GetOrderByIdAsync(string id, string token);
         Task<ServiceResponse<IEnumerable<OrderResponseDTO>>> GetAllOrdersAsync(string token);
+        Task<ServiceResponse<PaginatedResult<OrderResponseDTO>>> GetPaginatedOrdersAsync(OrderQueryRequest request, string token);
         Task<ServiceResponse<IEnumerable<OrderResponseDTO>>> GetOrdersByUserIdAsync(string token);
         Task<ServiceResponse<OrderResponseDTO>> CreateOrderAsync(OrderRequestDTO orderRequest, string token);
         Task<ServiceResponse<OrderResponseDTO>> UpdateOrderAsync(string id, OrderRequestDTO orderRequest, string token);
@@ -17,4 +18,4 @@ namespace WebTechnology.Service.Services.Interfaces
         Task<ServiceResponse<bool>> UpdateOrderStatusAsync(string orderId, string statusId, string token);
         Task<ServiceResponse<decimal>> CalculateOrderTotalAsync(string orderId, string token);
     }
-} 
+}

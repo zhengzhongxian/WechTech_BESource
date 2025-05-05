@@ -11,6 +11,7 @@ namespace WebTechnology.Repository.Repositories.Interfaces
     {
         Task<Order?> GetByIdAsync(string id);
         Task<IEnumerable<Order>> GetAllAsync();
+        IQueryable<Order> GetOrdersAsQueryable();
         Task<IEnumerable<Order>> FindAsync(Expression<Func<Order, bool>> predicate);
         Task<Order> AddAsync(Order entity);
         Task<Order> UpdateAsync(Order entity);
@@ -21,4 +22,4 @@ namespace WebTechnology.Repository.Repositories.Interfaces
         Task<bool> UpdateOrderStatusAsync(string orderId, string statusId);
         Task<decimal> CalculateOrderTotalAsync(string orderId);
     }
-} 
+}

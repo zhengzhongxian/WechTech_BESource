@@ -42,6 +42,18 @@ namespace WebTechnology.API.Controllers
         }
 
         /// <summary>
+        /// Get paginated orders with filtering and sorting
+        /// </summary>
+        [HttpGet("paginated")]
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> GetPaginatedOrders([FromQuery] OrderQueryRequest request)
+        {
+            string token = Request.Headers["Authorization"].ToString();
+            var response = await _orderService.GetPaginatedOrdersAsync(request, token);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        /// <summary>
         /// Get orders by current user
         /// </summary>
         [HttpGet("user")]
