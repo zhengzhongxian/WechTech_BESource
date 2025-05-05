@@ -43,7 +43,9 @@ namespace WebTechnology.Repository.DTOs.Products
         [Required(ErrorMessage = "Giá sản phẩm là bắt buộc")]
         [Range(0, double.MaxValue, ErrorMessage = "Giá sản phẩm phải là số dương")]
         public decimal Price { get; set; }
-
+        public bool IsDefaultPrice { get; set; } = true;
+        public bool IsActivePrice { get; set; } = true;
+        
         // For categories
         public List<string>? CategoryIds { get; set; } = new List<string>();
 

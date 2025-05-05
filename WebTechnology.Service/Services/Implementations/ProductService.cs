@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using WebTechnology.Service.Models;
 using WebTechnology.Service.Services.Interfaces;
 using WebTechnology.Repository.Repositories.Implementations;
+using WebTechnology.Service.CoreHelpers.Multimedia;
 
 namespace WebTechnology.Service.Services.Implementationns
 {
@@ -34,6 +35,8 @@ namespace WebTechnology.Service.Services.Implementationns
         private readonly IDimensionRepository _dimensionRepository;
         private readonly IImageRepository _imageRepository;
         private readonly ILogger<ProductService> _logger;
+        private readonly ICloudinaryService _cloudinaryService;
+
         public ProductService(IProductRepository productRepository,
             IMapper mapper,
             IProductTrendsRepository productTrendsRepositoy,
@@ -43,7 +46,8 @@ namespace WebTechnology.Service.Services.Implementationns
             IProductStatusRepository productStatusRepository,
             IDimensionRepository dimensionRepository,
             IImageRepository imageRepository,
-            ILogger<ProductService> logger)
+            ILogger<ProductService> logger,
+            ICloudinaryService cloudinaryService)
         {
             _productRepository = productRepository;
             _mapper = mapper;
@@ -55,6 +59,7 @@ namespace WebTechnology.Service.Services.Implementationns
             _dimensionRepository = dimensionRepository;
             _imageRepository = imageRepository;
             _logger = logger;
+            _cloudinaryService = cloudinaryService;
         }
 
         public async Task<ServiceResponse<string>> CreateProductTrendsAsync(CreateProductTrendsDTO createDto)
@@ -76,7 +81,7 @@ namespace WebTechnology.Service.Services.Implementationns
 
         public async Task<ServiceResponse<string>> DeleteProductTrendsAsync(string id)
         {
-            try 
+            try
             {
                 var exists = await _productTrendsRepository.GetByIdAsync(id);
                 if (exists == null)
@@ -244,7 +249,8 @@ namespace WebTechnology.Service.Services.Implementationns
                     Ppsid = Guid.NewGuid().ToString(),
                     Productid = product.Productid,
                     Price = createDto.Price,
-                    IsDefault = true
+                    IsDefault = createDto.IsDefaultPrice,
+                    IsActive = createDto.IsActivePrice
                 };
 
                 await _productPriceRepository.AddAsync(productPrice);
@@ -271,11 +277,19 @@ namespace WebTechnology.Service.Services.Implementationns
                     int order = 0;
                     foreach (var imageData in createDto.ImageData)
                     {
+                        //add to cloudinary
+                        var uploadResult = await _cloudinaryService.UploadImageAsync(imageData);
+                        if (uploadResult.Error != null)
+                        {
+                            _logger.LogError($"Lỗi khi upload ảnh: {uploadResult.Error.Message}");
+                            continue;
+                        }
+
                         var image = new Image
                         {
                             Imageid = Guid.NewGuid().ToString(),
                             Productid = product.Productid,
-                            ImageData = imageData,
+                            ImageData = uploadResult.SecureUrl.ToString(),
                             Order = order.ToString(),
                             CreatedAt = DateTime.UtcNow
                         };
