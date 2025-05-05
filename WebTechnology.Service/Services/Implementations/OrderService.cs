@@ -8,6 +8,7 @@ using WebTechnology.API;
 using WebTechnology.Repository.DTOs.Orders;
 using WebTechnology.Repository.Repositories.Interfaces;
 using WebTechnology.Repository.UnitOfWork;
+using WebTechnology.Service.CoreHelpers.Extensions;
 using WebTechnology.Service.CoreHelpers.Generations;
 using WebTechnology.Service.Models;
 using WebTechnology.Service.Services.Interfaces;
@@ -61,9 +62,6 @@ namespace WebTechnology.Service.Services.Implementationns
                 if (order == null)
                     return ServiceResponse<OrderResponseDTO>.FailResponse("Order not found");
 
-                // Check if the order belongs to the user
-                if (order.CustomerId != userId)
-                    return ServiceResponse<OrderResponseDTO>.FailResponse("You don't have permission to access this order");
 
                 return ServiceResponse<OrderResponseDTO>.SuccessResponse(order);
             }
@@ -85,6 +83,111 @@ namespace WebTechnology.Service.Services.Implementationns
             catch (Exception ex)
             {
                 return ServiceResponse<IEnumerable<OrderResponseDTO>>.ErrorResponse(ex.Message);
+            }
+        }
+
+        public async Task<ServiceResponse<PaginatedResult<OrderResponseDTO>>> GetPaginatedOrdersAsync(OrderQueryRequest request, string token)
+        {
+            try
+            {
+                var userId = ValidateAndGetUserId(token);
+
+                // Get orders as queryable
+                var query = _orderRepository.GetOrdersAsQueryable();
+
+                // Apply filters
+                if (!string.IsNullOrEmpty(request.CustomerId))
+                {
+                    query = query.Where(o => o.CustomerId == request.CustomerId);
+                }
+
+                if (!string.IsNullOrEmpty(request.StatusId))
+                {
+                    query = query.Where(o => o.StatusId == request.StatusId);
+                }
+
+                if (!string.IsNullOrEmpty(request.SearchTerm))
+                {
+                    query = query.Where(o =>
+                        o.OrderNumber.Contains(request.SearchTerm) ||
+                        o.ShippingAddress.Contains(request.SearchTerm) ||
+                        o.Notes.Contains(request.SearchTerm));
+                }
+
+                if (request.StartDate.HasValue)
+                {
+                    query = query.Where(o => o.OrderDate >= request.StartDate.Value);
+                }
+
+                if (request.EndDate.HasValue)
+                {
+                    // Add one day to include the end date fully
+                    var endDatePlusOneDay = request.EndDate.Value.AddDays(1);
+                    query = query.Where(o => o.OrderDate < endDatePlusOneDay);
+                }
+
+                // Apply sorting
+                if (!string.IsNullOrEmpty(request.SortBy))
+                {
+                    query = request.SortBy.ToLower() switch
+                    {
+                        "orderdate" => request.SortAscending
+                            ? query.OrderBy(o => o.OrderDate)
+                            : query.OrderByDescending(o => o.OrderDate),
+                        "totalprice" => request.SortAscending
+                            ? query.OrderBy(o => o.TotalPrice)
+                            : query.OrderByDescending(o => o.TotalPrice),
+                        "ordernumber" => request.SortAscending
+                            ? query.OrderBy(o => o.OrderNumber)
+                            : query.OrderByDescending(o => o.OrderNumber),
+                        "status" => request.SortAscending
+                            ? query.OrderBy(o => o.StatusId)
+                            : query.OrderByDescending(o => o.StatusId),
+                        _ => request.SortAscending
+                            ? query.OrderBy(o => o.OrderDate)
+                            : query.OrderByDescending(o => o.OrderDate)
+                    };
+                }
+                else
+                {
+                    // Default sorting by OrderDate descending
+                    query = query.OrderByDescending(o => o.OrderDate);
+                }
+
+                // Project to DTO and paginate
+                var paginatedResult = await query
+                    .Select(o => new OrderResponseDTO
+                    {
+                        OrderId = o.Orderid,
+                        OrderNumber = o.OrderNumber,
+                        CustomerId = o.CustomerId,
+                        OrderDate = o.OrderDate,
+                        ShippingAddress = o.ShippingAddress,
+                        ShippingFee = o.ShippingFee,
+                        ShippingCode = o.ShippingCode,
+                        TotalPrice = o.TotalPrice,
+                        PaymentMethod = o.PaymentMethod,
+                        Notes = o.Notes,
+                        CreatedAt = o.CreatedAt,
+                        StatusId = o.StatusId,
+                        IsSuccess = o.IsSuccess,
+                        OrderDetails = o.OrderDetails.Select(od => new OrderDetailResponseDTO
+                        {
+                            OrderDetailId = od.OrderDetailId,
+                            ProductId = od.ProductId,
+                            ProductName = od.Product.ProductName,
+                            ProductPrice = od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price ?? 0,
+                            Quantity = od.Quantity,
+                            SubTotal = od.Quantity * od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price ?? 0
+                        }).ToList()
+                    })
+                    .ToPaginatedListAsync(request.PageNumber, request.PageSize);
+
+                return ServiceResponse<PaginatedResult<OrderResponseDTO>>.SuccessResponse(paginatedResult);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<PaginatedResult<OrderResponseDTO>>.ErrorResponse(ex.Message);
             }
         }
 
@@ -194,7 +297,7 @@ namespace WebTechnology.Service.Services.Implementationns
                         // Update quantity
                         var product = await _productRepository.GetByIdAsync(detail.ProductId);
                         var quantityDiff = detail.Quantity - (existingDetail.Quantity ?? 0);
-                        
+
                         if (product.Stockquantity < quantityDiff)
                             return ServiceResponse<OrderResponseDTO>.FailResponse($"Insufficient stock for product {product.ProductName}");
 
@@ -332,4 +435,4 @@ namespace WebTechnology.Service.Services.Implementationns
             }
         }
     }
-} 
+}

@@ -36,6 +36,15 @@ namespace WebTechnology.Repository.Repositories.Implementations
                 .ToListAsync();
         }
 
+        public IQueryable<Order> GetOrdersAsQueryable()
+        {
+            return _context.Orders
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.ProductPrices)
+                .AsQueryable();
+        }
+
         public async Task<IEnumerable<Order>> FindAsync(Expression<Func<Order, bool>> predicate)
         {
             return await _context.Orders
@@ -150,6 +159,10 @@ namespace WebTechnology.Repository.Repositories.Implementations
             if (order == null) return false;
 
             order.StatusId = statusId;
+            if (statusId == "COMPLETED")
+            {
+                order.IsSuccess = true;
+            }
             await UpdateAsync(order);
             return true;
         }
@@ -169,4 +182,4 @@ namespace WebTechnology.Repository.Repositories.Implementations
             return total + (order.ShippingFee ?? 0);
         }
     }
-} 
+}

@@ -21,7 +21,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="year">Năm cần lấy doanh thu (mặc định là năm hiện tại)</param>
         /// <returns>Doanh thu theo từng tháng trong năm</returns>
         [HttpGet("monthly-revenue")]
-        //[Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> GetMonthlyRevenue([FromQuery] int? year = null)
         {
             // Nếu không có năm được chỉ định, sử dụng năm hiện tại

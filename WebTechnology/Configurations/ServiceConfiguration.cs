@@ -35,9 +35,11 @@ namespace WebTechnology.Configurations
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IStatisticsRepository, StatisticsRepository>();
+            services.AddScoped<IVoucherRepository, VoucherRepository>();
 
             // Unit of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -52,6 +54,7 @@ namespace WebTechnology.Configurations
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderStatusService, OrderStatusService>();
             services.AddScoped<IProductStatusService, ProductStatusService>();
             services.AddScoped<IProductPriceService, ProductPriceService>();
             services.AddScoped<IBrandService, BrandService>();
@@ -60,6 +63,7 @@ namespace WebTechnology.Configurations
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<ICloudinaryService, CloudinaryService>();
             services.AddScoped<IStatisticsService, StatisticsService>();
+            services.AddScoped<IVoucherService, VoucherService>();
         }
     }
 }
