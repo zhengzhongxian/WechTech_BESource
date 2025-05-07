@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WebTechnology.Repository.DTOs.Orders
 {
@@ -10,7 +11,9 @@ namespace WebTechnology.Repository.DTOs.Orders
         public string? ShippingCode { get; set; }
         public string? PaymentMethod { get; set; }
         public string? Notes { get; set; }
-        public string? StatusId { get; set; }
+        [JsonIgnore]
+        public string? StatusId { get; set; } = "PENDING";
+        public List<string> VoucherCodes { get; set; } = new List<string>();
         public List<OrderDetailRequestDTO> OrderDetails { get; set; } = new List<OrderDetailRequestDTO>();
     }
 
@@ -19,4 +22,4 @@ namespace WebTechnology.Repository.DTOs.Orders
         public string ProductId { get; set; } = null!;
         public int Quantity { get; set; }
     }
-} 
+}

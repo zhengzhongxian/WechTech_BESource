@@ -32,5 +32,31 @@ namespace WebTechnology.API.Controllers
 
             return StatusCode((int)response.StatusCode, response);
         }
+
+        /// <summary>
+        /// Lấy doanh số sản phẩm theo tháng và năm
+        /// </summary>
+        /// <param name="month">Tháng cần lấy doanh số (1-12)</param>
+        /// <param name="year">Năm cần lấy doanh số</param>
+        /// <returns>Danh sách sản phẩm và doanh số trong tháng</returns>
+        [HttpGet("product-sales/{year}/{month}")]
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> GetProductSalesForMonth(int year, int month)
+        {
+            try
+            {
+                // Lấy token từ header
+                string token = Request.Headers["Authorization"].ToString();
+
+                // Gọi service để lấy doanh số sản phẩm theo tháng
+                var response = await _statisticsService.GetProductSalesForMonthAsync(month, year, token);
+
+                return StatusCode((int)response.StatusCode, response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
+            }
+        }
     }
 }

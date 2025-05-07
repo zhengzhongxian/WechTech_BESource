@@ -130,7 +130,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 {
                     var product = await _productRepository.GetByIdAsync(item.ProductId);
                     var getProductPrice = await _productPriceRepository.GetProductPriceAsync(item.ProductId);
-                    var img = await _imageRepository.GetImageByOrder("1");
+                    var img = await _imageRepository.GetImageByOrder("1", product.Productid);
                     if (product != null)
                     {
                         item.GetProductToCart = new GetProductToCart

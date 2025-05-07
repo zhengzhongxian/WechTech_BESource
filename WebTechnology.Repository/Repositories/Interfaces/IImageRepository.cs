@@ -12,6 +12,6 @@ namespace WebTechnology.Repository.Repositories.Interfaces
 {
     public interface IImageRepository : IGenericRepository<Image>
     {
-        Task<ImageDTO?> GetImageByOrder(string order);
+        Task<ImageDTO?> GetImageByOrder(string order, string productId);
     }
 }

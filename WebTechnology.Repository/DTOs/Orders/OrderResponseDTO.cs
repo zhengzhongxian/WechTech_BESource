@@ -14,6 +14,7 @@ namespace WebTechnology.Repository.DTOs.Orders
         public string? ShippingCode { get; set; }
         public decimal? TotalPrice { get; set; }
         public string? PaymentMethod { get; set; }
+        public string? PaymentMethodName { get; set; }
         public string? Notes { get; set; }
         public DateTime? CreatedAt { get; set; }
         public string? StatusId { get; set; }
@@ -26,6 +27,7 @@ namespace WebTechnology.Repository.DTOs.Orders
         public string OrderDetailId { get; set; } = null!;
         public string ProductId { get; set; } = null!;
         public string? ProductName { get; set; }
+        public string? Img { get; set; }
         public decimal? ProductPrice { get; set; }
         public int? Quantity { get; set; }
         public decimal? SubTotal { get; set; }

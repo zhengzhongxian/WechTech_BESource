@@ -12,5 +12,6 @@ namespace WebTechnology.Service.Services.Interfaces
     public interface IStatisticsService
     {
         Task<ServiceResponse<YearlyRevenueDTO>> GetMonthlyRevenueForYearAsync(int year, string token);
+        Task<ServiceResponse<MonthlySalesDTO>> GetProductSalesForMonthAsync(int month, int year, string token);
     }
 }

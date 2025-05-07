@@ -19,9 +19,9 @@ namespace WebTechnology.Repository.Repositories.Implementations
             _webTech = webTech;
         }
 
-        public Task<ImageDTO?> GetImageByOrder(string order)
+        public Task<ImageDTO?> GetImageByOrder(string order, string productId)
         {
-            var image = _webTech.Images.Where(x => x.Order == order).Select(x => new ImageDTO
+            var image = _webTech.Images.Where(x => x.Order == order && x.Productid == productId).Select(x => new ImageDTO
             {
                 Imageid = x.Imageid,
                 ImageData = x.ImageData,

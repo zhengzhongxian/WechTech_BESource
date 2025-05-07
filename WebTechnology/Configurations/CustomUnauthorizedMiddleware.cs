@@ -40,7 +40,7 @@ namespace WebTechnology.Configurations
                     context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     context.Response.ContentType = "application/json";
                     
-                    var response = ServiceResponse<string>.FailResponse("Bạn không có quyền truy cập", HttpStatusCode.Unauthorized);
+                    var response = ServiceResponse<string>.FailResponse("Bạn không có quyền truy cập 1", HttpStatusCode.Unauthorized);
                     var json = JsonSerializer.Serialize(response, new JsonSerializerOptions
                     {
                         PropertyNamingPolicy = JsonNamingPolicy.CamelCase

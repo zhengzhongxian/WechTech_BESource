@@ -40,6 +40,7 @@ namespace WebTechnology.Configurations
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IStatisticsRepository, StatisticsRepository>();
             services.AddScoped<IVoucherRepository, VoucherRepository>();
+            services.AddScoped<IApplyVoucherRepository, ApplyVoucherRepository>();
 
             // Unit of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();

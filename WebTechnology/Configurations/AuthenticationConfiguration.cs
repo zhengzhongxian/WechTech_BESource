@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using WebTechnology.Repository.CoreHelpers.Enums;
 using WebTechnology.Service.Models;
 
 namespace WebTechnology.Configurations
@@ -53,13 +54,13 @@ namespace WebTechnology.Configurations
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AdminOnly", policy =>
-                    policy.RequireClaim(ClaimTypes.Role, "Admin"));
+                    policy.RequireClaim(ClaimTypes.Role, RoleType.Admin.ToRoleIdString()));
 
                 options.AddPolicy("CustomerOnly", policy =>
-                    policy.RequireClaim(ClaimTypes.Role, "Customer"));
+                    policy.RequireClaim(ClaimTypes.Role, RoleType.Customer.ToRoleIdString()));
 
                 options.AddPolicy("AdminOrCustomer", policy =>
-                    policy.RequireClaim(ClaimTypes.Role, "Admin", "Customer"));
+                    policy.RequireClaim(ClaimTypes.Role, RoleType.Admin.ToRoleIdString(), RoleType.Customer.ToRoleIdString()));
             });
         }
     }

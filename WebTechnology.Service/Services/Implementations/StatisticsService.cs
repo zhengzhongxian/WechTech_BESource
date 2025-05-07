@@ -26,7 +26,6 @@ namespace WebTechnology.Service.Services.Implementations
         {
             try
             {
-
                 // Kiểm tra năm hợp lệ
                 if (year < 2000 || year > DateTime.Now.Year)
                 {
@@ -45,6 +44,45 @@ namespace WebTechnology.Service.Services.Implementations
             {
                 return ServiceResponse<YearlyRevenueDTO>.ErrorResponse(
                     $"Lỗi khi lấy doanh thu theo tháng: {ex.Message}");
+            }
+        }
+
+        public async Task<ServiceResponse<MonthlySalesDTO>> GetProductSalesForMonthAsync(int month, int year, string token)
+        {
+            try
+            {
+                // Kiểm tra tháng hợp lệ
+                if (month < 1 || month > 12)
+                {
+                    return ServiceResponse<MonthlySalesDTO>.FailResponse(
+                        "Tháng không hợp lệ. Tháng phải từ 1 đến 12");
+                }
+
+                // Kiểm tra năm hợp lệ
+                if (year < 2000 || year > DateTime.Now.Year)
+                {
+                    return ServiceResponse<MonthlySalesDTO>.FailResponse(
+                        "Năm không hợp lệ");
+                }
+
+                // Kiểm tra tháng và năm không vượt quá thời gian hiện tại
+                if (year == DateTime.Now.Year && month > DateTime.Now.Month)
+                {
+                    return ServiceResponse<MonthlySalesDTO>.FailResponse(
+                        "Tháng và năm không được vượt quá thời gian hiện tại");
+                }
+
+                // Lấy dữ liệu doanh số sản phẩm theo tháng
+                var monthlySales = await _statisticsRepository.GetProductSalesForMonthAsync(month, year);
+
+                return ServiceResponse<MonthlySalesDTO>.SuccessResponse(
+                    monthlySales,
+                    $"Lấy doanh số sản phẩm trong tháng {month}/{year} thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<MonthlySalesDTO>.ErrorResponse(
+                    $"Lỗi khi lấy doanh số sản phẩm theo tháng: {ex.Message}");
             }
         }
     }

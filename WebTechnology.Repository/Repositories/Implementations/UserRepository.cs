@@ -55,5 +55,6 @@ namespace WebTechnology.Repository.Repositories.Implementations
         {
             return BCrypt.Net.BCrypt.Verify(plainPassword, hashedPassword);
         }
+        
     }
 }

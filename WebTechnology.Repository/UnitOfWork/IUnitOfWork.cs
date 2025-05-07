@@ -11,6 +11,8 @@ namespace WebTechnology.Repository.UnitOfWork
     {
         IProductRepository Products { get; }
         IImageRepository Images { get; }
+        IVoucherRepository Vouchers { get; }
+        IApplyVoucherRepository ApplyVouchers { get; }
 
         Task BeginTransactionAsync();
         Task CommitAsync();

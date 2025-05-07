@@ -24,6 +24,7 @@ namespace WebTechnology.Repository.Repositories.Implementations
             return await _context.Orders
                 .Include(o => o.OrderDetails)
                 .ThenInclude(od => od.Product)
+                .ThenInclude(odd => odd.ProductPrices)
                 .FirstOrDefaultAsync(o => o.Orderid == id);
         }
 
@@ -57,7 +58,6 @@ namespace WebTechnology.Repository.Repositories.Implementations
         public async Task<Order> AddAsync(Order entity)
         {
             await _context.Orders.AddAsync(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
 
@@ -89,6 +89,9 @@ namespace WebTechnology.Repository.Repositories.Implementations
                 .Include(o => o.OrderDetails)
                     .ThenInclude(od => od.Product)
                         .ThenInclude(p => p.ProductPrices)
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.Images)
                 .Where(o => o.CustomerId == customerId)
                 .Select(o => new OrderResponseDTO
                 {
@@ -101,6 +104,7 @@ namespace WebTechnology.Repository.Repositories.Implementations
                     ShippingCode = o.ShippingCode,
                     TotalPrice = o.TotalPrice,
                     PaymentMethod = o.PaymentMethod,
+                    PaymentMethodName = o.PaymentMethodNavigation.PaymentName ?? "CHƯA CÓ",
                     Notes = o.Notes,
                     CreatedAt = o.CreatedAt,
                     StatusId = o.StatusId,
@@ -110,9 +114,11 @@ namespace WebTechnology.Repository.Repositories.Implementations
                         OrderDetailId = od.OrderDetailId,
                         ProductId = od.ProductId,
                         ProductName = od.Product.ProductName,
-                        ProductPrice = od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price ?? 0,
+                        ProductPrice = od.Price ?? 0,
                         Quantity = od.Quantity,
-                        SubTotal = od.Quantity * od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price ?? 0
+                        SubTotal = od.Quantity * (od.Price ?? 0),
+                        Img = od.Product.Images.FirstOrDefault(i => i.Order == "1") != null ?
+                              od.Product.Images.FirstOrDefault(i => i.Order == "1").ImageData : null
                     }).ToList()
                 })
                 .ToListAsync();
@@ -124,6 +130,9 @@ namespace WebTechnology.Repository.Repositories.Implementations
                 .Include(o => o.OrderDetails)
                     .ThenInclude(od => od.Product)
                         .ThenInclude(p => p.ProductPrices)
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.Images)
                 .Where(o => o.Orderid == orderId)
                 .Select(o => new OrderResponseDTO
                 {
@@ -136,6 +145,7 @@ namespace WebTechnology.Repository.Repositories.Implementations
                     ShippingCode = o.ShippingCode,
                     TotalPrice = o.TotalPrice,
                     PaymentMethod = o.PaymentMethod,
+                    PaymentMethodName = o.PaymentMethodNavigation.PaymentName ?? "CHƯA CÓ",
                     Notes = o.Notes,
                     CreatedAt = o.CreatedAt,
                     StatusId = o.StatusId,
@@ -145,9 +155,11 @@ namespace WebTechnology.Repository.Repositories.Implementations
                         OrderDetailId = od.OrderDetailId,
                         ProductId = od.ProductId,
                         ProductName = od.Product.ProductName,
-                        ProductPrice = od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price,
+                        ProductPrice = od.Price ?? 0,
                         Quantity = od.Quantity,
-                        SubTotal = od.Quantity * od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price
+                        SubTotal = od.Quantity * (od.Price ?? 0),
+                        Img = od.Product.Images.FirstOrDefault(i => i.Order == "1") != null ?
+                              od.Product.Images.FirstOrDefault(i => i.Order == "1").ImageData : null
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();
@@ -169,17 +181,41 @@ namespace WebTechnology.Repository.Repositories.Implementations
 
         public async Task<decimal> CalculateOrderTotalAsync(string orderId)
         {
-            var order = await GetByIdAsync(orderId);
-            if (order == null) return 0;
+            Console.WriteLine($"DEBUG: Calculating total for order: {orderId}");
 
-            decimal total = 0;
-            foreach (var detail in order.OrderDetails)
+            var order = await _context.Orders
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.ProductPrices)
+                .FirstOrDefaultAsync(o => o.Orderid == orderId);
+
+            if (order == null)
             {
-                var productPrice = detail.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive)?.Price ?? 0;
-                total += (productPrice * (detail.Quantity ?? 0));
+                Console.WriteLine($"DEBUG: Order not found: {orderId}");
+                return 0;
             }
 
-            return total + (order.ShippingFee ?? 0);
+            Console.WriteLine($"DEBUG: Order found with {order.OrderDetails.Count} details");
+
+            // Tính tổng tiền sản phẩm
+            decimal subtotal = 0;
+            foreach (var detail in order.OrderDetails)
+            {
+                if (detail.Product == null)
+                {
+                    Console.WriteLine($"DEBUG: Product is null for detail: {detail.OrderDetailId}");
+                    continue;
+                }
+
+                var productPrice = detail.Price ?? 0;
+                Console.WriteLine($"DEBUG: Product {detail.ProductId} price: {productPrice}, quantity: {detail.Quantity}");
+                subtotal += (productPrice * (detail.Quantity ?? 0));
+            }
+
+            Console.WriteLine($"DEBUG: Subtotal: {subtotal}, ShippingFee: {order.ShippingFee}");
+
+            // Trả về tổng tiền bao gồm phí ship
+            return subtotal + (order.ShippingFee ?? 0);
         }
     }
 }

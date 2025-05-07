@@ -10,5 +10,6 @@ namespace WebTechnology.Repository.Repositories.Interfaces
     public interface IStatisticsRepository
     {
         Task<YearlyRevenueDTO> GetMonthlyRevenueForYearAsync(int year);
+        Task<MonthlySalesDTO> GetProductSalesForMonthAsync(int month, int year);
     }
 }

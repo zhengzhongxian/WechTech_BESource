@@ -15,19 +15,27 @@ namespace WebTechnology.Repository.UnitOfWork
         private IDbContextTransaction _transaction;
         private IProductRepository _products;
         private IImageRepository _images;
+        private IVoucherRepository _vouchers;
+        private IApplyVoucherRepository _applyVouchers;
 
         public UnitOfWork(
             WebTech context,
             IProductRepository productRepository,
-            IImageRepository imageRepository)
+            IImageRepository imageRepository,
+            IVoucherRepository voucherRepository,
+            IApplyVoucherRepository applyVoucherRepository)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _products = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _images = imageRepository ?? throw new ArgumentNullException(nameof(imageRepository));
+            _vouchers = voucherRepository ?? throw new ArgumentNullException(nameof(voucherRepository));
+            _applyVouchers = applyVoucherRepository ?? throw new ArgumentNullException(nameof(applyVoucherRepository));
         }
 
         public IProductRepository Products => _products;
         public IImageRepository Images => _images;
+        public IVoucherRepository Vouchers => _vouchers;
+        public IApplyVoucherRepository ApplyVouchers => _applyVouchers;
 
         public async Task BeginTransactionAsync()
         {

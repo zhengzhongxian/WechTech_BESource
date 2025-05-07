@@ -19,6 +19,10 @@ namespace WebTechnology.Service.Services.Implementationns
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IVoucherRepository _voucherRepository;
+        private readonly IApplyVoucherRepository _applyVoucherRepository;
+        private readonly IProductPriceRepository _productPriceRepository;
+        private readonly IImageRepository _imageRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
@@ -26,6 +30,10 @@ namespace WebTechnology.Service.Services.Implementationns
         public OrderService(
             IOrderRepository orderRepository,
             IProductRepository productRepository,
+            IVoucherRepository voucherRepository,
+            IApplyVoucherRepository applyVoucherRepository,
+            IProductPriceRepository productPriceRepository,
+            IImageRepository imageRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IHttpContextAccessor httpContextAccessor,
@@ -33,6 +41,10 @@ namespace WebTechnology.Service.Services.Implementationns
         {
             _orderRepository = orderRepository;
             _productRepository = productRepository;
+            _voucherRepository = voucherRepository;
+            _applyVoucherRepository = applyVoucherRepository;
+            _productPriceRepository = productPriceRepository;
+            _imageRepository = imageRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _tokenService = tokenService;
@@ -61,8 +73,6 @@ namespace WebTechnology.Service.Services.Implementationns
                 var order = await _orderRepository.GetOrderDetailsAsync(id);
                 if (order == null)
                     return ServiceResponse<OrderResponseDTO>.FailResponse("Order not found");
-
-
                 return ServiceResponse<OrderResponseDTO>.SuccessResponse(order);
             }
             catch (Exception ex)
@@ -78,6 +88,8 @@ namespace WebTechnology.Service.Services.Implementationns
                 var userId = ValidateAndGetUserId(token);
                 var orders = await _orderRepository.GetAllAsync();
                 var orderDTOs = _mapper.Map<IEnumerable<OrderResponseDTO>>(orders);
+
+
                 return ServiceResponse<IEnumerable<OrderResponseDTO>>.SuccessResponse(orderDTOs);
             }
             catch (Exception ex)
@@ -167,6 +179,7 @@ namespace WebTechnology.Service.Services.Implementationns
                         ShippingCode = o.ShippingCode,
                         TotalPrice = o.TotalPrice,
                         PaymentMethod = o.PaymentMethod,
+                        PaymentMethodName = o.PaymentMethodNavigation.PaymentName ?? "CHƯA CÓ",
                         Notes = o.Notes,
                         CreatedAt = o.CreatedAt,
                         StatusId = o.StatusId,
@@ -178,10 +191,14 @@ namespace WebTechnology.Service.Services.Implementationns
                             ProductName = od.Product.ProductName,
                             ProductPrice = od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price ?? 0,
                             Quantity = od.Quantity,
-                            SubTotal = od.Quantity * od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price ?? 0
+                            SubTotal = od.Quantity * (od.Product.ProductPrices.FirstOrDefault(pp => pp.IsActive == true).Price ?? 0),
+                            Img = od.Product.Images.FirstOrDefault(i => i.Order == "1") != null ?
+                                  od.Product.Images.FirstOrDefault(i => i.Order == "1").ImageData : null,
                         }).ToList()
                     })
                     .ToPaginatedListAsync(request.PageNumber, request.PageSize);
+
+
 
                 return ServiceResponse<PaginatedResult<OrderResponseDTO>>.SuccessResponse(paginatedResult);
             }
@@ -197,6 +214,8 @@ namespace WebTechnology.Service.Services.Implementationns
             {
                 var userId = ValidateAndGetUserId(token);
                 var orders = await _orderRepository.GetOrdersByCustomerIdAsync(userId);
+
+
                 return ServiceResponse<IEnumerable<OrderResponseDTO>>.SuccessResponse(orders);
             }
             catch (Exception ex)
@@ -243,24 +262,126 @@ namespace WebTechnology.Service.Services.Implementationns
                 foreach (var detail in orderRequest.OrderDetails)
                 {
                     var product = await _productRepository.GetByIdAsync(detail.ProductId);
+
+                    // Lấy giá sản phẩm từ ProductPriceRepository
+                    var productPriceDTO = await _productPriceRepository.GetProductPriceAsync(detail.ProductId);
+                    decimal productPrice = productPriceDTO.PriceIsActive;
+
                     var orderDetail = new OrderDetail
                     {
                         OrderDetailId = Guid.NewGuid().ToString(),
                         OrderId = order.Orderid,
                         ProductId = detail.ProductId,
-                        Quantity = detail.Quantity
+                        Quantity = detail.Quantity,
+                        Price = productPrice
                     };
                     order.OrderDetails.Add(orderDetail);
-
                     // Update product stock
                     product.Stockquantity -= detail.Quantity;
                     await _productRepository.UpdateAsync(product);
                 }
 
-                // Calculate total price
-                order.TotalPrice = await _orderRepository.CalculateOrderTotalAsync(order.Orderid);
-
+                // Thêm đơn hàng vào DbContext
                 await _orderRepository.AddAsync(order);
+
+                // Lưu vào cơ sở dữ liệu để đảm bảo có thể truy vấn
+                await _unitOfWork.SaveChangesAsync();
+
+                // Tính tổng tiền sản phẩm (chưa áp dụng voucher)
+                decimal productTotal = 0;
+
+                // Tính trực tiếp từ giá trong OrderDetail
+                foreach (var detail in order.OrderDetails)
+                {
+                    try
+                    {
+                        // Sử dụng giá đã lưu trong OrderDetail
+                        decimal productPrice = detail.Price ?? 0;
+
+                        Console.WriteLine($"DEBUG: Direct calculation - Product {detail.ProductId} price: {productPrice}, quantity: {detail.Quantity}");
+                        productTotal += (productPrice * (detail.Quantity ?? 0));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"DEBUG: Error calculating product price: {ex.Message}");
+                    }
+                }
+
+                Console.WriteLine($"DEBUG: Product Total calculated directly: {productTotal}");
+
+                // Áp dụng voucher nếu có
+                if (orderRequest.VoucherCodes != null && orderRequest.VoucherCodes.Any())
+                {
+                    decimal totalDiscount = 0;
+
+                    foreach (var voucherCode in orderRequest.VoucherCodes)
+                    {
+                        // Tìm voucher theo mã
+                        var vouchers = await _voucherRepository.FindAsync(v => v.Code == voucherCode && v.IsActive == true);
+                        var voucher = vouchers.FirstOrDefault();
+
+                        if (voucher == null) continue;
+
+                        // Kiểm tra điều kiện áp dụng voucher
+                        if (voucher.MinOrder.HasValue && productTotal < voucher.MinOrder.Value)
+                            continue;
+
+                        if (voucher.StartDate > DateTime.UtcNow || voucher.EndDate < DateTime.UtcNow)
+                            continue;
+
+                        if (voucher.UsageLimit.HasValue && voucher.UsedCount >= voucher.UsageLimit)
+                            continue;
+
+                        // Tính giảm giá
+                        decimal discount = 0;
+                        if (voucher.DiscountType == DiscountType.Percentage)
+                        {
+                            // Giảm giá theo phần trăm
+                            discount = productTotal * (voucher.DiscountValue ?? 0) / 100;
+
+                            // Áp dụng giới hạn giảm giá tối đa nếu có
+                            if (voucher.MaxDiscount.HasValue && discount > voucher.MaxDiscount.Value)
+                            {
+                                discount = voucher.MaxDiscount.Value;
+                            }
+                        }
+                        else if (voucher.DiscountType == DiscountType.FixedAmount)
+                        {
+                            // Giảm giá cố định
+                            discount = voucher.DiscountValue ?? 0;
+                        }
+
+                        // Áp dụng voucher vào đơn hàng
+                        await _applyVoucherRepository.ApplyVoucherToOrderAsync(order.Orderid, voucher.Voucherid);
+
+                        // Cộng dồn giảm giá
+                        totalDiscount += discount;
+                    }
+
+                    // Đảm bảo tổng giảm giá không vượt quá tổng tiền sản phẩm
+                    if (totalDiscount > productTotal)
+                    {
+                        totalDiscount = productTotal;
+                    }
+
+                    // Tính tổng tiền sau khi áp dụng voucher
+                    decimal finalTotal = productTotal - totalDiscount;
+
+                    // Cập nhật tổng tiền đơn hàng (đã bao gồm phí ship)
+                    order.TotalPrice = finalTotal + (order.ShippingFee ?? 0);
+                    Console.WriteLine($"DEBUG: Final total with vouchers: {order.TotalPrice}");
+                }
+                else
+                {
+                    // Nếu không có voucher, tổng tiền = tổng sản phẩm + phí ship
+                    order.TotalPrice = productTotal + (order.ShippingFee ?? 0);
+                    Console.WriteLine($"DEBUG: Final total without vouchers: {order.TotalPrice}");
+                }
+
+                // Cập nhật đơn hàng với tổng tiền mới
+                await _orderRepository.UpdateAsync(order);
+
+                // Lưu vào cơ sở dữ liệu
                 await _unitOfWork.CommitAsync();
 
                 var orderResponse = await _orderRepository.GetOrderDetailsAsync(order.Orderid);
@@ -315,12 +436,17 @@ namespace WebTechnology.Service.Services.Implementationns
                         if (product.Stockquantity < detail.Quantity)
                             return ServiceResponse<OrderResponseDTO>.FailResponse($"Insufficient stock for product {product.ProductName}");
 
+                        // Lấy giá sản phẩm từ ProductPriceRepository
+                        var productPriceDTO = await _productPriceRepository.GetProductPriceAsync(detail.ProductId);
+                        decimal productPrice = productPriceDTO.PriceIsActive;
+
                         var orderDetail = new OrderDetail
                         {
                             OrderDetailId = Guid.NewGuid().ToString(),
                             OrderId = id,
                             ProductId = detail.ProductId,
-                            Quantity = detail.Quantity
+                            Quantity = detail.Quantity,
+                            Price = productPrice
                         };
                         existingOrder.OrderDetails.Add(orderDetail);
 
@@ -337,8 +463,31 @@ namespace WebTechnology.Service.Services.Implementationns
                 existingOrder.Notes = orderRequest.Notes;
                 existingOrder.StatusId = orderRequest.StatusId;
 
-                // Recalculate total price
-                existingOrder.TotalPrice = await _orderRepository.CalculateOrderTotalAsync(id);
+                // Tính tổng tiền sản phẩm (chưa áp dụng voucher)
+                decimal productTotal = 0;
+
+                // Tính trực tiếp từ giá trong OrderDetail
+                foreach (var detail in existingOrder.OrderDetails)
+                {
+                    try
+                    {
+                        // Sử dụng giá đã lưu trong OrderDetail
+                        decimal productPrice = detail.Price ?? 0;
+
+                        Console.WriteLine($"DEBUG: Update - Product {detail.ProductId} price: {productPrice}, quantity: {detail.Quantity}");
+                        productTotal += (productPrice * (detail.Quantity ?? 0));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"DEBUG: Error calculating product price: {ex.Message}");
+                    }
+                }
+
+                Console.WriteLine($"DEBUG: Update - Product Total calculated directly: {productTotal}");
+
+                // Cập nhật tổng tiền đơn hàng (đã bao gồm phí ship)
+                existingOrder.TotalPrice = productTotal + (existingOrder.ShippingFee ?? 0);
+                Console.WriteLine($"DEBUG: Update - Final total: {existingOrder.TotalPrice}");
 
                 await _orderRepository.UpdateAsync(existingOrder);
                 await _unitOfWork.CommitAsync();
@@ -400,9 +549,6 @@ namespace WebTechnology.Service.Services.Implementationns
                 if (order == null)
                     return ServiceResponse<bool>.FailResponse("Order not found");
 
-                // Check if the order belongs to the user
-                if (order.CustomerId != userId)
-                    return ServiceResponse<bool>.FailResponse("You don't have permission to update this order");
 
                 var result = await _orderRepository.UpdateOrderStatusAsync(orderId, statusId);
                 return ServiceResponse<bool>.SuccessResponse(result);

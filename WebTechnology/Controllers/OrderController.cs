@@ -103,7 +103,7 @@ namespace WebTechnology.API.Controllers
         /// Update order status
         /// </summary>
         [HttpPut("{orderId}/status/{statusId}")]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrCustomer")]
         public async Task<IActionResult> UpdateOrderStatus(string orderId, string statusId)
         {
             string token = Request.Headers["Authorization"].ToString();

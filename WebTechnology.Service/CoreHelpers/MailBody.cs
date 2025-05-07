@@ -14,207 +14,235 @@ namespace WebTechnology.Service.CoreHelpers
         {
             return $@"
 <!DOCTYPE html>
-<html lang=""en"">
-  <head>
-    <meta charset=""UTF-8"" />
-    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"" />
-    <title>OTP Request</title>
+<html lang=""vi"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
+    <title>Mã xác thực từ MilkStore</title>
     <style>
-      body,
-      html {{
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }}
-      body {{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: ""Manrope"", sans-serif;
-        padding: 20px;
-        box-sizing: border-box;
-        background-color: #f5f5f5;
-      }}
-      .container {{
-        width: 100%;
-        max-width: 500px;
-        overflow: hidden;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      }}
-      .header {{
-        background: linear-gradient(to right, #2b7fff, #154ce6);
-        color: white;
-        display: flex;
-        justify-content: center !important;
-        align-items: center;
-        padding: 18px;
-      }}
-      .milk-icon {{
-        font-size: 1.6rem;
-      }}
-      .logo {{
-        font-size: 1.3rem;
-        font-weight: 800;
-        letter-spacing: 0.025em;
-        margin: 0;
-        font-family: Arial, sans-serif;
-      }}
-      .logo-primary {{
-        color: #ffffff;
-      }}
-      .logo-secondary {{
-        color: #e0e7ff;
-      }}
-      .main {{
-        padding: 30px;
-        text-align: center;
-        background: white;
-      }}
-      .otp-title {{
-        font-size: 1.2rem;
-        color: #1e293b;
-        margin-bottom: 18px;
-        font-family: ""Inter"", sans-serif;
-        font-weight: 600;
-        letter-spacing: -0.01em;
-      }}
-      strong {{
-        color: #2b7fff;
-      }}
-      .otp {{
-        margin: 0 auto;
-        border-radius: 10px;
-        border: 3px solid #2b7fff;
-        width: 100%;
-        max-width: 130px;
-        text-align: center;
-        color: #2b7fff;
-        font-weight: 700;
-        font-size: 1.6rem;
-        background-color: #f1f5f9;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        margin-bottom: 24px;
-        font-family: ""Inter"", sans-serif;
-      }}
-      .otp-instruction {{
-        font-size: 0.93rem;
-        color: #64748b;
-        line-height: 1.6;
-        font-family: ""Manrope"", sans-serif;
-        font-weight: 500;
-      }}
-      .otp-warning {{
-        font-size: 0.85rem;
-        color: #ff4757;
-        margin-top: 18px;
-        font-weight: 600;
-        font-family: ""Inter"", sans-serif;
-      }}
-      .footer {{
-        padding: 16px;
-        text-align: center;
-        font-size: 0.8rem;
-        color: #94a3b8;
-        border-top: 1px solid #e2e8f0;
-        background-color: #f8fafc;
-      }}
-      .thank-you {{
-        font-size: 0.9rem;
-        color: #475569;
-        margin-top: 18px;
-        font-style: italic;
-      }}
-      .copyright {{
-        font-size: 0.75rem;
-        color: #94a3b8;
-        margin-top: 8px;
-      }}
-      .otp-hello {{
-        text-align: left;
-        font-size: 0.93rem;
-        margin-bottom: 5px;
-      }}
-      .otp-hello span {{
-        color: black;
-        font-weight: 900;
-      }}
-      .notcenter {{
-        text-align: left;
-      }}
-      @media (max-width: 600px) {{
-        .container {{
-          max-width: 100%;
+        /* Reset styles */
+        body, html {{
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', 'Google Sans', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #202124;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
         }}
+
+        * {{
+            box-sizing: border-box;
+        }}
+
+        /* Email container */
+        .email-container {{
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }}
+
+        /* Header */
         .header {{
-          padding: 15px;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 1px solid #f1f3f4;
+            display: flex;
+            background: linear-gradient(135deg, #0070f3 0%, #00c6ff 100%);
+            justify-content: center;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
         }}
-        .milk-icon {{
-          font-size: 1.3rem;
-        }}
+
         .logo {{
-          font-size: 1.1rem;
+            display: inline-block;
         }}
-        .main {{
-          padding: 24px 18px;
+
+        .logo img {{
+            height: 40px;
+            width: auto;
         }}
-        .otp {{
-          font-size: 1.4rem;
-          padding: 10px;
-          max-width: 140px;
+
+        /* Content */
+        .content {{
+            padding: 40px 24px;
         }}
-        .otp-title {{
-          font-size: 1.1rem;
+
+        .greeting {{
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: #202124;
         }}
-        .thank-you {{
-          margin-top: 18px;
+
+        .message {{
+            font-size: 14px;
+            margin-bottom: 24px;
+            color: #5f6368;
         }}
-      }}
-      @media (max-width: 400px) {{
-        .logo {{
-          font-size: 1rem;
+
+        .otp-container {{
+            margin: 32px 0;
+            text-align: center;
         }}
-        .otp-title {{
-          font-size: 1rem;
+
+        .otp-code {{
+            display: inline-block;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 32px;
+            font-weight: 500;
+            letter-spacing: 4px;
+            color: #1a73e8;
+            background-color: #f8f9fa;
+            padding: 16px 32px;
+            border-radius: 8px;
+            border: 1px solid #dadce0;
         }}
-        .otp-instruction {{
-          font-size: 0.88rem;
+
+        .expiry-note {{
+            margin-top: 16px;
+            font-size: 14px;
+            color: #5f6368;
         }}
-      }}
+
+        .warning {{
+            margin-top: 24px;
+            padding: 12px 16px;
+            background-color: #fef7e0;
+            border-left: 4px solid #fbbc04;
+            color: #3c4043;
+            font-size: 13px;
+        }}
+
+        .warning-icon {{
+            color: #ea8600;
+            margin-right: 8px;
+        }}
+
+        /* Footer */
+        .footer {{
+            padding: 24px;
+            text-align: center;
+            color: #5f6368;
+            font-size: 12px;
+            border-top: 1px solid #f1f3f4;
+            background-color: #f8f9fa;
+        }}
+
+        .footer p {{
+            margin: 4px 0;
+        }}
+
+        .divider {{
+            height: 1px;
+            background-color: #f1f3f4;
+            margin: 24px 0;
+        }}
+
+        /* Responsive */
+        @media screen and (max-width: 480px) {{
+            .content {{
+                padding: 24px 16px;
+            }}
+
+            .otp-code {{
+                font-size: 28px;
+                padding: 12px 24px;
+            }}
+        }}
+
+        /* Logo styling */
+        .brand-logo {{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }}
+
+        .brand-icon {{
+            font-size: 29px;
+            margin-right: 8px;
+        }}
+
+        .brand-name {{
+            font-size: 25px;
+            font-weight: 500;
+        }}
+
+        .brand-primary {{
+            color: #1d57a4;
+        }}
+
+        .brand-secondary {{
+            color: #ffffff;
+        }}
+
+        /* Button style */
+        .btn {{
+            display: inline-block;
+            background-color: #1a73e8;
+            color: white;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            margin-top: 16px;
+        }}
+
+        .help-text {{
+            margin-top: 24px;
+            font-size: 13px;
+            color: #5f6368;
+        }}
     </style>
-  </head>
-  <body>
-    <div class=""container"">
-      <form>
-        <div class=""header"" style=""justify-content: center; align-items: center;"">
-          <span class=""milk-icon"">🥛</span>
-          <h1 class=""logo"">
-            <span class=""logo-primary"">Milk</span>
-            <span class=""logo-secondary"">Store</span>
-          </h1>
+</head>
+<body>
+    <div class=""email-container"">
+        <div class=""header"">
+            <div class=""brand-logo"">
+                <span class=""brand-icon"">🥛</span>
+                <span class=""brand-name"">
+                    <span class=""brand-primary"">Milk</span><span class=""brand-secondary"">Store</span>
+                </span>
+            </div>
         </div>
-        <div class=""main"">
-          <div class=""otp-hello"">Thân gửi <span>{recipientName}</span>,</div>
-          <div class=""otp-title notcenter"">Mã xác thực OTP của bạn:</div>
-          <div class=""otp"">{otpCode}</div>
-          <div class=""otp-instruction notcenter"">
-            Vui lòng nhập mã này tại trang xác thực để hoàn tất đăng nhập.
-          </div>
-          <div class=""otp-instruction notcenter"">
-            Mã có hiệu lực trong vòng <strong>5 phút</strong>.
-          </div>
-          <div class=""otp-warning"">⚠ Không chia sẻ mã này với bất kỳ ai</div>
-          <div class=""thank-you"">
-            Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!
-          </div>
+
+        <div class=""content"">
+            <div class=""greeting"">Xin chào <strong>{recipientName}</strong>,</div>
+
+            <div class=""message"">
+                Chúng tôi đã nhận được yêu cầu xác thực tài khoản của bạn. Vui lòng sử dụng mã xác thực sau để hoàn tất quá trình đăng nhập:
+            </div>
+
+            <div class=""otp-container"">
+                <div class=""otp-code"">{otpCode}</div>
+                <div class=""expiry-note"">Mã này sẽ hết hạn sau <strong>5 phút</strong>.</div>
+            </div>
+
+            <div class=""warning"">
+                <span class=""warning-icon"">⚠️</span> Vui lòng không chia sẻ mã này với bất kỳ ai, kể cả nhân viên MilkStore. Đội ngũ hỗ trợ của chúng tôi sẽ không bao giờ yêu cầu mã xác thực của bạn.
+            </div>
+
+            <div class=""help-text"">
+                Nếu bạn không yêu cầu mã này, có thể có người đang cố gắng truy cập vào tài khoản của bạn. Vui lòng không chia sẻ mã này và liên hệ với chúng tôi ngay lập tức.
+            </div>
+
+            <div class=""divider""></div>
+
+            <div class=""message"">
+                Cảm ơn bạn đã sử dụng dịch vụ của MilkStore!
+            </div>
         </div>
+
         <div class=""footer"">
-          <div class=""copyright"">© 2025 MilkStore. All rights reserved.</div>
+            <p>© 2025 MilkStore. Tất cả các quyền được bảo lưu.</p>
+            <p>Đây là email tự động, vui lòng không trả lời email này.</p>
+            <p>MilkStore - Địa chỉ: 123 Đường Nguyễn Văn Linh, Quận 7, TP. Hồ Chí Minh</p>
         </div>
-      </form>
     </div>
-  </body>
+</body>
 </html>
 ";
         }
