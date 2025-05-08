@@ -227,58 +227,51 @@ namespace WebTechnology.Service.Services.Implementationns
                 await _productRepository.AddAsync(product);
 
                 // Add dimensions if provided
-                if (createDto.WeightValue.HasValue || createDto.HeightValue.HasValue ||
-                    createDto.WidthValue.HasValue || createDto.LengthValue.HasValue)
+                if (createDto.Dimensions != null && createDto.Dimensions.Any())
                 {
-                    var dimension = new Dimension
+                    foreach (var dimensionDto in createDto.Dimensions)
                     {
-                        Dimensionid = Guid.NewGuid().ToString(),
-                        Productid = product.Productid,
-                        WeightValue = createDto.WeightValue,
-                        HeightValue = createDto.HeightValue,
-                        WidthValue = createDto.WidthValue,
-                        LengthValue = createDto.LengthValue
-                    };
-
-                    await _dimensionRepository.AddAsync(dimension);
-                }
-
-                // Add price
-                var productPrice = new ProductPrice
-                {
-                    Ppsid = Guid.NewGuid().ToString(),
-                    Productid = product.Productid,
-                    Price = createDto.Price,
-                    IsDefault = createDto.IsDefaultPrice,
-                    IsActive = createDto.IsActivePrice
-                };
-
-                await _productPriceRepository.AddAsync(productPrice);
-
-                // Add categories if provided
-                if (createDto.CategoryIds != null && createDto.CategoryIds.Any())
-                {
-                    foreach (var categoryId in createDto.CategoryIds)
-                    {
-                        var productCategory = new ProductCategory
+                        var dimension = new Dimension
                         {
-                            Id = Guid.NewGuid().ToString(),
+                            Dimensionid = Guid.NewGuid().ToString(),
                             Productid = product.Productid,
-                            Categoryid = categoryId
+                            WeightValue = dimensionDto.WeightValue,
+                            HeightValue = dimensionDto.HeightValue,
+                            WidthValue = dimensionDto.WidthValue,
+                            LengthValue = dimensionDto.LengthValue,
                         };
 
-                        await _productCategoryRepository.AddAsync(productCategory);
+                        await _dimensionRepository.AddAsync(dimension);
                     }
                 }
 
-                // Add images if provided
-                if (createDto.ImageData != null && createDto.ImageData.Any())
+                // Add prices if provided
+                if (createDto.ProductPrices != null && createDto.ProductPrices.Any())
                 {
-                    int order = 0;
-                    foreach (var imageData in createDto.ImageData)
+                    foreach (var priceDto in createDto.ProductPrices)
+                    {
+                        var productPrice = new ProductPrice
+                        {
+                            Ppsid = Guid.NewGuid().ToString(),
+                            Productid = product.Productid,
+                            Price = priceDto.Price,
+                            IsDefault = priceDto.IsDefault,
+                            IsActive = priceDto.IsActive,
+                        };
+
+                        await _productPriceRepository.AddAsync(productPrice);
+                    }
+                }
+
+                // Phần xử lý categories đã được loại bỏ vì CreateProductDTO không có thuộc tính CategoryIds
+
+                // Add images if provided
+                if (createDto.Images != null && createDto.Images.Any())
+                {
+                    foreach (var imageDto in createDto.Images)
                     {
                         //add to cloudinary
-                        var uploadResult = await _cloudinaryService.UploadImageAsync(imageData);
+                        var uploadResult = await _cloudinaryService.UploadImageAsync(imageDto.ImageData);
                         if (uploadResult.Error != null)
                         {
                             _logger.LogError($"Lỗi khi upload ảnh: {uploadResult.Error.Message}");
@@ -290,11 +283,10 @@ namespace WebTechnology.Service.Services.Implementationns
                             Imageid = Guid.NewGuid().ToString(),
                             Productid = product.Productid,
                             ImageData = uploadResult.SecureUrl.ToString(),
-                            Order = order.ToString(),
+                            Order = imageDto.Order,
                             CreatedAt = DateTime.UtcNow
                         };
 
-                        order++;
                         await _imageRepository.AddAsync(image);
                     }
                 }

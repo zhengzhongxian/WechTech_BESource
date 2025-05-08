@@ -3,12 +3,79 @@
   "WorkspaceRootPath": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\dimensioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\dimensioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\productpricecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\productpricecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementations\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\implementations\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\products\\createproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\products\\createproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\products\\createproductpricedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\products\\createproductpricedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\dimensions\\createdimensiondtonew.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\dimensions\\createdimensiondtonew.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\images\\createimagedtonew.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\images\\createimagedtonew.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\corehelpers\\multimedia\\cloudinaryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\corehelpers\\multimedia\\cloudinaryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\images\\imagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\images\\imagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\images\\updateimagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\images\\updateimagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\images\\createimagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\images\\createimagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\models\\entities\\voucher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\models\\entities\\voucher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\models\\enum\\vouchertype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\models\\enum\\vouchertype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\dimensions\\createdimensiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\dimensions\\createdimensiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\products\\getproducttocart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\products\\getproducttocart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\statisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\statisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\products\\productpricedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\products\\productpricedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,16 +90,16 @@
       "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250507031253_ColumnPrice_OrderDetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebTechnology.Repository\\Migrations\\20250507031253_ColumnPrice_OrderDetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\models\\entities\\productprice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\models\\entities\\productprice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\models\\entities\\webtech.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\models\\entities\\webtech.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\migrations\\20250507031253_columnprice_orderdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\migrations\\20250507031253_columnprice_orderdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -41,25 +108,232 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 44,
-          "SelectedChildIndex": 0,
+          "DockedHeight": 212,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProductPriceController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductPriceController.cs",
+              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\ProductPriceController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductPriceController.cs",
+              "RelativeToolTip": "WebTechnology\\Controllers\\ProductPriceController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T08:07:32.933Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\ProductService.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\ProductService.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\ProductService.cs",
+              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\ProductService.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAAAswAIBAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:20:22.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CreateDimensionDTONew.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Dimensions\\CreateDimensionDTONew.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Dimensions\\CreateDimensionDTONew.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Dimensions\\CreateDimensionDTONew.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Dimensions\\CreateDimensionDTONew.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA5wBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:30:09.641Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CreateImageDTONew.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Images\\CreateImageDTONew.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Images\\CreateImageDTONew.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Images\\CreateImageDTONew.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Images\\CreateImageDTONew.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:29:58.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UpdateImageDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Images\\UpdateImageDTO.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Images\\UpdateImageDTO.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Images\\UpdateImageDTO.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Images\\UpdateImageDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:18:31.816Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Voucher.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\Voucher.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\Voucher.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\Voucher.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\Models\\Entities\\Voucher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:16:39.061Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "VoucherType.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Enum\\VoucherType.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Enum\\VoucherType.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Enum\\VoucherType.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\Models\\Enum\\VoucherType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:16:29.132Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "GetProductToCart.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\GetProductToCart.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Products\\GetProductToCart.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\GetProductToCart.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Products\\GetProductToCart.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:11:04.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CreateProductPriceDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\CreateProductPriceDTO.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Products\\CreateProductPriceDTO.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\CreateProductPriceDTO.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Products\\CreateProductPriceDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:09:36.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ProductPriceDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:08:51.148Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CreateProductDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\CreateProductDTO.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Products\\CreateProductDTO.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\CreateProductDTO.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Products\\CreateProductDTO.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAA2wCkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:08:04.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ImageDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Images\\ImageDTO.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Images\\ImageDTO.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Images\\ImageDTO.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Images\\ImageDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:07:39.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CreateImageDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Images\\CreateImageDTO.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Images\\CreateImageDTO.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Images\\CreateImageDTO.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Images\\CreateImageDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:07:32.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CreateDimensionDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Dimensions\\CreateDimensionDTO.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Dimensions\\CreateDimensionDTO.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Dimensions\\CreateDimensionDTO.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Dimensions\\CreateDimensionDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:06:10.399Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "DimensionController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\DimensionController.cs",
+              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\DimensionController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\DimensionController.cs",
+              "RelativeToolTip": "WebTechnology\\Controllers\\DimensionController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwBwAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:04:19.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "secrets.json",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-07T11:36:14.739Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\ProductController.cs",
               "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductController.cs",
               "RelativeToolTip": "WebTechnology\\Controllers\\ProductController.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAkwDgAAABLAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAkwDcAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-07T05:33:53.167Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 16,
               "Title": "StatisticsController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\StatisticsController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\StatisticsController.cs",
@@ -72,7 +346,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 19,
               "Title": "OrderController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\OrderController.cs",
@@ -80,12 +354,11 @@
               "RelativeToolTip": "WebTechnology\\Controllers\\OrderController.cs",
               "ViewState": "AgIAADQAAAAAAAAAAAAkwEsAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T03:17:34.08Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T03:17:34.08Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 24,
               "Title": "20250507031253_ColumnPrice_OrderDetails.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250507031253_ColumnPrice_OrderDetails.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Migrations\\20250507031253_ColumnPrice_OrderDetails.cs",
@@ -93,12 +366,11 @@
               "RelativeToolTip": "WebTechnology.Repository\\Migrations\\20250507031253_ColumnPrice_OrderDetails.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T03:12:54.061Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T03:12:54.061Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 23,
               "Title": "WebTech.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\WebTech.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\WebTech.cs",
@@ -106,12 +378,11 @@
               "RelativeToolTip": "WebTechnology.Repository\\Models\\Entities\\WebTech.cs",
               "ViewState": "AgIAAPEBAAAAAAAAAAAhwBMCAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T03:09:39.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T03:09:39.801Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 20,
               "Title": "OrderDetail.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\OrderDetail.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\OrderDetail.cs",
@@ -119,12 +390,11 @@
               "RelativeToolTip": "WebTechnology.Repository\\Models\\Entities\\OrderDetail.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T03:09:08.504Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T03:09:08.504Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 22,
               "Title": "ProductPrice.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\ProductPrice.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\ProductPrice.cs",
@@ -132,12 +402,11 @@
               "RelativeToolTip": "WebTechnology.Repository\\Models\\Entities\\ProductPrice.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T03:08:54.69Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T03:08:54.69Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 21,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\CategoryController.cs",
@@ -145,7 +414,29 @@
               "RelativeToolTip": "WebTechnology\\Controllers\\CategoryController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T03:07:14.965Z",
+              "WhenOpened": "2025-05-07T03:07:14.965Z"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 23,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CloudinaryService.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\CoreHelpers\\Multimedia\\CloudinaryService.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Service\\CoreHelpers\\Multimedia\\CloudinaryService.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\CoreHelpers\\Multimedia\\CloudinaryService.cs",
+              "RelativeToolTip": "WebTechnology.Service\\CoreHelpers\\Multimedia\\CloudinaryService.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAQwDEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T06:25:02.985Z",
               "EditorCaption": ""
             }
           ]

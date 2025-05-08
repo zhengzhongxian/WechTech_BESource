@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using WebTechnology.Repository.DTOs.Dimensions;
+using WebTechnology.Repository.DTOs.Images;
 
 namespace WebTechnology.Repository.DTOs.Products
 {
@@ -33,23 +35,8 @@ namespace WebTechnology.Repository.DTOs.Products
 
         public string? Metadata { get; set; }
 
-        // For dimensions
-        public decimal? WeightValue { get; set; }
-        public decimal? HeightValue { get; set; }
-        public decimal? WidthValue { get; set; }
-        public decimal? LengthValue { get; set; }
-
-        // For price
-        [Required(ErrorMessage = "Giá sản phẩm là bắt buộc")]
-        [Range(0, double.MaxValue, ErrorMessage = "Giá sản phẩm phải là số dương")]
-        public decimal Price { get; set; }
-        public bool IsDefaultPrice { get; set; } = true;
-        public bool IsActivePrice { get; set; } = true;
-        
-        // For categories
-        public List<string>? CategoryIds { get; set; } = new List<string>();
-
-        // For images
-        public List<string>? ImageData { get; set; } = new List<string>();
+        public List<CreateProductPriceDTO> ProductPrices { get; set; } = new List<CreateProductPriceDTO>();
+        public List<CreateImageDTONew> Images { get; set; } = new List<CreateImageDTONew>();
+        public List<CreateDimensionDTONew> Dimensions { get; set; } = new List<CreateDimensionDTONew>();
     }
 }
