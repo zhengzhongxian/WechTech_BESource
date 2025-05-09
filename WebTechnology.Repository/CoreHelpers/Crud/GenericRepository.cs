@@ -91,21 +91,6 @@ namespace WebTechnology.Repository.CoreHelpers.Crud
             return await _dbSet.Where(lambda).Where(additionalFilter).ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetByPropertyAsync<TProperty>(
-            Expression<Func<TEntity, TProperty>> propertySelector,
-            TProperty value,
-            Expression<Func<TEntity, bool>> additionalFilter)
-        {
-            // Tạo biểu thức so sánh property == value
-            var parameter = Expression.Parameter(typeof(TEntity), "x");
-            var property = Expression.Property(parameter, GetPropertyName(propertySelector));
-            var constant = Expression.Constant(value);
-            var equal = Expression.Equal(property, constant);
-            var lambda = Expression.Lambda<Func<TEntity, bool>>(equal, parameter);
-
-            // Kết hợp với additionalFilter
-            return await _dbSet.Where(lambda).Where(additionalFilter).ToListAsync();
-        }
         private static string GetPropertyName(LambdaExpression expression)
         {
             return expression.Body switch
