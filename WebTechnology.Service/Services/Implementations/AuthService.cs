@@ -63,12 +63,14 @@ namespace WebTechnology.Service.Services.Implementationns
 
                 if (user.Role?.RoleName != "Admin")
                     return AuthResponse.Fail("Quyền truy cập bị từ chối. Chỉ dành cho Admin!", HttpStatusCode.Forbidden);
-
+                user.StatusId = UserStatusType.Active.ToUserStatusIdString();
+                user.UpdatedAt = DateTime.UtcNow;
+                await _userRepository.UpdateAsync(user);
                 var result = await GenerateAuthResponse(user);
                 await _unitOfWork.CommitAsync();
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _unitOfWork.RollbackAsync();
                 return AuthResponse.Error($"{ex.Message}");
@@ -87,7 +89,9 @@ namespace WebTechnology.Service.Services.Implementationns
 
                 if (user.Role?.RoleName != "Customer")
                     return AuthResponse.Fail("Quyền truy cập bị từ chối. Chỉ dành cho Khách hàng.", HttpStatusCode.Forbidden);
-
+                user.StatusId = UserStatusType.Active.ToUserStatusIdString();
+                user.UpdatedAt = DateTime.UtcNow;
+                await _userRepository.UpdateAsync(user);
                 var result = await GenerateAuthResponse(user);
                 await _unitOfWork.CommitAsync();
                 return result;
