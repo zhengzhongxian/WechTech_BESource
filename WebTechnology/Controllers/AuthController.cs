@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebTechnology.Repository.DTOs.Users;
 using WebTechnology.Service.Models;
@@ -66,6 +67,15 @@ namespace WebTechnology.API.Controllers
         public async Task<ActionResult<AuthResponse>> RefreshToken([FromQuery] string refreshToken)
         {
             var response = await _authService.RefreshTokenAsync(refreshToken);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            var token = Request.Headers["Authorization"].ToString();
+            var response = await _authService.LogoutAsync(token);
             return StatusCode((int)response.StatusCode, response);
         }
     }

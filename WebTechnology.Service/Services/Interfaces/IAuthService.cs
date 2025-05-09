@@ -16,5 +16,6 @@ namespace WebTechnology.Service.Services.Interfaces
         Task<AuthResponse> RefreshTokenAsync(string refreshToken);
         Task<ServiceResponse<string>> OTPAuthAsync(string email);
         Task<ServiceResponse<string>> RegisterAsync(RegistrationRequestDTO registrationRequest);
+        Task<ServiceResponse<string>> LogoutAsync(string token);
     }
 }

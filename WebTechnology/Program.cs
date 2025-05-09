@@ -18,6 +18,7 @@ using WebTechnology.Service.CoreHelpers.Multimedia;
 using System.Security.Claims;
 using WebTechnology.Configurations;
 using WebTechnology.Service.Services.Implementations;
+using WebTechnology.Repository.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,6 +70,10 @@ builder.Services.AddHostedService<UserAuthCleanupService>();
 
 // Register SeedService
 builder.Services.AddScoped<ISeedService, SeedService>();
+
+
+// dcmm
+builder.Services.AddAutoMapper(typeof(UserStatusMappingProfile));
 
 var app = builder.Build();
 

@@ -266,5 +266,42 @@ namespace WebTechnology.Service.Services.Implementationns
                 return ServiceResponse<string>.ErrorResponse(ex.Message);
             }
         }
+
+        public async Task<ServiceResponse<string>> LogoutAsync(string token)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(token))
+                {
+                    return ServiceResponse<string>.FailResponse("Token không hợp lệ");
+                }
+                if (_tokenService.IsTokenExpired(token))
+                {
+                    return ServiceResponse<string>.FailResponse("Token đã hết hạn");
+                }
+
+                var userId = _tokenService.GetUserIdFromToken(token);
+                if (userId == null)
+                {
+                    return ServiceResponse<string>.FailResponse("Không tìm thấy thông tin người dùng");
+                }
+                var user = await _userRepository.GetByIdAsync(userId);
+                if (user == null)
+                {
+                    return ServiceResponse<string>.NotFoundResponse("Người dùng không tồn tại");
+                }
+                user.StatusId = UserStatusType.Inactive.ToUserStatusIdString();
+                user.UpdatedAt = DateTime.UtcNow;
+                user.RefreshToken = null;
+                await _userRepository.UpdateAsync(user);
+                await _unitOfWork.SaveChangesAsync();
+                return ServiceResponse<string>.SuccessResponse("Đăng xuất thành công");
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackAsync();
+                return ServiceResponse<string>.ErrorResponse($"Lỗi khi đăng xuất: {ex.Message}");
+            }
+        }
     }
 }

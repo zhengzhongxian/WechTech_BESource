@@ -34,6 +34,7 @@ namespace WebTechnology.Service.Services.Implementations
             try
             {
                 var userStatus = _mapper.Map<UserStatus>(createDto);
+                userStatus.StatusId = Guid.NewGuid().ToString();
                 userStatus.CreatedAt = DateTime.UtcNow;
                 await _userStatusRepository.AddAsync(userStatus);
                 await _unitOfWork.SaveChangesAsync();
