@@ -32,17 +32,17 @@ namespace WebTechnology.API.Controllers
             return StatusCode((int)response.StatusCode, response);
         }
 
-        [HttpPatch("{productId}")]
-        public async Task<IActionResult> UpdateDimension(string productId, [FromBody] JsonPatchDocument<Dimension> patchDoc)
+        [HttpPatch("{dimensionId}")]
+        public async Task<IActionResult> UpdateDimension(string dimensionId, [FromBody] JsonPatchDocument<Dimension> patchDoc)
         {
-            var response = await _dimensionService.UpdateDimensionAsync(productId, patchDoc);
+            var response = await _dimensionService.UpdateDimensionAsync(dimensionId, patchDoc);
             return StatusCode((int)response.StatusCode, response);
         }
 
-        [HttpDelete("{productId}")]
-        public async Task<IActionResult> DeleteDimension(string productId)
+        [HttpDelete("{dimensionId}")]
+        public async Task<IActionResult> DeleteDimension(string dimensionId)
         {
-            var response = await _dimensionService.DeleteDimensionAsync(productId);
+            var response = await _dimensionService.DeleteDimensionAsync(dimensionId);
             return StatusCode((int)response.StatusCode, response);
         }
     }
