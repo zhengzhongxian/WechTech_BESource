@@ -89,18 +89,16 @@ namespace WebTechnology.Service.Services.Implementations
             }
         }
 
-        public async Task<ServiceResponse<Dimension>> UpdateDimensionAsync(string productId, JsonPatchDocument<Dimension> patchDoc)
+        public async Task<ServiceResponse<Dimension>> UpdateDimensionAsync(string dimensionId, JsonPatchDocument<Dimension> patchDoc)
         {
             try
             {
-                var dimensions = await _dimensionRepository.GetByPropertyAsync(x => x.Productid, productId);
+                var dimension = await _dimensionRepository.GetByIdAsync(dimensionId);
 
-                if (dimensions == null || !dimensions.Any())
+                if (dimension == null)
                 {
-                    return ServiceResponse<Dimension>.NotFoundResponse("Không tìm thấy kích thước nào cho sản phẩm này");
+                    return ServiceResponse<Dimension>.NotFoundResponse($"Không tìm thấy kích thước với ID {dimensionId}");
                 }
-                
-                var dimension = dimensions.First();
 
                 patchDoc.ApplyTo(dimension);
 
@@ -117,30 +115,26 @@ namespace WebTechnology.Service.Services.Implementations
             }
         }
 
-        public async Task<ServiceResponse<bool>> DeleteDimensionAsync(string productId)
+        public async Task<ServiceResponse<bool>> DeleteDimensionAsync(string dimensionId)
         {
             try
             {
-                var dimensions = await _dimensionRepository.GetByPropertyAsync(x => x.Productid, productId);
+                var dimension = await _dimensionRepository.GetByIdAsync(dimensionId);
 
-                if (dimensions == null || !dimensions.Any())
+                if (dimension == null)
                 {
-                    return ServiceResponse<bool>.NotFoundResponse("Không tìm thấy kích thước nào cho sản phẩm này");
+                    return ServiceResponse<bool>.NotFoundResponse($"Không tìm thấy kích thước với ID {dimensionId}");
                 }
 
-                foreach (var dimension in dimensions)
-                {
-                    await _dimensionRepository.DeleteAsync(dimension);
-                }
-
+                await _dimensionRepository.DeleteAsync(dimension);
                 await _unitOfWork.SaveChangesAsync();
 
                 return ServiceResponse<bool>.SuccessResponse(
-                    true, "Xóa tất cả kích thước của sản phẩm thành công");
+                    true, "Xóa kích thước thành công");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Lỗi khi xóa dimension theo productId: {Message}", ex.Message);
+                _logger.LogError(ex, "Lỗi khi xóa dimension: {Message}", ex.Message);
                 return ServiceResponse<bool>.ErrorResponse(
                     $"Lỗi khi xóa dimension: {ex.Message}");
             }

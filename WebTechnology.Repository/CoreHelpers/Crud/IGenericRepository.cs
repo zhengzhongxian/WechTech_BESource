@@ -19,6 +19,10 @@ namespace WebTechnology.Repository.CoreHelpers.Crud
         Task<IEnumerable<TEntity>> GetByPropertyAsync<TProperty>(
             Expression<Func<TEntity, TProperty>> propertySelector,
             TProperty value);
+        Task<IEnumerable<TEntity>> GetByPropertyAsync<TProperty>(
+            Expression<Func<TEntity, TProperty>> propertySelector,
+            TProperty value,
+            Expression<Func<TEntity, bool>> additionalFilter);
     }
 
 }
