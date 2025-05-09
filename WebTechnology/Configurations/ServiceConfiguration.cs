@@ -41,6 +41,7 @@ namespace WebTechnology.Configurations
             services.AddScoped<IStatisticsRepository, StatisticsRepository>();
             services.AddScoped<IVoucherRepository, VoucherRepository>();
             services.AddScoped<IApplyVoucherRepository, ApplyVoucherRepository>();
+            services.AddScoped<IUserStatusRepository, UserStatusRepository>();
 
             // Unit of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -65,6 +66,7 @@ namespace WebTechnology.Configurations
             services.AddScoped<ICloudinaryService, CloudinaryService>();
             services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IVoucherService, VoucherService>();
+            services.AddScoped<IUserStatusService, UserStatusService>();
         }
     }
 }
