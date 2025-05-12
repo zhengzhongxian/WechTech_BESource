@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebTechnology.API;
 using WebTechnology.Repository.CoreHelpers.Crud;
+using WebTechnology.Repository.DTOs.Users;
 
 namespace WebTechnology.Repository.Repositories.Interfaces
 {
@@ -12,6 +13,7 @@ namespace WebTechnology.Repository.Repositories.Interfaces
     {
         Task<User?> AuthenticateAsync(string username, string password);
         Task UpdateRefreshTokenAsync(string userId, string? refreshToken);
-        Task <User?> GetUserByEmailAsync(string email);
+        Task<User?> GetUserByEmailAsync(string email);
+        Task<(IEnumerable<UserWithStatusDTO> Users, int TotalCount)> GetPaginatedUsersWithStatusAsync(UserQueryRequest queryRequest);
     }
 }

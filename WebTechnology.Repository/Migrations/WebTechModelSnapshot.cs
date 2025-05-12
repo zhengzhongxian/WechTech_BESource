@@ -325,6 +325,11 @@ namespace WebTechnology.Repository.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("phone_number");
 
+                    b.Property<string>("Publicid")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)")
+                        .HasColumnName("publicid");
+
                     b.Property<string>("Surname")
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
@@ -829,6 +834,10 @@ namespace WebTechnology.Repository.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("sku");
+
+                    b.Property<int?>("SoldQuantity")
+                        .HasColumnType("int")
+                        .HasColumnName("sold_quantity");
 
                     b.Property<string>("StatusId")
                         .HasMaxLength(64)

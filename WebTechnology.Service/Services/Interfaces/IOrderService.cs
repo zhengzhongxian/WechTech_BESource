@@ -17,5 +17,6 @@ namespace WebTechnology.Service.Services.Interfaces
         Task<ServiceResponse<bool>> DeleteOrderAsync(string id, string token);
         Task<ServiceResponse<bool>> UpdateOrderStatusAsync(string orderId, string statusId, string token);
         Task<ServiceResponse<decimal>> CalculateOrderTotalAsync(string orderId, string token);
+        Task<ServiceResponse<bool>> CancelOrderAndRestoreStockAsync(string orderId, string token);
     }
 }
