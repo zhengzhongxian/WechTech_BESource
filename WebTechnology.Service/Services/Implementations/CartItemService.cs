@@ -125,10 +125,8 @@ namespace WebTechnology.Service.Services.Implementationns
                 {
                     return ServiceResponse<List<CartItemDTO>>.NotFoundResponse("Giỏ hàng không tồn tại");
                 }
-                Console.WriteLine($"cartId: {cart.Cartid}");
                 //var cartItems = await _cartItemRepository.GetByPropertyAsync(x => x.CartId, "108e04d8-ba04-49a1-86bb-e775c726b382");
                 var cartItems = await _cartItemRepository.GetByPropertyAsync<string>(x => x.CartId, cart.Cartid);
-                Console.WriteLine($"cartItems: {cartItems.Count()}");
                 var cartItemsDto = _mapper.Map<List<CartItemDTO>>(cartItems);
                 foreach (var item in cartItemsDto) {
                     var product = await _productRepository.GetByIdAsync(item.ProductId);
