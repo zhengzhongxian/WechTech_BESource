@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebTechnology.API;
 using WebTechnology.Repository.DTOs.Cart;
+using WebTechnology.Repository.DTOs.Images;
 using WebTechnology.Repository.DTOs.Products;
 using WebTechnology.Repository.Repositories.Implementations;
 using WebTechnology.Repository.Repositories.Interfaces;
@@ -124,25 +125,32 @@ namespace WebTechnology.Service.Services.Implementationns
                 {
                     return ServiceResponse<List<CartItemDTO>>.NotFoundResponse("Giỏ hàng không tồn tại");
                 }
-                var cartItems = await _cartItemRepository.GetByPropertyAsync(x => x.CartId, "108e04d8-ba04-49a1-86bb-e775c726b382");
+                Console.WriteLine($"cartId: {cart.Cartid}");
+                //var cartItems = await _cartItemRepository.GetByPropertyAsync(x => x.CartId, "108e04d8-ba04-49a1-86bb-e775c726b382");
+                var cartItems = await _cartItemRepository.GetByPropertyAsync<string>(x => x.CartId, cart.Cartid);
+                Console.WriteLine($"cartItems: {cartItems.Count()}");
                 var cartItemsDto = _mapper.Map<List<CartItemDTO>>(cartItems);
-                foreach (var item in cartItemsDto)
-                {
+                foreach (var item in cartItemsDto) {
                     var product = await _productRepository.GetByIdAsync(item.ProductId);
                     var getProductPrice = await _productPriceRepository.GetProductPriceAsync(item.ProductId);
-                    var img = await _imageRepository.GetImageByOrder("1", product.Productid);
-                    if (product != null)
-                    {
-                        item.GetProductToCart = new GetProductToCart
-                        {
+
+                    string? productIdForImage = product?.Productid;
+                    ImageDTO? img = null;
+                    if (!string.IsNullOrEmpty(productIdForImage)) {
+                        img = await _imageRepository.GetImageByOrder("1", productIdForImage);
+                    }
+
+                    if (product != null && getProductPrice != null) {
+                        item.GetProductToCart = new GetProductToCart {
                             ProductName = product.ProductName ?? "",
-                            ProductPriceIsActive = getProductPrice?.PriceIsActive ?? 0,
-                            ProductPriceIsDefault = getProductPrice?.PriceIsDefault ?? 0,
+                            ProductPriceIsActive = getProductPrice.PriceIsActive,
+                            ProductPriceIsDefault = getProductPrice.PriceIsDefault,
                             ProductImgData = img?.ImageData ?? "",
-                            TotalPrice = (getProductPrice?.PriceIsActive ?? 0) * item.Quantity,
+                            TotalPrice = getProductPrice.PriceIsActive * item.Quantity,
                         };
                     }
                 }
+
                 return ServiceResponse<List<CartItemDTO>>.SuccessResponse(cartItemsDto, "Lấy danh sách sản phẩm trong giỏ hàng thành công nhé các FE");
             }
             catch (Exception ex)
