@@ -144,9 +144,8 @@ namespace WebTechnology.Service.Services.Implementationns
                 {
                     query = request.SortBy.ToLower() switch
                     {
-                        "price" => request.SortAscending
-                            ? query.OrderBy(p => p.ProductPrices.FirstOrDefault(pp => pp.IsActive).Price)
-                            : query.OrderByDescending(p => p.ProductPrices.FirstOrDefault(pp => pp.IsActive).Price),
+                        "price-low-high" => query.OrderBy(p => p.ProductPrices.FirstOrDefault(pp => pp.IsActive).Price),
+                        "price-high-low" => query.OrderByDescending(p => p.ProductPrices.FirstOrDefault(pp => pp.IsActive).Price),
                         _ => request.SortAscending
                             ? query.OrderBy(p => p.ProductName)
                             : query.OrderByDescending(p => p.ProductName)
