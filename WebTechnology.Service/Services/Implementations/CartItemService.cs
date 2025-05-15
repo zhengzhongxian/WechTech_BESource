@@ -118,6 +118,7 @@ namespace WebTechnology.Service.Services.Implementationns
                     }
 
                     existingCartItem.Quantity = newQuantity;
+                    existingCartItem.UpdatedAt = DateTime.Now; // Cập nhật thời gian cập nhật
                     await _cartItemRepository.UpdateAsync(existingCartItem);
                 }
                 else
@@ -126,6 +127,8 @@ namespace WebTechnology.Service.Services.Implementationns
                     var newCartItem = _mapper.Map<CartItem>(cartItem);
                     newCartItem.CartId = userId;
                     newCartItem.Id = Guid.NewGuid().ToString();
+                    newCartItem.CreatedAt = DateTime.Now; // Khởi tạo thời gian tạo
+                    newCartItem.UpdatedAt = DateTime.Now; // Khởi tạo thời gian cập nhật
                     await _cartItemRepository.AddAsync(newCartItem);
                 }
 
@@ -300,13 +303,21 @@ namespace WebTechnology.Service.Services.Implementationns
                                 ? cartItemsDto.OrderBy(item => item.GetProductToCart?.TotalPrice).ToList()
                                 : cartItemsDto.OrderByDescending(item => item.GetProductToCart?.TotalPrice).ToList();
                             break;
-                        default:
-                            // Mặc định sắp xếp theo ngày cập nhật
+                        case "updatedat":
                             cartItemsDto = request.SortAscending
-                                ? cartItemsDto.OrderBy(item => item.Id).ToList()
-                                : cartItemsDto.OrderByDescending(item => item.Id).ToList();
+                                ? cartItemsDto.OrderBy(item => item.UpdatedAt).ToList()
+                                : cartItemsDto.OrderByDescending(item => item.UpdatedAt).ToList();
+                            break;
+                        default:
+                            // Mặc định sắp xếp theo ngày cập nhật (giảm dần - mới nhất lên đầu)
+                            cartItemsDto = cartItemsDto.OrderByDescending(item => item.UpdatedAt).ToList();
                             break;
                     }
+                }
+                else
+                {
+                    // Nếu không có SortBy, mặc định sắp xếp theo ngày cập nhật (giảm dần - mới nhất lên đầu)
+                    cartItemsDto = cartItemsDto.OrderByDescending(item => item.UpdatedAt).ToList();
                 }
 
                 // Phân trang
@@ -374,6 +385,9 @@ namespace WebTechnology.Service.Services.Implementationns
 
                 // Áp dụng các thay đổi
                 patchDoc.ApplyTo(cartItem);
+
+                // Cập nhật thời gian cập nhật
+                cartItem.UpdatedAt = DateTime.Now;
 
                 // Kiểm tra số lượng mới
                 if (cartItem.Quantity <= 0)

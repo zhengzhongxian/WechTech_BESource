@@ -56,5 +56,15 @@ namespace WebTechnology.Repository.DTOs.Cart
         /// Số lượng tồn kho hiện tại của sản phẩm
         /// </summary>
         public int? AvailableStock { get; set; }
+
+        /// <summary>
+        /// Thời gian tạo mục giỏ hàng
+        /// </summary>
+        public DateTime? CreatedAt { get; set; }
+
+        /// <summary>
+        /// Thời gian cập nhật mục giỏ hàng
+        /// </summary>
+        public DateTime? UpdatedAt { get; set; }
     }
 }
