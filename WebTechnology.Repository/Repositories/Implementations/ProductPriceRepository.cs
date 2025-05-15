@@ -29,8 +29,8 @@ namespace WebTechnology.Repository.Repositories.Implementations
                 .FirstOrDefaultAsync();
             return new ProductPriceDTO
             {
-                PriceIsActive = productPriceIsActive.Value,
-                PriceIsDefault = productPriceIsDefault.Value,
+                PriceIsActive = productPriceIsActive.HasValue ? productPriceIsActive.Value : 0,
+                PriceIsDefault = productPriceIsDefault.HasValue ? productPriceIsDefault.Value : 0,
             };
         }
     }

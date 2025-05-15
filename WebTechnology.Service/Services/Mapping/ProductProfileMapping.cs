@@ -35,6 +35,10 @@ namespace WebTechnology.Repository.Mappings
                 .ForMember(dest => dest.Reviews, opt => opt.Ignore())
                 .ForMember(dest => dest.Status, opt => opt.Ignore())
                 .ForMember(dest => dest.UnitNavigation, opt => opt.Ignore());
+            CreateMap<ProductTrend, GetListProductTrends>()
+                .ForMember(dest => dest.Ptsid, opt => opt.MapFrom(src => src.Ptsid))
+                .ForMember(dest => dest.Trend, opt => opt.MapFrom(src => src.Trend))
+                .ForMember(dest => dest.Productid, opt => opt.MapFrom(src => src.Productid));
         }
     }
 }
