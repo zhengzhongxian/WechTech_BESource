@@ -8,7 +8,8 @@ namespace WebTechnology.Repository.CoreHelpers.Profiles
     {
         public CategoryProfile()
         {
-            CreateMap<Category, CategoryDTO>();
+            CreateMap<Category, CategoryDTO>()
+                .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent.ParentName));
             CreateMap<CategoryDTO, Category>();
             CreateMap<CreateCategoryDTO, Category>();
             CreateMap<UpdateCategoryDTO, Category>()

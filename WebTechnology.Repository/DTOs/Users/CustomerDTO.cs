@@ -18,5 +18,6 @@ namespace WebTechnology.Repository.DTOs.Users
         public DateTime Dob { get; set; }
         public string Email { get; set; }
         public string Gender { get; set; }
+        public int? Coupoun { get; set; }
     }
 }

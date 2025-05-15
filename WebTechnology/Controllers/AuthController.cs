@@ -19,7 +19,7 @@ namespace WebTechnology.API.Controllers
         }
 
         /// <summary>
-        /// Only admin, customer ko được phép gửi request api này.
+        /// Dành cho admin và staff, customer không được phép gửi request api này.
         /// </summary>
 
         [HttpPost("admin/login")]

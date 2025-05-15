@@ -8,5 +8,9 @@ public enum UserStatusType
     /// <summary>
     /// User is inactive in the system
     /// </summary>
-    Inactive = 2
+    Inactive = 2,
+    /// <summary>
+    /// User is banned in the system
+    /// </summary>
+    Banned = 3,
 }

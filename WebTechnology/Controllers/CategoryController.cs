@@ -50,7 +50,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="createDto">Category creation data</param>
         /// <returns>Created category</returns>
         [HttpPost]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDTO createDto)
         {
             if (!ModelState.IsValid)
@@ -72,7 +72,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="patchDoc">PATCH document</param>
         /// <returns>Updated category</returns>
         [HttpPatch("{id}")]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> PatchCategory(string id, [FromBody] JsonPatchDocument<Category> patchDoc)
         {
             if (patchDoc == null)
@@ -92,7 +92,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="id">Category ID</param>
         /// <returns>Deletion result</returns>
         [HttpDelete("{id}")]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> DeleteCategory(string id)
         {
             var response = await _categoryService.DeleteCategoryAsync(id);

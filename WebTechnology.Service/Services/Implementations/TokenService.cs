@@ -102,6 +102,20 @@ namespace WebTechnology.Service.Services.Implementationns
             }
         }
 
+        public string? GetRoleFromToken(string token)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
+                return jwtToken.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public bool IsTokenExpired(string token)
         {
             try

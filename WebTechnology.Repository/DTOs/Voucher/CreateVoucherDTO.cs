@@ -35,7 +35,8 @@ namespace WebTechnology.Repository.DTOs.Vouchers
 
         [DefaultValue(true)]
         public bool IsActive { get; set; } = true;
-
+        public bool IsRoot { get; set; } = true;
+        public int? Point { get; set; } = 0;
         public string? Metadata { get; set; }
     }
 }

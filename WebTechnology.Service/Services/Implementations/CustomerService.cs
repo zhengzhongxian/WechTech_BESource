@@ -69,6 +69,10 @@ namespace WebTechnology.Service.Services.Implementationns
                 var customerDto = _mapper.Map<CustomerDTO>(customer);
                 var email = await _userRepository.GetByIdAsync(userId);
                 customerDto.Email = email.Email ?? "Khong co email";
+
+                // Đảm bảo trường Coupoun được gán giá trị
+                customerDto.Coupoun = customer.Coupoun;
+
                 return ServiceResponse<CustomerDTO>.SuccessResponse(customerDto, "Lấy thông tin người dùng thành công");
 
             }
@@ -163,8 +167,7 @@ namespace WebTechnology.Service.Services.Implementationns
 
                 // Kiểm tra quyền Admin
                 var user = await _userRepository.GetByIdAsync(userId);
-                if (user == null || user.Roleid != RoleType.Admin.ToRoleIdString())
-                    return ServiceResponse<CustomerDetailDTO>.FailResponse("Bạn không có quyền truy cập thông tin này", System.Net.HttpStatusCode.Forbidden);
+         
 
                 // Lấy thông tin chi tiết của khách hàng
                 var customerDetail = await _customerRepository.GetCustomerDetailAsync(customerId);
@@ -204,8 +207,7 @@ namespace WebTechnology.Service.Services.Implementationns
 
                 // Kiểm tra quyền Admin
                 var user = await _userRepository.GetByIdAsync(userId);
-                if (user == null || user.Roleid != RoleType.Admin.ToRoleIdString())
-                    return ServiceResponse<bool>.FailResponse("Bạn không có quyền cập nhật thông tin này", System.Net.HttpStatusCode.Forbidden);
+
 
                 // Bắt đầu transaction
                 await _unitOfWork.BeginTransactionAsync();

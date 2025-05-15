@@ -12,6 +12,7 @@ public partial class Product
     public int? Stockquantity { get; set; }
 
     public int? SoldQuantity { get; set; }
+    public int? Rate { get; set; }
 
     public string? Bar { get; set; }
 

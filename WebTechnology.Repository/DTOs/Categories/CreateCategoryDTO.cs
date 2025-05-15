@@ -11,8 +11,8 @@ namespace WebTechnology.Repository.DTOs.Categories
         [Range(0, int.MaxValue, ErrorMessage = "Priority must be a non-negative number")]
         public int? Priority { get; set; }
 
-        public string Parentid { get; set; }
+        public string? Parentid { get; set; }
 
-        public string Metadata { get; set; }
+        public string? Metadata { get; set; }
     }
 } 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using WebTechnology.Repository.DTOs.Dimensions;
@@ -26,6 +27,7 @@ namespace WebTechnology.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> CreateDimension([FromBody] CreateDimensionDTO createDto)
         {
             var response = await _dimensionService.CreateDimensionAsync(createDto);
@@ -33,6 +35,7 @@ namespace WebTechnology.API.Controllers
         }
 
         [HttpPatch("{dimensionId}")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> UpdateDimension(string dimensionId, [FromBody] JsonPatchDocument<Dimension> patchDoc)
         {
             var response = await _dimensionService.UpdateDimensionAsync(dimensionId, patchDoc);
@@ -40,6 +43,7 @@ namespace WebTechnology.API.Controllers
         }
 
         [HttpDelete("{dimensionId}")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> DeleteDimension(string dimensionId)
         {
             var response = await _dimensionService.DeleteDimensionAsync(dimensionId);

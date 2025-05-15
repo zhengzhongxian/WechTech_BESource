@@ -10,5 +10,6 @@ namespace WebTechnology.Repository.CoreHelpers.Enums
     {
         Admin = 1,
         Customer = 2,
+        Staff = 3,
     }
 }

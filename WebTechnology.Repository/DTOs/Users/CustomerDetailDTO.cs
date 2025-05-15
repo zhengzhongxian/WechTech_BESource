@@ -33,5 +33,6 @@ namespace WebTechnology.Repository.DTOs.Users
         public string AvatarPublicId { get; set; }
         public DateTime? Dob { get; set; }
         public string Gender { get; set; }
+        public int? Coupoun { get; set; }
     }
 }

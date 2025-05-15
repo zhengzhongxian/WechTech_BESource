@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Logging;
 using WebTechnology.API;
 using WebTechnology.Repository.DTOs.Vouchers;
+using WebTechnology.Repository.Models.Pagination;
 using WebTechnology.Repository.Repositories.Interfaces;
 using WebTechnology.Repository.UnitOfWork;
 using WebTechnology.Service.Models;
@@ -47,15 +48,7 @@ namespace WebTechnology.Service.Services.Implementations
         {
             try
             {
-                if (!string.IsNullOrEmpty(createDto.Code))
-                {
-                    var voucherExists = await _voucherRepository.ExistsAsync(p => p.Code == createDto.Code);
-                    if (!voucherExists)
-                    {
-                        return ServiceResponse<Voucher>.ErrorResponse(
-                            $"Voucher với CODE '{createDto.Code}' không tồn tại. Vui lòng sử dụng code hợp lệ.");
-                    }
-                }
+                // Tạo voucher mới mà không cần kiểm tra code
                 var newVoucher = new Voucher
                 {
                     Voucherid = Guid.NewGuid().ToString(),
@@ -71,7 +64,9 @@ namespace WebTechnology.Service.Services.Implementations
                     IsActive = createDto.IsActive,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    Metadata = createDto.Metadata
+                    Metadata = createDto.Metadata,
+                    IsRoot = createDto.IsRoot,
+                    Point = createDto.Point,
                 };
                 await _voucherRepository.AddAsync(newVoucher);
                 await _unitOfWork.SaveChangesAsync();
@@ -132,6 +127,211 @@ namespace WebTechnology.Service.Services.Implementations
                     $"Lỗi khi xóa Voucher: {ex.Message}");
             }
         }
-    }
 
+        /// <summary>
+        /// Lấy danh sách voucher có phân trang
+        /// </summary>
+        public async Task<ServiceResponse<PaginatedResult<Voucher>>> GetPaginatedVouchersAsync(int pageNumber, int pageSize)
+        {
+            try
+            {
+                // Lấy tổng số voucher
+                var totalCount = await _voucherRepository.CountAsync();
+
+                // Lấy danh sách voucher theo trang
+                var vouchers = await _voucherRepository.GetPaginatedAsync(
+                    filter: null,
+                    orderBy: v => v.OrderByDescending(x => x.CreatedAt),
+                    pageNumber: pageNumber,
+                    pageSize: pageSize);
+
+                // Tạo metadata cho phân trang
+                var paginationMetadata = new PaginationMetadata(
+                    pageNumber,
+                    pageSize,
+                    totalCount
+                );
+
+                // Tạo kết quả phân trang
+                var paginatedResult = new PaginatedResult<Voucher>(
+                    vouchers.ToList(),
+                    paginationMetadata
+                );
+
+                return ServiceResponse<PaginatedResult<Voucher>>.SuccessResponse(
+                    paginatedResult,
+                    "Lấy danh sách voucher thành công");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy danh sách voucher có phân trang: {Message}", ex.Message);
+                return ServiceResponse<PaginatedResult<Voucher>>.ErrorResponse(
+                    $"Lỗi khi lấy danh sách voucher: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Lấy danh sách voucher có phân trang với bộ lọc IsRoot
+        /// </summary>
+        public async Task<ServiceResponse<PaginatedResult<Voucher>>> GetPaginatedVouchersByRootAsync(int pageNumber, int pageSize, bool isRoot = true)
+        {
+            try
+            {
+                // Lấy tổng số voucher theo bộ lọc IsRoot
+                var totalCount = await _voucherRepository.CountAsync(v => v.IsRoot == isRoot);
+
+                // Lấy danh sách voucher theo trang và bộ lọc IsRoot
+                var vouchers = await _voucherRepository.GetPaginatedAsync(
+                    filter: v => v.IsRoot == isRoot,
+                    orderBy: v => v.OrderByDescending(x => x.CreatedAt),
+                    pageNumber: pageNumber,
+                    pageSize: pageSize);
+
+                // Tạo metadata cho phân trang
+                var paginationMetadata = new PaginationMetadata(
+                    pageNumber,
+                    pageSize,
+                    totalCount
+                );
+
+                // Tạo kết quả phân trang
+                var paginatedResult = new PaginatedResult<Voucher>(
+                    vouchers.ToList(),
+                    paginationMetadata
+                );
+
+                return ServiceResponse<PaginatedResult<Voucher>>.SuccessResponse(
+                    paginatedResult,
+                    $"Lấy danh sách voucher {(isRoot ? "gốc" : "con")} thành công");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy danh sách voucher có phân trang theo IsRoot: {Message}", ex.Message);
+                return ServiceResponse<PaginatedResult<Voucher>>.ErrorResponse(
+                    $"Lỗi khi lấy danh sách voucher: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Lấy danh sách voucher có phân trang và lọc nâng cao dành cho Admin hoặc Staff
+        /// </summary>
+        public async Task<ServiceResponse<PaginatedResult<Voucher>>> GetFilteredVouchersForAdminAsync(VoucherQueryRequest queryRequest)
+        {
+            try
+            {
+                // Gọi repository để lấy danh sách voucher đã lọc và phân trang
+                var (vouchers, totalCount) = await _voucherRepository.GetFilteredVouchersAsync(queryRequest);
+
+                // Tạo metadata cho phân trang
+                var paginationMetadata = new PaginationMetadata(
+                    queryRequest.PageNumber,
+                    queryRequest.PageSize,
+                    totalCount
+                );
+
+                // Tạo kết quả phân trang
+                var paginatedResult = new PaginatedResult<Voucher>(
+                    vouchers.ToList(),
+                    paginationMetadata
+                );
+
+                return ServiceResponse<PaginatedResult<Voucher>>.SuccessResponse(
+                    paginatedResult,
+                    "Lấy danh sách voucher đã lọc thành công");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy danh sách voucher có phân trang và lọc: {Message}", ex.Message);
+                return ServiceResponse<PaginatedResult<Voucher>>.ErrorResponse(
+                    $"Lỗi khi lấy danh sách voucher: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Lấy danh sách voucher của khách hàng từ metadata
+        /// </summary>
+        /// <param name="queryRequest">Tham số truy vấn và lọc</param>
+        /// <returns>Danh sách voucher của khách hàng đã lọc và phân trang</returns>
+        public async Task<ServiceResponse<PaginatedResult<CustomerVoucherDTO>>> GetCustomerVouchersAsync(CustomerVoucherQueryRequest queryRequest)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(queryRequest.CustomerId))
+                {
+                    return ServiceResponse<PaginatedResult<CustomerVoucherDTO>>.FailResponse("ID khách hàng không được để trống");
+                }
+
+                // Gọi repository để lấy danh sách voucher của khách hàng
+                var (vouchers, totalCount) = await _voucherRepository.GetCustomerVouchersAsync(queryRequest);
+
+                // Chuyển đổi từ Voucher sang CustomerVoucherDTO
+                var customerVouchers = new List<CustomerVoucherDTO>();
+                foreach (var voucher in vouchers)
+                {
+                    // Phân tích metadata để lấy thông tin về ngày nhận voucher
+                    DateTime receivedDate = DateTime.UtcNow;
+                    string description = "";
+
+                    if (!string.IsNullOrEmpty(voucher.Metadata))
+                    {
+                        // Giả sử metadata có định dạng: "customerId:date:description"
+                        var parts = voucher.Metadata.Split(':');
+                        if (parts.Length >= 2)
+                        {
+                            // Phần tử thứ hai là ngày nhận
+                            if (DateTime.TryParse(parts[1], out DateTime parsedDate))
+                            {
+                                receivedDate = parsedDate;
+                            }
+
+                            // Phần tử thứ ba là mô tả (nếu có)
+                            if (parts.Length >= 3)
+                            {
+                                description = parts[2];
+                            }
+                        }
+                    }
+
+                    customerVouchers.Add(new CustomerVoucherDTO
+                    {
+                        VoucherId = voucher.Voucherid,
+                        Code = voucher.Code,
+                        DiscountValue = voucher.DiscountValue ?? 0,
+                        DiscountType = voucher.DiscountType ?? DiscountType.Percentage,
+                        StartDate = voucher.StartDate ?? DateTime.UtcNow,
+                        EndDate = voucher.EndDate ?? DateTime.UtcNow.AddDays(30),
+                        MinOrder = voucher.MinOrder,
+                        MaxDiscount = voucher.MaxDiscount,
+                        CreatedAt = voucher.CreatedAt,
+                        IsActive = voucher.IsActive ?? false,
+                        Description = description,
+                        ReceivedDate = receivedDate
+                    });
+                }
+
+                // Tạo metadata cho phân trang
+                var paginationMetadata = new PaginationMetadata(
+                    queryRequest.PageNumber,
+                    queryRequest.PageSize,
+                    totalCount
+                );
+
+                // Tạo kết quả phân trang
+                var paginatedResult = new PaginatedResult<CustomerVoucherDTO>(
+                    customerVouchers,
+                    paginationMetadata
+                );
+
+                return ServiceResponse<PaginatedResult<CustomerVoucherDTO>>.SuccessResponse(
+                    paginatedResult,
+                    "Lấy danh sách voucher của khách hàng thành công");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy danh sách voucher của khách hàng: {Message}", ex.Message);
+                return ServiceResponse<PaginatedResult<CustomerVoucherDTO>>.ErrorResponse(
+                    $"Lỗi khi lấy danh sách voucher của khách hàng: {ex.Message}");
+            }
+        }
+    }
 }

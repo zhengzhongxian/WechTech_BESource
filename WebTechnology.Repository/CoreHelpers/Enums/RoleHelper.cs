@@ -11,7 +11,8 @@ namespace WebTechnology.Repository.CoreHelpers.Enums
         private static readonly Dictionary<RoleType, string> RoleIdMap = new Dictionary<RoleType, string>
         {
             { RoleType.Admin, "d3f3c3b3-5b5b-4b4b-9b9b-7b7b7b7b7b7b" },
-            { RoleType.Customer, "e4f4c4b4-6c6c-4c4c-9c9c-8c8c8c8c8c8c" }
+            { RoleType.Customer, "e4f4c4b4-6c6c-4c4c-9c9c-8c8c8c8c8c8c" },
+            { RoleType.Staff, "f5f5d5c5-7d7d-4d4d-9d9d-9d9d9d9d9d9d" }
         };
 
         public static string ToRoleIdString(this RoleType roleType)

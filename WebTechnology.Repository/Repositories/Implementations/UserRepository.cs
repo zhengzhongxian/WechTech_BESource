@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebTechnology.API;
 using WebTechnology.Repository.CoreHelpers.Crud;
+using WebTechnology.Repository.CoreHelpers.Enums;
 using WebTechnology.Repository.DTOs.Users;
 using WebTechnology.Repository.Repositories.Interfaces;
 
@@ -62,7 +63,7 @@ namespace WebTechnology.Repository.Repositories.Implementations
             var query = _context.Users
                 .Include(u => u.Status)
                 .Include(u => u.Customer)
-                .Where(u => u.Customer != null) // Chỉ lấy người dùng là khách hàng
+                .Where(u => u.Customer != null && u.Roleid == RoleType.Customer.ToRoleIdString()) // Chỉ lấy người dùng là khách hàng
                 .AsQueryable();
 
             // Áp dụng các bộ lọc

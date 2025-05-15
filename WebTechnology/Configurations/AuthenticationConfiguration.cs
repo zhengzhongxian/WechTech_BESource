@@ -61,6 +61,8 @@ namespace WebTechnology.Configurations
 
                 options.AddPolicy("AdminOrCustomer", policy =>
                     policy.RequireClaim(ClaimTypes.Role, RoleType.Admin.ToRoleIdString(), RoleType.Customer.ToRoleIdString()));
+                options.AddPolicy("AdminOrStaff", policy =>
+                    policy.RequireClaim(ClaimTypes.Role, RoleType.Staff.ToRoleIdString(), RoleType.Admin.ToRoleIdString()));
             });
         }
     }

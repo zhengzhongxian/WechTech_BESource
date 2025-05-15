@@ -35,37 +35,65 @@ namespace WebTechnology.Configurations
                 // Check status code and handle unauthorized/forbidden
                 if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
                 {
-                    // Reset the response
-                    context.Response.Clear();
-                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    context.Response.ContentType = "application/json";
-                    
-                    var response = ServiceResponse<string>.FailResponse("Bạn không có quyền truy cập 1", HttpStatusCode.Unauthorized);
-                    var json = JsonSerializer.Serialize(response, new JsonSerializerOptions
+                    // Check if there's already a response body with a custom message
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    var responseBody = await new StreamReader(memoryStream).ReadToEndAsync();
+
+                    // If the response body is empty or not valid JSON, use a default message
+                    if (string.IsNullOrWhiteSpace(responseBody) || !IsValidJson(responseBody))
                     {
-                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                    });
-                    
-                    // Write the response to the original stream
-                    context.Response.Body = originalBody;
-                    await context.Response.WriteAsync(json);
+                        // Reset the response
+                        context.Response.Clear();
+                        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        context.Response.ContentType = "application/json";
+
+                        var response = ServiceResponse<string>.FailResponse("Bạn không có quyền truy cập", HttpStatusCode.Unauthorized);
+                        var json = JsonSerializer.Serialize(response, new JsonSerializerOptions
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                        });
+
+                        // Write the response to the original stream
+                        context.Response.Body = originalBody;
+                        await context.Response.WriteAsync(json);
+                    }
+                    else
+                    {
+                        // Use the existing response body
+                        context.Response.Body = originalBody;
+                        await context.Response.WriteAsync(responseBody);
+                    }
                 }
                 else if (context.Response.StatusCode == (int)HttpStatusCode.Forbidden)
                 {
-                    // Reset the response
-                    context.Response.Clear();
-                    context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                    context.Response.ContentType = "application/json";
-                    
-                    var response = ServiceResponse<string>.FailResponse("Bạn không đủ quyền truy cập tài nguyên này", HttpStatusCode.Forbidden);
-                    var json = JsonSerializer.Serialize(response, new JsonSerializerOptions
+                    // Check if there's already a response body with a custom message
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    var responseBody = await new StreamReader(memoryStream).ReadToEndAsync();
+
+                    // If the response body is empty or not valid JSON, use a default message
+                    if (string.IsNullOrWhiteSpace(responseBody) || !IsValidJson(responseBody))
                     {
-                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                    });
-                    
-                    // Write the response to the original stream
-                    context.Response.Body = originalBody;
-                    await context.Response.WriteAsync(json);
+                        // Reset the response
+                        context.Response.Clear();
+                        context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        context.Response.ContentType = "application/json";
+
+                        var response = ServiceResponse<string>.FailResponse("Bạn không đủ quyền truy cập tài nguyên này", HttpStatusCode.Forbidden);
+                        var json = JsonSerializer.Serialize(response, new JsonSerializerOptions
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                        });
+
+                        // Write the response to the original stream
+                        context.Response.Body = originalBody;
+                        await context.Response.WriteAsync(json);
+                    }
+                    else
+                    {
+                        // Use the existing response body
+                        context.Response.Body = originalBody;
+                        await context.Response.WriteAsync(responseBody);
+                    }
                 }
                 else
                 {
@@ -81,5 +109,24 @@ namespace WebTechnology.Configurations
                 context.Response.Body = originalBody;
             }
         }
+
+        /// <summary>
+        /// Checks if a string is valid JSON
+        /// </summary>
+        private bool IsValidJson(string strInput)
+        {
+            if (string.IsNullOrWhiteSpace(strInput))
+                return false;
+
+            try
+            {
+                JsonDocument.Parse(strInput);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
-} 
+}

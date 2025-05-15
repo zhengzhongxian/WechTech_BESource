@@ -24,6 +24,7 @@ namespace WebTechnology.Service.Services.Implementationns
         private readonly IApplyVoucherRepository _applyVoucherRepository;
         private readonly IProductPriceRepository _productPriceRepository;
         private readonly IImageRepository _imageRepository;
+        private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
@@ -35,6 +36,7 @@ namespace WebTechnology.Service.Services.Implementationns
             IApplyVoucherRepository applyVoucherRepository,
             IProductPriceRepository productPriceRepository,
             IImageRepository imageRepository,
+            ICustomerRepository customerRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IHttpContextAccessor httpContextAccessor,
@@ -46,9 +48,30 @@ namespace WebTechnology.Service.Services.Implementationns
             _applyVoucherRepository = applyVoucherRepository;
             _productPriceRepository = productPriceRepository;
             _imageRepository = imageRepository;
+            _customerRepository = customerRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _tokenService = tokenService;
+        }
+
+        /// <summary>
+        /// Tính số điểm coupon dựa trên tổng giá trị đơn hàng
+        /// </summary>
+        /// <param name="totalPrice">Tổng giá trị đơn hàng</param>
+        /// <returns>Số điểm coupon</returns>
+        private int CalculateCouponPoints(decimal totalPrice)
+        {
+            // Quy đổi: Cứ mỗi 100,000 VNĐ sẽ được 1 điểm coupon
+            // Làm tròn xuống để đảm bảo khách hàng phải chi tiêu đủ mức mới nhận được điểm
+            int points = (int)Math.Floor(totalPrice / 100000);
+
+            // Đảm bảo ít nhất là 1 điểm nếu đơn hàng có giá trị
+            if (totalPrice > 0 && points == 0)
+            {
+                points = 1;
+            }
+
+            return points;
         }
 
         private string ValidateAndGetUserId(string token)
@@ -556,13 +579,59 @@ namespace WebTechnology.Service.Services.Implementationns
                 var newStatus = statusId.ToOrderStatusType();
                 var currentStatus = order.StatusId.ToOrderStatusType();
 
+                // Kiểm tra nếu đơn hàng đã ở trạng thái COMPLETED hoặc CANCELLED thì không cho phép cập nhật
+                if (currentStatus == OrderStatusType.COMPLETED || currentStatus == OrderStatusType.CANCELLED)
+                    return ServiceResponse<bool>.FailResponse("Không thể cập nhật trạng thái đơn hàng đã hoàn thành hoặc đã hủy");
+
+                // Kiểm tra quy trình cập nhật trạng thái theo thứ tự
+                bool isValidStatusChange = false;
+                string errorMessage = "";
+
+                switch (currentStatus)
+                {
+                    case OrderStatusType.PENDING:
+                        // Chờ xác nhận chỉ có thể chuyển sang đã xác nhận hoặc hủy
+                        if (newStatus == OrderStatusType.CONFIRMED || newStatus == OrderStatusType.CANCELLED)
+                            isValidStatusChange = true;
+                        else
+                            errorMessage = "Đơn hàng chờ xác nhận chỉ có thể chuyển sang trạng thái đã xác nhận hoặc hủy";
+                        break;
+
+                    case OrderStatusType.CONFIRMED:
+                        // Đã xác nhận chỉ có thể chuyển sang đang xử lý hoặc hủy
+                        if (newStatus == OrderStatusType.PROCESSING || newStatus == OrderStatusType.CANCELLED)
+                            isValidStatusChange = true;
+                        else
+                            errorMessage = "Đơn hàng đã xác nhận chỉ có thể chuyển sang trạng thái đang xử lý hoặc hủy";
+                        break;
+
+                    case OrderStatusType.PROCESSING:
+                        // Đang xử lý chỉ có thể chuyển sang đang giao
+                        if (newStatus == OrderStatusType.SHIPPING)
+                            isValidStatusChange = true;
+                        else
+                            errorMessage = "Đơn hàng đang xử lý chỉ có thể chuyển sang trạng thái đang giao";
+                        break;
+
+                    case OrderStatusType.SHIPPING:
+                        // Đang giao chỉ có thể chuyển sang đã hoàn thành
+                        if (newStatus == OrderStatusType.COMPLETED)
+                            isValidStatusChange = true;
+                        else
+                            errorMessage = "Đơn hàng đang giao chỉ có thể chuyển sang trạng thái đã hoàn thành";
+                        break;
+
+                    default:
+                        errorMessage = "Không thể xác định quy trình cập nhật trạng thái";
+                        break;
+                }
+
+                if (!isValidStatusChange)
+                    return ServiceResponse<bool>.FailResponse(errorMessage);
+
                 // Nếu đang cập nhật sang trạng thái CANCELLED (hủy đơn hàng)
                 if (newStatus == OrderStatusType.CANCELLED)
                 {
-                    // Kiểm tra nếu đơn hàng đã hoàn thành hoặc đang giao hàng thì không cho phép hủy
-                    if (currentStatus == OrderStatusType.COMPLETED || currentStatus == OrderStatusType.SHIPPING)
-                        return ServiceResponse<bool>.FailResponse("Không thể hủy đơn hàng đã hoàn thành hoặc đang giao hàng");
-
                     // Hoàn lại số lượng tồn kho cho từng sản phẩm trong đơn hàng
                     foreach (var detail in order.OrderDetails)
                     {
@@ -594,6 +663,37 @@ namespace WebTechnology.Service.Services.Implementationns
                             await _productRepository.UpdateAsync(product);
                         }
                     }
+
+                    // Tích điểm coupon cho khách hàng khi đơn hàng hoàn thành
+                    if (!string.IsNullOrEmpty(order.CustomerId))
+                    {
+                        try
+                        {
+                            // Lấy thông tin khách hàng
+                            var customer = await _customerRepository.GetByIdAsync(order.CustomerId);
+                            if (customer != null)
+                            {
+                                // Tính số điểm coupon dựa trên tổng giá trị đơn hàng
+                                int couponPoints = CalculateCouponPoints(order.TotalPrice ?? 0);
+
+                                // Khởi tạo Coupoun nếu chưa có giá trị
+                                customer.Coupoun = customer.Coupoun ?? 0;
+
+                                // Cộng điểm coupon
+                                customer.Coupoun += couponPoints;
+
+                                // Cập nhật thông tin khách hàng
+                                await _customerRepository.UpdateAsync(customer);
+
+                                Console.WriteLine($"Added {couponPoints} coupon points to customer {customer.Customerid}. New total: {customer.Coupoun}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // Ghi log lỗi nhưng không dừng quá trình cập nhật trạng thái đơn hàng
+                            Console.WriteLine($"Error adding coupon points: {ex.Message}");
+                        }
+                    }
                 }
                 else if (newStatus == OrderStatusType.CANCELLED)
                 {
@@ -603,6 +703,125 @@ namespace WebTechnology.Service.Services.Implementationns
                 await _unitOfWork.CommitAsync();
 
                 return ServiceResponse<bool>.SuccessResponse(true, "Cập nhật trạng thái đơn hàng thành công");
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackAsync();
+                return ServiceResponse<bool>.ErrorResponse(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật trạng thái đơn hàng bất kỳ (chỉ dành cho admin)
+        /// </summary>
+        public async Task<ServiceResponse<bool>> AdminUpdateOrderStatusAsync(string orderId, string statusId, string token)
+        {
+            try
+            {
+                // Kiểm tra quyền admin
+                var userId = ValidateAndGetUserId(token);
+                var userRole = _tokenService.GetRoleFromToken(token);
+
+                // Chỉ cho phép admin thực hiện
+                if (userRole != RoleType.Admin.ToRoleIdString())
+                {
+                    return ServiceResponse<bool>.FailResponse("Chỉ admin mới có quyền cập nhật trạng thái đơn hàng bất kỳ");
+                }
+
+                await _unitOfWork.BeginTransactionAsync();
+
+                var order = await _orderRepository.GetByIdAsync(orderId);
+                if (order == null)
+                    return ServiceResponse<bool>.FailResponse("Không tìm thấy đơn hàng");
+
+                // Chuyển đổi statusId thành enum để dễ so sánh
+                var newStatus = statusId.ToOrderStatusType();
+                var currentStatus = order.StatusId.ToOrderStatusType();
+
+                // Cập nhật trạng thái đơn hàng mà không cần kiểm tra quy trình
+                order.StatusId = statusId;
+
+                // Xử lý các trường hợp đặc biệt
+                if (newStatus == OrderStatusType.COMPLETED)
+                {
+                    order.IsSuccess = true;
+
+                    // Tăng số lượng đã bán (SoldQuantity) cho từng sản phẩm trong đơn hàng
+                    foreach (var detail in order.OrderDetails)
+                    {
+                        var product = await _productRepository.GetByIdAsync(detail.ProductId);
+                        if (product != null)
+                        {
+                            // Khởi tạo SoldQuantity nếu chưa có giá trị
+                            product.SoldQuantity = product.SoldQuantity ?? 0;
+                            // Tăng SoldQuantity theo số lượng trong đơn hàng
+                            product.SoldQuantity += detail.Quantity ?? 0;
+                            await _productRepository.UpdateAsync(product);
+                        }
+                    }
+
+                    // Tích điểm coupon cho khách hàng khi đơn hàng hoàn thành
+                    if (!string.IsNullOrEmpty(order.CustomerId))
+                    {
+                        try
+                        {
+                            // Lấy thông tin khách hàng
+                            var customer = await _customerRepository.GetByIdAsync(order.CustomerId);
+                            if (customer != null)
+                            {
+                                // Tính số điểm coupon dựa trên tổng giá trị đơn hàng
+                                int couponPoints = CalculateCouponPoints(order.TotalPrice ?? 0);
+
+                                // Khởi tạo Coupoun nếu chưa có giá trị
+                                customer.Coupoun = customer.Coupoun ?? 0;
+
+                                // Cộng điểm coupon
+                                customer.Coupoun += couponPoints;
+
+                                // Cập nhật thông tin khách hàng
+                                await _customerRepository.UpdateAsync(customer);
+
+                                Console.WriteLine($"Added {couponPoints} coupon points to customer {customer.Customerid}. New total: {customer.Coupoun}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // Ghi log lỗi nhưng không dừng quá trình cập nhật trạng thái đơn hàng
+                            Console.WriteLine($"Error adding coupon points: {ex.Message}");
+                        }
+                    }
+                }
+                else if (newStatus == OrderStatusType.CANCELLED)
+                {
+                    order.IsSuccess = false;
+
+                    // Hoàn lại số lượng tồn kho cho từng sản phẩm trong đơn hàng
+                    foreach (var detail in order.OrderDetails)
+                    {
+                        var product = await _productRepository.GetByIdAsync(detail.ProductId);
+                        if (product != null)
+                        {
+                            product.Stockquantity += (detail.Quantity ?? 0);
+                            await _productRepository.UpdateAsync(product);
+                        }
+                    }
+                }
+
+                // Lưu lịch sử cập nhật trạng thái
+                var orderLog = new OrderLog
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    OrderId = orderId,
+                    OldStatusId = currentStatus.ToOrderStatusIdString(),
+                    NewStatusId = statusId,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+
+                await _orderRepository.UpdateAsync(order);
+                await _unitOfWork.CommitAsync();
+
+                return ServiceResponse<bool>.SuccessResponse(true, "Cập nhật trạng thái đơn hàng thành công (Admin mode)");
             }
             catch (Exception ex)
             {
@@ -644,7 +863,6 @@ namespace WebTechnology.Service.Services.Implementationns
                 var order = await _orderRepository.GetByIdAsync(orderId);
                 if (order == null)
                     return ServiceResponse<bool>.FailResponse("Không tìm thấy đơn hàng");
-
                 // Kiểm tra xem đơn hàng có thuộc về người dùng hiện tại không
                 if (order.CustomerId != userId)
                     return ServiceResponse<bool>.FailResponse("Bạn không có quyền hủy đơn hàng này");
@@ -656,9 +874,9 @@ namespace WebTechnology.Service.Services.Implementationns
                 if (currentStatus != OrderStatusType.PENDING && currentStatus != OrderStatusType.CONFIRMED)
                     return ServiceResponse<bool>.FailResponse("Chỉ có thể hủy đơn hàng ở trạng thái chờ xác nhận hoặc đã xác nhận");
 
-                // Kiểm tra thêm nếu đơn hàng đã hoàn thành hoặc đang giao hàng thì không cho phép hủy
-                if (currentStatus == OrderStatusType.COMPLETED || currentStatus == OrderStatusType.SHIPPING)
-                    return ServiceResponse<bool>.FailResponse("Không thể hủy đơn hàng đã hoàn thành hoặc đang giao hàng");
+                // Kiểm tra thêm nếu đơn hàng đã hoàn thành, đang giao hàng, hoặc đang xử lý thì không cho phép hủy
+                if (currentStatus == OrderStatusType.COMPLETED || currentStatus == OrderStatusType.SHIPPING || currentStatus == OrderStatusType.PROCESSING)
+                    return ServiceResponse<bool>.FailResponse("Không thể hủy đơn hàng đã hoàn thành, đang giao hàng hoặc đang xử lý");
 
                 // Hoàn lại số lượng tồn kho cho từng sản phẩm trong đơn hàng
                 foreach (var detail in order.OrderDetails)
@@ -684,6 +902,185 @@ namespace WebTechnology.Service.Services.Implementationns
             {
                 await _unitOfWork.RollbackAsync();
                 return ServiceResponse<bool>.ErrorResponse($"Lỗi khi hủy đơn hàng: {ex.Message}");
+            }
+        }
+
+        public async Task<ServiceResponse<PaginatedResult<OrderResponseDTO>>> GetCustomerOrderHistoryAsync(OrderHistoryQueryRequest request, string token)
+        {
+            try
+            {
+                // Lấy ID của customer từ token
+                var customerId = ValidateAndGetUserId(token);
+
+                // Gán customerId vào request
+                request.CustomerId = customerId;
+
+                // Chỉ lấy các đơn hàng thành công
+                request.OnlySuccessful = true;
+
+                // Gọi phương thức chung để lấy lịch sử đơn hàng
+                return await GetOrderHistoryInternalAsync(request);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<PaginatedResult<OrderResponseDTO>>.ErrorResponse(ex.Message);
+            }
+        }
+
+        public async Task<ServiceResponse<PaginatedResult<OrderResponseDTO>>> GetCustomerOrderHistoryByAdminAsync(OrderHistoryQueryRequest request, string token)
+        {
+            try
+            {
+                // Kiểm tra token hợp lệ
+                var userId = ValidateAndGetUserId(token);
+
+                // Kiểm tra customerId
+                if (string.IsNullOrEmpty(request.CustomerId))
+                {
+                    return ServiceResponse<PaginatedResult<OrderResponseDTO>>.FailResponse("CustomerId không được để trống");
+                }
+
+                // Gọi phương thức chung để lấy lịch sử đơn hàng
+                return await GetOrderHistoryInternalAsync(request);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<PaginatedResult<OrderResponseDTO>>.ErrorResponse(ex.Message);
+            }
+        }
+
+        public async Task<ServiceResponse<PaginatedResult<OrderResponseDTO>>> GetCustomerPaginatedOrdersAsync(OrderQueryRequest request, string token)
+        {
+            try
+            {
+                // Lấy ID của customer từ token
+                var customerId = ValidateAndGetUserId(token);
+
+                // Gán customerId vào request
+                request.CustomerId = customerId;
+
+                // Gọi phương thức có sẵn để lấy danh sách đơn hàng có phân trang
+                return await GetPaginatedOrdersAsync(request, token);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<PaginatedResult<OrderResponseDTO>>.ErrorResponse(ex.Message);
+            }
+        }
+
+        // Phương thức chung để lấy lịch sử đơn hàng
+        private async Task<ServiceResponse<PaginatedResult<OrderResponseDTO>>> GetOrderHistoryInternalAsync(OrderHistoryQueryRequest request)
+        {
+            try
+            {
+                // Lấy danh sách đơn hàng dưới dạng queryable
+                var query = _orderRepository.GetOrdersAsQueryable();
+
+                // Lọc theo customerId
+                if (!string.IsNullOrEmpty(request.CustomerId))
+                {
+                    query = query.Where(o => o.CustomerId == request.CustomerId);
+                }
+
+                // Lọc theo trạng thái thành công
+                if (request.OnlySuccessful == true)
+                {
+                    query = query.Where(o => o.IsSuccess == true);
+                }
+
+                // Lọc theo trạng thái cụ thể
+                if (!string.IsNullOrEmpty(request.StatusId))
+                {
+                    query = query.Where(o => o.StatusId == request.StatusId);
+                }
+
+                // Lọc theo từ khóa tìm kiếm
+                if (!string.IsNullOrEmpty(request.SearchTerm))
+                {
+                    query = query.Where(o =>
+                        o.OrderNumber.Contains(request.SearchTerm) ||
+                        o.ShippingAddress.Contains(request.SearchTerm) ||
+                        o.Notes.Contains(request.SearchTerm));
+                }
+
+                // Lọc theo khoảng thời gian
+                if (request.StartDate.HasValue)
+                {
+                    query = query.Where(o => o.OrderDate >= request.StartDate.Value);
+                }
+
+                if (request.EndDate.HasValue)
+                {
+                    // Thêm 1 ngày để bao gồm cả ngày kết thúc
+                    var endDatePlusOneDay = request.EndDate.Value.AddDays(1);
+                    query = query.Where(o => o.OrderDate < endDatePlusOneDay);
+                }
+
+                // Sắp xếp kết quả
+                if (!string.IsNullOrEmpty(request.SortBy))
+                {
+                    query = request.SortBy.ToLower() switch
+                    {
+                        "orderdate" => request.SortAscending
+                            ? query.OrderBy(o => o.OrderDate)
+                            : query.OrderByDescending(o => o.OrderDate),
+                        "totalprice" => request.SortAscending
+                            ? query.OrderBy(o => o.TotalPrice)
+                            : query.OrderByDescending(o => o.TotalPrice),
+                        "ordernumber" => request.SortAscending
+                            ? query.OrderBy(o => o.OrderNumber)
+                            : query.OrderByDescending(o => o.OrderNumber),
+                        "status" => request.SortAscending
+                            ? query.OrderBy(o => o.StatusId)
+                            : query.OrderByDescending(o => o.StatusId),
+                        _ => request.SortAscending
+                            ? query.OrderBy(o => o.OrderDate)
+                            : query.OrderByDescending(o => o.OrderDate)
+                    };
+                }
+                else
+                {
+                    // Mặc định sắp xếp theo ngày đặt hàng giảm dần (mới nhất lên đầu)
+                    query = query.OrderByDescending(o => o.OrderDate);
+                }
+
+                // Chuyển đổi sang DTO và phân trang
+                var paginatedResult = await query
+                    .Select(o => new OrderResponseDTO
+                    {
+                        OrderId = o.Orderid,
+                        OrderNumber = o.OrderNumber,
+                        CustomerId = o.CustomerId,
+                        OrderDate = o.OrderDate,
+                        ShippingAddress = o.ShippingAddress,
+                        ShippingFee = o.ShippingFee,
+                        ShippingCode = o.ShippingCode,
+                        TotalPrice = o.TotalPrice,
+                        PaymentMethod = o.PaymentMethod,
+                        PaymentMethodName = o.PaymentMethodNavigation.PaymentName ?? "CHƯA CÓ",
+                        Notes = o.Notes,
+                        CreatedAt = o.CreatedAt,
+                        StatusId = o.StatusId,
+                        IsSuccess = o.IsSuccess,
+                        OrderDetails = o.OrderDetails.Select(od => new OrderDetailResponseDTO
+                        {
+                            OrderDetailId = od.OrderDetailId,
+                            ProductId = od.ProductId,
+                            ProductName = od.Product.ProductName,
+                            ProductPrice = od.Price ?? 0,
+                            Quantity = od.Quantity,
+                            SubTotal = od.Quantity * (od.Price ?? 0),
+                            Img = od.Product.Images.FirstOrDefault(i => i.Order == "1") != null ?
+                                  od.Product.Images.FirstOrDefault(i => i.Order == "1").ImageData : null
+                        }).ToList()
+                    })
+                    .ToPaginatedListAsync(request.PageNumber, request.PageSize);
+
+                return ServiceResponse<PaginatedResult<OrderResponseDTO>>.SuccessResponse(paginatedResult);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<PaginatedResult<OrderResponseDTO>>.ErrorResponse(ex.Message);
             }
         }
     }

@@ -53,7 +53,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="createDto">Dữ liệu tạo sản phẩm</param>
         /// <returns>Trả về trạng thái kết quả</returns>
         [HttpPost]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDTO createDto)
         {
             if (!ModelState.IsValid)
@@ -98,7 +98,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="patchDoc">Document PATCH</param>
         /// <returns>Sản phẩm đã được cập nhật</returns>
         [HttpPatch("{id}")]
-        //[Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> PatchProduct(string id, [FromBody] JsonPatchDocument<Product> patchDoc)
         {
             if (patchDoc == null)
@@ -116,7 +116,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="id">ID của sản phẩm</param>
         /// <returns>Kết quả xóa sản phẩm</returns>
         [HttpDelete("{id}")]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> DeleteProduct(string id)
         {
             var response = await _productService.DeleteProductAsync(id);

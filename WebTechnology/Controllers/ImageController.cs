@@ -29,6 +29,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="createDto">Dữ liệu hình ảnh</param>
         /// <returns>Kết quả thêm hình ảnh</returns>
         [HttpPost]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> AddImage([FromBody] CreateImageDTO createDto)
         {
             if (!ModelState.IsValid)
@@ -50,6 +51,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="order">Thứ tự mới</param>
         /// <returns>Kết quả cập nhật</returns>
         [HttpPut("{id}/order")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> UpdateOrder(string id, [FromBody] string order)
         {
             var response = await _imageService.UpdateOrderAsync(id, order);
@@ -62,6 +64,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="id">ID của hình ảnh</param>
         /// <returns>Kết quả xóa hình ảnh</returns>
         [HttpDelete("{id}")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> DeleteImage(string id)
         {
             var response = await _imageService.DeleteImageAsync(id);

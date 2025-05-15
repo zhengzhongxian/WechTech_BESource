@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using WebTechnology.Repository.DTOs.ProductPrices;
@@ -32,6 +33,7 @@ namespace WebTechnology.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> CreateProductPrice([FromBody] ProductPriceCreateDTO createDto)
         {
             var response = await _productPriceService.CreateProductPriceAsync(createDto);
@@ -39,6 +41,7 @@ namespace WebTechnology.API.Controllers
         }
 
         [HttpPatch("{priceId}")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> UpdateProductPrice(string priceId, [FromBody] JsonPatchDocument<ProductPrice> patchDoc)
         {
             var response = await _productPriceService.UpdateProductPriceAsync(priceId, patchDoc);
@@ -46,6 +49,7 @@ namespace WebTechnology.API.Controllers
         }
 
         [HttpDelete("{priceId}")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> DeleteProductPrice(string priceId)
         {
             var response = await _productPriceService.DeleteProductPriceAsync(priceId);
@@ -53,6 +57,7 @@ namespace WebTechnology.API.Controllers
         }
 
         [HttpPut("{priceId}/set-default")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> SetDefaultPrice(string priceId, [FromBody] SetDefaultPriceRequest request)
         {
             var response = await _productPriceService.SetDefaultPriceAsync(priceId, request.IsDefault);
@@ -60,6 +65,7 @@ namespace WebTechnology.API.Controllers
         }
 
         [HttpPut("{priceId}/set-status")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> SetPriceStatus(string priceId, [FromBody] SetPriceStatusRequest request)
         {
             var response = await _productPriceService.SetPriceStatusAsync(priceId, request.IsActive);

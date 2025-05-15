@@ -43,6 +43,7 @@ namespace WebTechnology.Configurations
             services.AddScoped<IApplyVoucherRepository, ApplyVoucherRepository>();
             services.AddScoped<IUserStatusRepository, UserStatusRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IParentRepository, ParentRepository>();
 
             // Unit of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -69,6 +70,9 @@ namespace WebTechnology.Configurations
             services.AddScoped<IVoucherService, VoucherService>();
             services.AddScoped<IUserStatusService, UserStatusService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IParentService, ParentService>();
+            services.AddScoped<IProductCategoryService, ProductCategoryService>();
+            services.AddScoped<ICouponService, CouponService>();
         }
     }
 }

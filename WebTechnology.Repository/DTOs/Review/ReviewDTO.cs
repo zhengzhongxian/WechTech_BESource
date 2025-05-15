@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebTechnology.Repository.DTOs.Review
 {
@@ -12,5 +14,12 @@ namespace WebTechnology.Repository.DTOs.Review
         public int Rate { get; set; }
         public string CustomerName { get; set; }
         public DateTime CreatedAt { get; set; }
+        public List<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
     }
-} 
+
+    public class ReviewDetailDTO : ReviewDTO
+    {
+        public string ProductName { get; set; }
+        public string ProductImage { get; set; }
+    }
+}

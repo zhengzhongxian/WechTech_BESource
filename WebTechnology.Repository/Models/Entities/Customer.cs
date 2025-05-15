@@ -18,6 +18,7 @@ public partial class Customer
     public string? Address { get; set; }
 
     public string? Avatar { get; set; }
+    public int? Coupoun { get; set; }
 
     public DateTime? Dob { get; set; }
 

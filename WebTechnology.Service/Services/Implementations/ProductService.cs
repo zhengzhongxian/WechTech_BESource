@@ -263,7 +263,21 @@ namespace WebTechnology.Service.Services.Implementationns
                     }
                 }
 
-                // Phần xử lý categories đã được loại bỏ vì CreateProductDTO không có thuộc tính CategoryIds
+                // Add categories if provided
+                if (createDto.CategoryIds != null && createDto.CategoryIds.Any())
+                {
+                    foreach (var categoryId in createDto.CategoryIds)
+                    {
+                        var productCategory = new ProductCategory
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            Productid = product.Productid,
+                            Categoryid = categoryId
+                        };
+
+                        await _productCategoryRepository.AddAsync(productCategory);
+                    }
+                }
 
                 // Add images if provided
                 if (createDto.Images != null && createDto.Images.Any())

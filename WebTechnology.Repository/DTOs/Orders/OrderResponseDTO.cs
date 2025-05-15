@@ -20,6 +20,15 @@ namespace WebTechnology.Repository.DTOs.Orders
         public string? StatusId { get; set; }
         public bool? IsSuccess { get; set; }
         public List<OrderDetailResponseDTO> OrderDetails { get; set; } = new List<OrderDetailResponseDTO>();
+        public List<AppliedVoucherDTO> AppliedVouchers { get; set; } = new List<AppliedVoucherDTO>();
+    }
+
+    public class AppliedVoucherDTO
+    {
+        public string VoucherId { get; set; }
+        public string VoucherCode { get; set; }
+        public decimal? DiscountValue { get; set; }
+        public string DiscountType { get; set; }
     }
 
     public class OrderDetailResponseDTO
@@ -32,4 +41,4 @@ namespace WebTechnology.Repository.DTOs.Orders
         public int? Quantity { get; set; }
         public decimal? SubTotal { get; set; }
     }
-} 
+}

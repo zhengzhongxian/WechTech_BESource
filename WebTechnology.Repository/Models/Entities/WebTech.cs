@@ -320,6 +320,7 @@ public partial class WebTech : DbContext
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(20)
                 .HasColumnName("phone_number");
+            entity.Property(e => e.Coupoun).HasColumnName("coupoun");
             entity.Property(e => e.Surname)
                 .HasMaxLength(255)
                 .HasColumnName("surname");
@@ -718,6 +719,7 @@ public partial class WebTech : DbContext
                 .HasColumnName("status_id");
             entity.Property(e => e.Stockquantity).HasColumnName("stockquantity");
             entity.Property(e => e.SoldQuantity).HasColumnName("sold_quantity");
+            entity.Property(e => e.Rate).HasColumnName("rate");
             entity.Property(e => e.Unit)
                 .HasMaxLength(64)
                 .HasColumnName("unit");
@@ -1119,7 +1121,7 @@ public partial class WebTech : DbContext
                 .HasPrecision(18, 2)
                 .HasColumnName("max_discount");
             entity.Property(e => e.Metadata)
-                .HasMaxLength(64)
+                .HasMaxLength(255)
                 .HasColumnName("metadata");
             entity.Property(e => e.MinOrder)
                 .HasPrecision(18, 2)

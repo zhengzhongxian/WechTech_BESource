@@ -22,8 +22,10 @@ public partial class Voucher
     public int? UsedCount { get; set; }
 
     public decimal? MinOrder { get; set; }
+    public bool? IsRoot { get; set; }
 
     public decimal? MaxDiscount { get; set; }
+    public int? Point { get; set; }
 
     public bool? IsActive { get; set; }
 

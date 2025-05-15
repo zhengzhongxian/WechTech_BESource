@@ -13,6 +13,7 @@ namespace WebTechnology.Service.Services.Interfaces
         string GenerateAccessToken(User user);
         string GenerateRefreshToken(User user);
         string? GetUserIdFromToken(string token);
+        string? GetRoleFromToken(string token);
         bool IsTokenExpired(string token);
     }
 }

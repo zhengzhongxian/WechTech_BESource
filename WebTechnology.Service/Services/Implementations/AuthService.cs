@@ -61,8 +61,11 @@ namespace WebTechnology.Service.Services.Implementationns
                 if (user == null)
                     return AuthResponse.Fail("Tên đăng nhập hoặc mật khẩu không đúng");
 
-                if (user.Role?.RoleName != "Admin")
-                    return AuthResponse.Fail("Quyền truy cập bị từ chối. Chỉ dành cho Admin!", HttpStatusCode.Forbidden);
+                // Kiểm tra xem người dùng có phải là Admin hoặc Staff không
+                if (user.Roleid != RoleType.Admin.ToRoleIdString() && user.Roleid != RoleType.Staff.ToRoleIdString())
+                    return AuthResponse.Fail("Quyền truy cập bị từ chối. Chỉ dành cho Admin hoặc Staff!", HttpStatusCode.Forbidden);
+                if (user.StatusId == UserStatusType.Banned.ToUserStatusIdString())
+                    return AuthResponse.Fail("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ với quản trị viên để biết thêm thông tin.", HttpStatusCode.Forbidden);
                 user.StatusId = UserStatusType.Active.ToUserStatusIdString();
                 user.UpdatedAt = DateTime.UtcNow;
                 await _userRepository.UpdateAsync(user);
@@ -87,8 +90,11 @@ namespace WebTechnology.Service.Services.Implementationns
                 if (user == null)
                     return AuthResponse.Fail("Tên đăng nhập hoặc mật khẩu không đúng");
 
-                if (user.Role?.RoleName != "Customer")
+                // Kiểm tra xem người dùng có phải là Customer không
+                if (user.Roleid != RoleType.Customer.ToRoleIdString())
                     return AuthResponse.Fail("Quyền truy cập bị từ chối. Chỉ dành cho Khách hàng.", HttpStatusCode.Forbidden);
+                if (user.StatusId == UserStatusType.Banned.ToUserStatusIdString())
+                    return AuthResponse.Fail("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ với quản trị viên để biết thêm thông tin.", HttpStatusCode.Forbidden);
                 user.StatusId = UserStatusType.Active.ToUserStatusIdString();
                 user.UpdatedAt = DateTime.UtcNow;
                 await _userRepository.UpdateAsync(user);

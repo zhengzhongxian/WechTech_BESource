@@ -42,10 +42,10 @@ namespace WebTechnology.API.Controllers
         }
 
         /// <summary>
-        /// Lấy danh sách người dùng có phân trang (chỉ dành cho Admin)
+        /// Lấy danh sách người dùng có phân trang (chỉ dành cho Admin và Staff)
         /// </summary>
         [HttpGet("users")]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> GetPaginatedUsers([FromQuery] UserQueryRequest queryRequest)
         {
             var response = await _customerService.GetPaginatedUsersAsync(queryRequest);
@@ -71,7 +71,7 @@ namespace WebTechnology.API.Controllers
         /// </summary>
         /// <param name="customerId">ID của khách hàng</param>
         [HttpGet("{customerId}/detail")]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> GetCustomerDetail(string customerId)
         {
             string token = Request.Headers["Authorization"].ToString();
@@ -85,7 +85,7 @@ namespace WebTechnology.API.Controllers
         /// <param name="customerId">ID của khách hàng</param>
         /// <param name="updateDto">Thông tin cần cập nhật</param>
         [HttpPut("{customerId}/detail")]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOrStaff")]
         public async Task<IActionResult> UpdateCustomerDetail(string customerId, [FromBody] UpdateCustomerDetailDTO updateDto)
         {
             string token = Request.Headers["Authorization"].ToString();

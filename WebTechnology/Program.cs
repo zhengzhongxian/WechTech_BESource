@@ -105,6 +105,20 @@ app.UseSwaggerUI(c =>
     c.InjectJavascript("/swagger-ui/custom.js");
 });
 
+// Cấu hình ReDoc với giao diện màu sáng
+app.UseReDoc(c =>
+{
+    c.DocumentTitle = "Hien v Tam API Documentation";
+    c.RoutePrefix = "redoc";
+    c.SpecUrl = "/swagger/v1/swagger.json";
+    c.RequiredPropsFirst(); // Hiển thị các thuộc tính bắt buộc lên đầu
+    c.SortPropsAlphabetically(); // Sắp xếp thuộc tính theo bảng chữ cái
+    c.HideDownloadButton(); // Ẩn nút tải xuống
+    c.HideHostname(); // Ẩn hostname
+    c.ExpandResponses("200,201"); // Mở rộng các response thành công
+    c.InjectStylesheet("/redoc/custom-redoc.css"); // CSS tùy chỉnh cho ReDoc
+});
+
 app.MapControllers();
 
 // Seed data

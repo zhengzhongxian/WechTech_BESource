@@ -21,6 +21,8 @@ namespace WebTechnology.Repository.CoreHelpers.Profiles
                 .ForMember(dest => dest.Unit, opt => opt.MapFrom(src => src.UnitNavigation != null ? src.UnitNavigation.UnitName : null))
                 .ForMember(dest => dest.UnitId, opt => opt.MapFrom(src => src.UnitNavigation != null ? src.UnitNavigation.Unit1 : null))
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status != null ? src.Status.Name : null))
+                .ForMember(dest => dest.SoldQuantity, opt => opt.MapFrom(src => src.SoldQuantity))
+                .ForMember(dest => dest.Rate, opt => opt.MapFrom(src => src.Rate))
                 .ForMember(dest => dest.PriceActive, opt => opt.MapFrom(src => src.ProductPrices != null
                     ? src.ProductPrices.Where(pp => pp.IsActive == true).Select(pp => pp.Price).FirstOrDefault()
                     : (decimal?)null))

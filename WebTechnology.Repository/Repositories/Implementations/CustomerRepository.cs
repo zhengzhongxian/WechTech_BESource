@@ -56,7 +56,8 @@ namespace WebTechnology.Repository.Repositories.Implementations
                     Avatar = c.Avatar,
                     AvatarPublicId = c.Publicid, // Lấy PublicId từ trường Publicid trong database
                     Dob = c.Dob,
-                    Gender = c.Gender
+                    Gender = c.Gender,
+                    Coupoun = c.Coupoun
                 })
                 .FirstOrDefaultAsync();
         }

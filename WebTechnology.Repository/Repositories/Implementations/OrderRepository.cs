@@ -133,6 +133,8 @@ namespace WebTechnology.Repository.Repositories.Implementations
                 .Include(o => o.OrderDetails)
                     .ThenInclude(od => od.Product)
                         .ThenInclude(p => p.Images)
+                .Include(o => o.ApplyVouchers)
+                    .ThenInclude(av => av.Voucher)
                 .Where(o => o.Orderid == orderId)
                 .Select(o => new OrderResponseDTO
                 {
@@ -160,6 +162,13 @@ namespace WebTechnology.Repository.Repositories.Implementations
                         SubTotal = od.Quantity * (od.Price ?? 0),
                         Img = od.Product.Images.FirstOrDefault(i => i.Order == "1") != null ?
                               od.Product.Images.FirstOrDefault(i => i.Order == "1").ImageData : null
+                    }).ToList(),
+                    AppliedVouchers = o.ApplyVouchers.Select(av => new AppliedVoucherDTO
+                    {
+                        VoucherId = av.Voucher.Voucherid,
+                        VoucherCode = av.Voucher.Code,
+                        DiscountValue = av.Voucher.DiscountValue,
+                        DiscountType = av.Voucher.DiscountType.ToString()
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();

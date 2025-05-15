@@ -295,6 +295,10 @@ namespace WebTechnology.Repository.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("avatar");
 
+                    b.Property<int?>("Coupoun")
+                        .HasColumnType("int")
+                        .HasColumnName("coupoun");
+
                     b.Property<DateTime?>("Dob")
                         .HasMaxLength(6)
                         .HasColumnType("datetime(6)")
@@ -829,6 +833,10 @@ namespace WebTechnology.Repository.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("product_name");
+
+                    b.Property<int?>("Rate")
+                        .HasColumnType("int")
+                        .HasColumnName("rate");
 
                     b.Property<string>("Sku")
                         .HasMaxLength(100)
@@ -1388,20 +1396,26 @@ namespace WebTechnology.Repository.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("is_active");
 
+                    b.Property<bool?>("IsRoot")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<decimal?>("MaxDiscount")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("max_discount");
 
                     b.Property<string>("Metadata")
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("metadata");
 
                     b.Property<decimal?>("MinOrder")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("min_order");
+
+                    b.Property<int?>("Point")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDate")
                         .HasMaxLength(6)
