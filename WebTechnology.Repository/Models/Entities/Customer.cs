@@ -24,6 +24,7 @@ public partial class Customer
     public string? Gender { get; set; }
 
     public string? Metadata { get; set; }
+    public string? Publicid { get; set; }
 
     public virtual Cart? Cart { get; set; }
 

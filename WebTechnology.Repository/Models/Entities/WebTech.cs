@@ -323,6 +323,9 @@ public partial class WebTech : DbContext
             entity.Property(e => e.Surname)
                 .HasMaxLength(255)
                 .HasColumnName("surname");
+            entity.Property(e => e.Publicid)
+                .HasMaxLength(64)
+                .HasColumnName("publicid");
 
             entity.HasOne(d => d.CustomerNavigation).WithOne(p => p.Customer)
                 .HasForeignKey<Customer>(d => d.Customerid)
@@ -714,6 +717,7 @@ public partial class WebTech : DbContext
                 .HasMaxLength(64)
                 .HasColumnName("status_id");
             entity.Property(e => e.Stockquantity).HasColumnName("stockquantity");
+            entity.Property(e => e.SoldQuantity).HasColumnName("sold_quantity");
             entity.Property(e => e.Unit)
                 .HasMaxLength(64)
                 .HasColumnName("unit");

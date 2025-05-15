@@ -3,7 +3,7 @@ public static class UserStatusHelper
         private static readonly Dictionary<UserStatusType, string> UserStatusIdMap = new Dictionary<UserStatusType, string>
         {
             { UserStatusType.Active, "38f2e0ba-ab96-40bb-b9e9-b80a8231e4df" },
-            { UserStatusType.Inactive, "e4f4c4b4-6c6c-4c4c-9c9c-8c8c8c8c8c8c" }
+            { UserStatusType.Inactive, "a241f717-b088-475f-afc9-39df10f1396b" }
         };
 
         public static string ToUserStatusIdString(this UserStatusType userStatusType)

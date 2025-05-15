@@ -100,10 +100,10 @@ namespace WebTechnology.API.Controllers
         }
 
         /// <summary>
-        /// Update order status
+        /// Này chỉ admin mới được call để update trạng thái đơn hàng
         /// </summary>
         [HttpPut("{orderId}/status/{statusId}")]
-        [Authorize(Policy = "AdminOrCustomer")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> UpdateOrderStatus(string orderId, string statusId)
         {
             string token = Request.Headers["Authorization"].ToString();
@@ -120,6 +120,18 @@ namespace WebTechnology.API.Controllers
         {
             string token = Request.Headers["Authorization"].ToString();
             var response = await _orderService.CalculateOrderTotalAsync(orderId, token);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        /// <summary>
+        /// Này chỉ customer mới được call để cancel đơn hàng
+        /// </summary>
+        [HttpPost("{orderId}/cancel")]
+        [Authorize(Policy = "CustomerOnly")]
+        public async Task<IActionResult> CancelOrder(string orderId)
+        {
+            string token = Request.Headers["Authorization"].ToString();
+            var response = await _orderService.CancelOrderAndRestoreStockAsync(orderId, token);
             return StatusCode((int)response.StatusCode, response);
         }
     }

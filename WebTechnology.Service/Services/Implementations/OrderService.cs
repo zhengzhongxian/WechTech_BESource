@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using WebTechnology.API;
+using WebTechnology.Repository.CoreHelpers.Enums;
 using WebTechnology.Repository.DTOs.Orders;
 using WebTechnology.Repository.Repositories.Interfaces;
 using WebTechnology.Repository.UnitOfWork;
@@ -545,16 +546,67 @@ namespace WebTechnology.Service.Services.Implementationns
             try
             {
                 var userId = ValidateAndGetUserId(token);
+                await _unitOfWork.BeginTransactionAsync();
+
                 var order = await _orderRepository.GetByIdAsync(orderId);
                 if (order == null)
-                    return ServiceResponse<bool>.FailResponse("Order not found");
+                    return ServiceResponse<bool>.FailResponse("Không tìm thấy đơn hàng");
 
+                // Chuyển đổi statusId thành enum để dễ so sánh
+                var newStatus = statusId.ToOrderStatusType();
+                var currentStatus = order.StatusId.ToOrderStatusType();
 
-                var result = await _orderRepository.UpdateOrderStatusAsync(orderId, statusId);
-                return ServiceResponse<bool>.SuccessResponse(result);
+                // Nếu đang cập nhật sang trạng thái CANCELLED (hủy đơn hàng)
+                if (newStatus == OrderStatusType.CANCELLED)
+                {
+                    // Kiểm tra nếu đơn hàng đã hoàn thành hoặc đang giao hàng thì không cho phép hủy
+                    if (currentStatus == OrderStatusType.COMPLETED || currentStatus == OrderStatusType.SHIPPING)
+                        return ServiceResponse<bool>.FailResponse("Không thể hủy đơn hàng đã hoàn thành hoặc đang giao hàng");
+
+                    // Hoàn lại số lượng tồn kho cho từng sản phẩm trong đơn hàng
+                    foreach (var detail in order.OrderDetails)
+                    {
+                        var product = await _productRepository.GetByIdAsync(detail.ProductId);
+                        if (product != null)
+                        {
+                            product.Stockquantity += (detail.Quantity ?? 0);
+                            await _productRepository.UpdateAsync(product);
+                        }
+                    }
+                }
+
+                // Cập nhật trạng thái đơn hàng
+                order.StatusId = statusId;
+                if (newStatus == OrderStatusType.COMPLETED)
+                {
+                    order.IsSuccess = true;
+
+                    // Tăng số lượng đã bán (SoldQuantity) cho từng sản phẩm trong đơn hàng
+                    foreach (var detail in order.OrderDetails)
+                    {
+                        var product = await _productRepository.GetByIdAsync(detail.ProductId);
+                        if (product != null)
+                        {
+                            // Khởi tạo SoldQuantity nếu chưa có giá trị
+                            product.SoldQuantity = product.SoldQuantity ?? 0;
+                            // Tăng SoldQuantity theo số lượng trong đơn hàng
+                            product.SoldQuantity += detail.Quantity ?? 0;
+                            await _productRepository.UpdateAsync(product);
+                        }
+                    }
+                }
+                else if (newStatus == OrderStatusType.CANCELLED)
+                {
+                    order.IsSuccess = false;
+                }
+                await _orderRepository.UpdateAsync(order);
+                await _unitOfWork.CommitAsync();
+
+                return ServiceResponse<bool>.SuccessResponse(true, "Cập nhật trạng thái đơn hàng thành công");
             }
             catch (Exception ex)
             {
+                await _unitOfWork.RollbackAsync();
                 return ServiceResponse<bool>.ErrorResponse(ex.Message);
             }
         }
@@ -578,6 +630,60 @@ namespace WebTechnology.Service.Services.Implementationns
             catch (Exception ex)
             {
                 return ServiceResponse<decimal>.ErrorResponse(ex.Message);
+            }
+        }
+
+        public async Task<ServiceResponse<bool>> CancelOrderAndRestoreStockAsync(string orderId, string token)
+        {
+            try
+            {
+                var userId = ValidateAndGetUserId(token);
+                await _unitOfWork.BeginTransactionAsync();
+
+                // Lấy thông tin đơn hàng
+                var order = await _orderRepository.GetByIdAsync(orderId);
+                if (order == null)
+                    return ServiceResponse<bool>.FailResponse("Không tìm thấy đơn hàng");
+
+                // Kiểm tra xem đơn hàng có thuộc về người dùng hiện tại không
+                if (order.CustomerId != userId)
+                    return ServiceResponse<bool>.FailResponse("Bạn không có quyền hủy đơn hàng này");
+
+                // Sử dụng OrderStatusHelper để chuyển đổi từ string sang enum
+                var currentStatus = order.StatusId.ToOrderStatusType();
+
+                // Kiểm tra trạng thái đơn hàng, chỉ cho phép hủy đơn hàng ở trạng thái PENDING hoặc CONFIRMED
+                if (currentStatus != OrderStatusType.PENDING && currentStatus != OrderStatusType.CONFIRMED)
+                    return ServiceResponse<bool>.FailResponse("Chỉ có thể hủy đơn hàng ở trạng thái chờ xác nhận hoặc đã xác nhận");
+
+                // Kiểm tra thêm nếu đơn hàng đã hoàn thành hoặc đang giao hàng thì không cho phép hủy
+                if (currentStatus == OrderStatusType.COMPLETED || currentStatus == OrderStatusType.SHIPPING)
+                    return ServiceResponse<bool>.FailResponse("Không thể hủy đơn hàng đã hoàn thành hoặc đang giao hàng");
+
+                // Hoàn lại số lượng tồn kho cho từng sản phẩm trong đơn hàng
+                foreach (var detail in order.OrderDetails)
+                {
+                    var product = await _productRepository.GetByIdAsync(detail.ProductId);
+                    if (product != null)
+                    {
+                        product.Stockquantity += (detail.Quantity ?? 0);
+                        await _productRepository.UpdateAsync(product);
+                    }
+                }
+
+                // Cập nhật trạng thái đơn hàng thành CANCELLED sử dụng enum
+                order.StatusId = OrderStatusType.CANCELLED.ToOrderStatusIdString();
+                order.IsSuccess = false;
+
+                await _orderRepository.UpdateAsync(order);
+                await _unitOfWork.CommitAsync();
+
+                return ServiceResponse<bool>.SuccessResponse(true, "Đơn hàng đã được hủy thành công và số lượng tồn kho đã được hoàn lại");
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackAsync();
+                return ServiceResponse<bool>.ErrorResponse($"Lỗi khi hủy đơn hàng: {ex.Message}");
             }
         }
     }
