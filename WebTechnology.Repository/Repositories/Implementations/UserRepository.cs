@@ -130,5 +130,102 @@ namespace WebTechnology.Repository.Repositories.Implementations
                         : query.OrderByDescending(u => u.CreatedAt);
             }
         }
+        public async Task<(IEnumerable<AdminStaffDTO> Users, int TotalCount)> GetPaginatedAdminStaffUsersAsync(AdminStaffQueryRequest queryRequest)
+        {
+            // Tạo truy vấn cơ bản - lấy người dùng có vai trò Admin hoặc Staff
+            var query = _context.Users
+                .Include(u => u.Status)
+                .Include(u => u.Role)
+                .Where(u => u.Roleid == RoleType.Admin.ToRoleIdString() || u.Roleid == RoleType.Staff.ToRoleIdString())
+                .AsQueryable();
+
+            // Áp dụng bộ lọc theo vai trò nếu có
+            if (!string.IsNullOrWhiteSpace(queryRequest.RoleFilter))
+            {
+                if (queryRequest.RoleFilter.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                {
+                    query = query.Where(u => u.Roleid == RoleType.Admin.ToRoleIdString());
+                }
+                else if (queryRequest.RoleFilter.Equals("Staff", StringComparison.OrdinalIgnoreCase))
+                {
+                    query = query.Where(u => u.Roleid == RoleType.Staff.ToRoleIdString());
+                }
+            }
+
+            // Áp dụng các bộ lọc
+            if (!string.IsNullOrWhiteSpace(queryRequest.SearchTerm))
+            {
+                query = query.Where(u =>
+                    (u.Username != null && u.Username.Contains(queryRequest.SearchTerm)) ||
+                    (u.Email != null && u.Email.Contains(queryRequest.SearchTerm)));
+            }
+
+            // Đếm tổng số bản ghi
+            var totalCount = await query.CountAsync();
+
+            // Áp dụng sắp xếp
+            query = ApplySorting(query, queryRequest.SortBy, queryRequest.SortAscending);
+
+            // Áp dụng phân trang
+            var pagedUsers = await query
+                .Skip((queryRequest.PageNumber - 1) * queryRequest.PageSize)
+                .Take(queryRequest.PageSize)
+                .Select(u => new AdminStaffDTO
+                {
+                    UserId = u.Userid,
+                    Username = u.Username,
+                    Email = u.Email,
+                    Password = u.Password, // Thêm mật khẩu
+                    IsActive = u.IsActive ?? false,
+                    IsDeleted = u.IsDeleted ?? false,
+                    CreatedAt = u.CreatedAt,
+                    UpdatedAt = u.UpdatedAt,
+                    StatusId = u.StatusId,
+                    StatusName = u.Status != null ? u.Status.Name : null,
+                    RoleId = u.Roleid,
+                    RoleName = u.Role != null ? u.Role.RoleName : null
+                })
+                .ToListAsync();
+
+            return (pagedUsers, totalCount);
+        }
+
+        public async Task<AdminStaffDTO> GetAdminStaffDetailAsync(string userId)
+        {
+            return await _context.Users
+                .Include(u => u.Status)
+                .Include(u => u.Role)
+                .Where(u => u.Userid == userId &&
+                           (u.Roleid == RoleType.Admin.ToRoleIdString() || u.Roleid == RoleType.Staff.ToRoleIdString()))
+                .Select(u => new AdminStaffDTO
+                {
+                    UserId = u.Userid,
+                    Username = u.Username,
+                    Email = u.Email,
+                    Password = u.Password, // Thêm mật khẩu
+                    IsActive = u.IsActive ?? false,
+                    IsDeleted = u.IsDeleted ?? false,
+                    CreatedAt = u.CreatedAt,
+                    UpdatedAt = u.UpdatedAt,
+                    StatusId = u.StatusId,
+                    StatusName = u.Status != null ? u.Status.Name : null,
+                    RoleId = u.Roleid,
+                    RoleName = u.Role != null ? u.Role.RoleName : null
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> IsAdminOrStaffAsync(string userId)
+        {
+            var user = await _context.Users
+                .Where(u => u.Userid == userId)
+                .Select(u => new { u.Roleid })
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+                return false;
+
+            return user.Roleid == RoleType.Admin.ToRoleIdString() || user.Roleid == RoleType.Staff.ToRoleIdString();
+        }
     }
 }

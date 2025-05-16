@@ -73,6 +73,7 @@ namespace WebTechnology.Configurations
             services.AddScoped<IParentService, ParentService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
             services.AddScoped<ICouponService, CouponService>();
+            services.AddScoped<IAdminService, AdminService>();
         }
     }
 }
