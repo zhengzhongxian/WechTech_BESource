@@ -44,6 +44,7 @@ namespace WebTechnology.Configurations
             services.AddScoped<IUserStatusRepository, UserStatusRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IParentRepository, ParentRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
 
             // Unit of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -74,6 +75,7 @@ namespace WebTechnology.Configurations
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
             services.AddScoped<ICouponService, CouponService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IPaymentService, PaymentService>();
         }
     }
 }
