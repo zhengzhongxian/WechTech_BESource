@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using WebTechnology.API;
 using WebTechnology.Repository.DTOs.Vouchers;
 using WebTechnology.Repository.Models.Pagination;
@@ -15,16 +16,18 @@ namespace WebTechnology.Service.Services.Implementations
         private readonly IVoucherRepository _voucherRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<VoucherService> _logger;
-
+        private readonly ITokenService _tokenService;
 
         public VoucherService(
             IVoucherRepository voucherRepository,
             IUnitOfWork unitOfWork,
-            ILogger<VoucherService> logger)
+            ILogger<VoucherService> logger,
+            ITokenService tokenService)
         {
             _voucherRepository = voucherRepository;
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _tokenService = tokenService;
         }
 
         public async Task<ServiceResponse<Voucher>> GetVoucherAsync(string voucherId)
@@ -248,21 +251,54 @@ namespace WebTechnology.Service.Services.Implementations
         }
 
         /// <summary>
+        /// Lấy danh sách voucher gốc còn hiệu lực và còn lượt sử dụng
+        /// </summary>
+        /// <param name="filterRequest">Tham số lọc và phân trang</param>
+        /// <returns>Danh sách voucher đã lọc và phân trang</returns>
+        public async Task<ServiceResponse<PaginatedResult<Voucher>>> GetFilteredValidVouchersAsync(VoucherFilterRequest filterRequest)
+        {
+            try
+            {
+                // Gọi repository để lấy danh sách voucher đã lọc và phân trang
+                var (vouchers, totalCount) = await _voucherRepository.GetFilteredValidVouchersAsync(filterRequest);
+
+                // Tạo metadata cho phân trang
+                var paginationMetadata = new PaginationMetadata(
+                    filterRequest.PageNumber,
+                    filterRequest.PageSize,
+                    totalCount
+                );
+
+                // Tạo kết quả phân trang
+                var paginatedResult = new PaginatedResult<Voucher>(
+                    vouchers.ToList(),
+                    paginationMetadata
+                );
+
+                return ServiceResponse<PaginatedResult<Voucher>>.SuccessResponse(
+                    paginatedResult,
+                    "Lấy danh sách voucher hợp lệ thành công");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy danh sách voucher hợp lệ: {Message}", ex.Message);
+                return ServiceResponse<PaginatedResult<Voucher>>.ErrorResponse(
+                    $"Lỗi khi lấy danh sách voucher hợp lệ: {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// Lấy danh sách voucher của khách hàng từ metadata
         /// </summary>
         /// <param name="queryRequest">Tham số truy vấn và lọc</param>
         /// <returns>Danh sách voucher của khách hàng đã lọc và phân trang</returns>
-        public async Task<ServiceResponse<PaginatedResult<CustomerVoucherDTO>>> GetCustomerVouchersAsync(CustomerVoucherQueryRequest queryRequest)
+        public async Task<ServiceResponse<PaginatedResult<CustomerVoucherDTO>>> GetCustomerVouchersAsync(CustomerVoucherQueryRequest queryRequest, string token)
         {
             try
             {
-                if (string.IsNullOrEmpty(queryRequest.CustomerId))
-                {
-                    return ServiceResponse<PaginatedResult<CustomerVoucherDTO>>.FailResponse("ID khách hàng không được để trống");
-                }
-
+                var customerId = _tokenService.GetUserIdFromToken(token);
                 // Gọi repository để lấy danh sách voucher của khách hàng
-                var (vouchers, totalCount) = await _voucherRepository.GetCustomerVouchersAsync(queryRequest);
+                var (vouchers, totalCount) = await _voucherRepository.GetCustomerVouchersAsync(queryRequest, customerId);
 
                 // Chuyển đổi từ Voucher sang CustomerVoucherDTO
                 var customerVouchers = new List<CustomerVoucherDTO>();
@@ -292,6 +328,16 @@ namespace WebTechnology.Service.Services.Implementations
                         }
                     }
 
+                    // Kiểm tra xem voucher đã hết hạn hay chưa
+                    bool isExpired = (voucher.EndDate ?? DateTime.MaxValue) < DateTime.UtcNow;
+
+                    // Kiểm tra xem voucher còn lượt sử dụng hay không
+                    bool hasAvailableUsage = true;
+                    if (voucher.UsageLimit.HasValue && voucher.UsedCount.HasValue)
+                    {
+                        hasAvailableUsage = voucher.UsedCount < voucher.UsageLimit;
+                    }
+
                     customerVouchers.Add(new CustomerVoucherDTO
                     {
                         VoucherId = voucher.Voucherid,
@@ -305,7 +351,97 @@ namespace WebTechnology.Service.Services.Implementations
                         CreatedAt = voucher.CreatedAt,
                         IsActive = voucher.IsActive ?? false,
                         Description = description,
-                        ReceivedDate = receivedDate
+                        ReceivedDate = receivedDate,
+                        IsExpired = isExpired,
+                        HasAvailableUsage = hasAvailableUsage
+                    });
+                }
+
+                // Tạo metadata cho phân trang
+                var paginationMetadata = new PaginationMetadata(
+                    queryRequest.PageNumber,
+                    queryRequest.PageSize,
+                    totalCount
+                );
+
+                // Tạo kết quả phân trang
+                var paginatedResult = new PaginatedResult<CustomerVoucherDTO>(
+                    customerVouchers,
+                    paginationMetadata
+                );
+
+                return ServiceResponse<PaginatedResult<CustomerVoucherDTO>>.SuccessResponse(
+                    paginatedResult,
+                    "Lấy danh sách voucher của khách hàng thành công");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy danh sách voucher của khách hàng: {Message}", ex.Message);
+                return ServiceResponse<PaginatedResult<CustomerVoucherDTO>>.ErrorResponse(
+                    $"Lỗi khi lấy danh sách voucher của khách hàng: {ex.Message}");
+            }
+        }
+
+        public async Task<ServiceResponse<PaginatedResult<CustomerVoucherDTO>>> GetCustomerVouchersForAdminAsync(CustomerVoucherQueryRequestForAdmin queryRequest)
+        {
+            try
+            {
+                var (vouchers, totalCount) = await _voucherRepository.GetCustomerVouchersForAdminAsync(queryRequest);
+
+                // Chuyển đổi từ Voucher sang CustomerVoucherDTO
+                var customerVouchers = new List<CustomerVoucherDTO>();
+                foreach (var voucher in vouchers)
+                {
+                    // Phân tích metadata để lấy thông tin về ngày nhận voucher
+                    DateTime receivedDate = DateTime.UtcNow;
+                    string description = "";
+
+                    if (!string.IsNullOrEmpty(voucher.Metadata))
+                    {
+                        // Giả sử metadata có định dạng: "customerId:date:description"
+                        var parts = voucher.Metadata.Split(':');
+                        if (parts.Length >= 2)
+                        {
+                            // Phần tử thứ hai là ngày nhận
+                            if (DateTime.TryParse(parts[1], out DateTime parsedDate))
+                            {
+                                receivedDate = parsedDate;
+                            }
+
+                            // Phần tử thứ ba là mô tả (nếu có)
+                            if (parts.Length >= 3)
+                            {
+                                description = parts[2];
+                            }
+                        }
+                    }
+
+                    // Kiểm tra xem voucher đã hết hạn hay chưa
+                    bool isExpired = (voucher.EndDate ?? DateTime.MaxValue) < DateTime.UtcNow;
+
+                    // Kiểm tra xem voucher còn lượt sử dụng hay không
+                    bool hasAvailableUsage = true;
+                    if (voucher.UsageLimit.HasValue && voucher.UsedCount.HasValue)
+                    {
+                        hasAvailableUsage = voucher.UsedCount < voucher.UsageLimit;
+                    }
+
+                    customerVouchers.Add(new CustomerVoucherDTO
+                    {
+                        VoucherId = voucher.Voucherid,
+                        Code = voucher.Code,
+                        DiscountValue = voucher.DiscountValue ?? 0,
+                        DiscountType = voucher.DiscountType ?? DiscountType.Percentage,
+                        StartDate = voucher.StartDate ?? DateTime.UtcNow,
+                        EndDate = voucher.EndDate ?? DateTime.UtcNow.AddDays(30),
+                        MinOrder = voucher.MinOrder,
+                        MaxDiscount = voucher.MaxDiscount,
+                        CreatedAt = voucher.CreatedAt,
+                        IsActive = voucher.IsActive ?? false,
+                        Description = description,
+                        ReceivedDate = receivedDate,
+                        IsExpired = isExpired,
+                        HasAvailableUsage = hasAvailableUsage
                     });
                 }
 

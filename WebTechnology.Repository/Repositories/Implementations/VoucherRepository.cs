@@ -187,7 +187,113 @@ namespace WebTechnology.Repository.Repositories.Implementations
         /// </summary>
         /// <param name="queryRequest">Tham số truy vấn và lọc</param>
         /// <returns>Danh sách voucher của khách hàng đã lọc và phân trang</returns>
-        public async Task<(IEnumerable<Voucher> Vouchers, int TotalCount)> GetCustomerVouchersAsync(CustomerVoucherQueryRequest queryRequest)
+        public async Task<(IEnumerable<Voucher> Vouchers, int TotalCount)> GetCustomerVouchersAsync(CustomerVoucherQueryRequest queryRequest, string customerId)
+        {
+            if (string.IsNullOrEmpty(customerId))
+            {
+                return (new List<Voucher>(), 0);
+            }
+
+            // Lấy tất cả voucher có metadata chứa customerId
+            IQueryable<Voucher> query = _webTech.Vouchers
+                .Where(v => v.Metadata != null && v.Metadata.Contains(customerId));
+
+            // Áp dụng các bộ lọc
+            if (!string.IsNullOrWhiteSpace(queryRequest.SearchTerm))
+            {
+                query = query.Where(v => v.Code != null && v.Code.Contains(queryRequest.SearchTerm));
+            }
+
+            if (queryRequest.IsActive.HasValue)
+            {
+                query = query.Where(v => v.IsActive == queryRequest.IsActive.Value);
+            }
+
+            if (queryRequest.DiscountType.HasValue)
+            {
+                var discountTypeValue = (DiscountType)queryRequest.DiscountType.Value;
+                query = query.Where(v => v.DiscountType == discountTypeValue);
+            }
+
+            // Lọc theo ngày bắt đầu
+            if (queryRequest.StartDateFrom.HasValue)
+            {
+                query = query.Where(v => v.StartDate >= queryRequest.StartDateFrom.Value);
+            }
+
+            if (queryRequest.StartDateTo.HasValue)
+            {
+                query = query.Where(v => v.StartDate <= queryRequest.StartDateTo.Value);
+            }
+
+            // Lọc theo ngày kết thúc
+            if (queryRequest.EndDateFrom.HasValue)
+            {
+                query = query.Where(v => v.EndDate >= queryRequest.EndDateFrom.Value);
+            }
+
+            if (queryRequest.EndDateTo.HasValue)
+            {
+                query = query.Where(v => v.EndDate <= queryRequest.EndDateTo.Value);
+            }
+
+            // Đếm tổng số bản ghi sau khi lọc
+            var totalCount = await query.CountAsync();
+
+            // Áp dụng sắp xếp
+            query = ApplySorting(query, queryRequest.SortBy, queryRequest.SortAscending);
+
+            // Áp dụng phân trang
+            var vouchers = await query
+                .Skip((queryRequest.PageNumber - 1) * queryRequest.PageSize)
+                .Take(queryRequest.PageSize)
+                .ToListAsync();
+
+            return (vouchers, totalCount);
+        }
+        /// <summary>
+        /// Lấy danh sách voucher gốc còn hiệu lực và còn lượt sử dụng
+        /// </summary>
+        /// <param name="filterRequest">Tham số lọc và phân trang</param>
+        /// <returns>Danh sách voucher đã lọc và phân trang</returns>
+        public async Task<(IEnumerable<Voucher> Vouchers, int TotalCount)> GetFilteredValidVouchersAsync(VoucherFilterRequest filterRequest)
+        {
+            // Lấy ngày hiện tại
+            var currentDate = DateTime.UtcNow;
+
+            // Tạo truy vấn cơ bản
+            IQueryable<Voucher> query = _webTech.Vouchers
+                // Chỉ lấy voucher gốc
+                .Where(v => v.IsRoot == true)
+                // Chỉ lấy voucher còn hiệu lực
+                .Where(v => v.IsActive == true)
+                // Chỉ lấy voucher chưa hết hạn
+                .Where(v => v.EndDate > currentDate)
+                // Chỉ lấy voucher còn lượt sử dụng
+                .Where(v => v.UsageLimit == null || v.UsedCount < v.UsageLimit);
+
+            // Áp dụng tìm kiếm theo mã voucher nếu có
+            if (!string.IsNullOrWhiteSpace(filterRequest.SearchTerm))
+            {
+                query = query.Where(v => v.Code != null && v.Code.Contains(filterRequest.SearchTerm));
+            }
+
+            // Đếm tổng số bản ghi sau khi lọc
+            var totalCount = await query.CountAsync();
+
+            // Mặc định sắp xếp theo ngày tạo giảm dần
+            query = query.OrderByDescending(v => v.CreatedAt);
+
+            // Áp dụng phân trang
+            var vouchers = await query
+                .Skip((filterRequest.PageNumber - 1) * filterRequest.PageSize)
+                .Take(filterRequest.PageSize)
+                .ToListAsync();
+
+            return (vouchers, totalCount);
+        }
+
+        public async Task<(IEnumerable<Voucher> Vouchers, int TotalCount)> GetCustomerVouchersForAdminAsync(CustomerVoucherQueryRequestForAdmin queryRequest)
         {
             if (string.IsNullOrEmpty(queryRequest.CustomerId))
             {

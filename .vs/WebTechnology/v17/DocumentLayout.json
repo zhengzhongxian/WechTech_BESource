@@ -3,32 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\migrations\\20250515132927_add2columnupdateandcreatetotablecartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\migrations\\20250515132927_add2columnupdateandcreatetotablecartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\cartitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\cartitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementations\\cartitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\implementations\\cartitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\imagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\imagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\productpricecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\productpricecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\products\\productpricedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\products\\productpricedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\couponcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\couponcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementations\\voucherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,124 +15,24 @@
       "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\implementations\\voucherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\repositories\\implementations\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\implementations\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\repositories\\interfaces\\ivoucherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\interfaces\\ivoucherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementations\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\implementations\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\vouchers\\customervoucherqueryrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\vouchers\\customervoucherqueryrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\vouchers\\customervoucherqueryrequestforadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\vouchers\\customervoucherqueryrequestforadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\vouchercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\vouchercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\corehelpers\\enums\\userstatushelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\corehelpers\\enums\\userstatushelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\voucher\\createvoucherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\voucher\\createvoucherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\interfaces\\ivoucherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\interfaces\\ivoucherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\vouchers\\voucherqueryrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\vouchers\\voucherqueryrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementations\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\implementations\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\corehelpers\\enums\\rolehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\corehelpers\\enums\\rolehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\corehelpers\\enums\\roletype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\corehelpers\\enums\\roletype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\corehelpers\\enums\\orderstatushelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\corehelpers\\enums\\orderstatushelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\productcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\productcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\dimensioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\dimensioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\configurations\\authenticationconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\configurations\\authenticationconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\configurations\\customunauthorizedmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\configurations\\customunauthorizedmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementations\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\implementations\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\corehelpers\\enums\\userstatustype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\corehelpers\\enums\\userstatustype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.service\\services\\implementations\\couponservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B51D4E48-3490-4A75-A99C-4AB04B0D34CA}|WebTechnology.Service\\WebTechnology.Service.csproj|solutionrelative:webtechnology.service\\services\\implementations\\couponservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\controllers\\couponcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\controllers\\couponcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\repositories\\implementations\\applyvoucherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\repositories\\implementations\\applyvoucherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\migrations\\20250514172936_updatelengthmetadata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\migrations\\20250514172936_updatelengthmetadata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\models\\entities\\webtech.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\models\\entities\\webtech.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\dtos\\coupons\\redeemcoupondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\dtos\\coupons\\redeemcoupondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\models\\entities\\voucher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\models\\entities\\voucher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\migrations\\20250514171742_addisroottovoucher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\migrations\\20250514171742_addisroottovoucher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology.repository\\migrations\\20250514165521_addcoupountovoucher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C038D32-4318-4199-A497-BD30108438AD}|WebTechnology.Repository\\WebTechnology.Repository.csproj|solutionrelative:webtechnology.repository\\migrations\\20250514165521_addcoupountovoucher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -171,480 +47,113 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20250515132927_Add2ColumnUpdateandCreateToTableCartItem.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250515132927_Add2ColumnUpdateandCreateToTableCartItem.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\Migrations\\20250515132927_Add2ColumnUpdateandCreateToTableCartItem.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250515132927_Add2ColumnUpdateandCreateToTableCartItem.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\Migrations\\20250515132927_Add2ColumnUpdateandCreateToTableCartItem.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T13:29:29.249Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CartItemController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CartItemController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\CartItemController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CartItemController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\CartItemController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAwB8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T10:21:05.591Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ProductPriceDTO.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Products\\ProductPriceDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T09:47:20.573Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\UserRepository.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\UserRepository.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\UserRepository.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Implementations\\UserRepository.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAqwEEAAABgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T07:38:37.215Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T07:23:03.792Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "CreateVoucherDTO.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Voucher\\CreateVoucherDTO.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Voucher\\CreateVoucherDTO.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Voucher\\CreateVoucherDTO.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Voucher\\CreateVoucherDTO.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAYwCYAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T05:08:13.579Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "CustomerController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CustomerController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\CustomerController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CustomerController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\CustomerController.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAgwDIAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:58:24.683Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "UserStatusHelper.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\UserStatusHelper.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Enums\\UserStatusHelper.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\UserStatusHelper.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\CoreHelpers\\Enums\\UserStatusHelper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:00:47.059Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "VoucherController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\VoucherController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\VoucherController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\VoucherController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\VoucherController.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAADwv1UAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T16:39:51.735Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "VoucherService.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\VoucherService.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\VoucherService.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\VoucherService.cs",
-              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\VoucherService.cs",
-              "ViewState": "AgIAAP8AAAAAAAAAAAAIwAQBAACAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T17:18:36.416Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "IVoucherService.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\IVoucherService.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Interfaces\\IVoucherService.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\IVoucherService.cs",
-              "RelativeToolTip": "WebTechnology.Service\\Services\\Interfaces\\IVoucherService.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAIA/wAwAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T17:18:27.582Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "CustomerService.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\CustomerService.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\CustomerService.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\CustomerService.cs",
-              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\CustomerService.cs",
-              "ViewState": "AgIAAHYAAAAAAAAAAAAcwHkAAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T21:03:28.555Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "CategoryController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CategoryController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\CategoryController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CategoryController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\CategoryController.cs",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAkwF4AAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T21:13:36.718Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "ProductCategoryController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductCategoryController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\ProductCategoryController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductCategoryController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\ProductCategoryController.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAqwF0AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:31:47.184Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "OrderStatusHelper.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\OrderStatusHelper.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Enums\\OrderStatusHelper.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\OrderStatusHelper.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\CoreHelpers\\Enums\\OrderStatusHelper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:40:29.391Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ProductPriceController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductPriceController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\ProductPriceController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductPriceController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\ProductPriceController.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAAAEMAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:29:23.361Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ImageController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ImageController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\ImageController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ImageController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\ImageController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:29:00.523Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "DimensionController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\DimensionController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\DimensionController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\DimensionController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\DimensionController.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAA3wC0AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:28:32.871Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\ProductController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\ProductController.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAQwCAAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:26:24.571Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "OrderController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\OrderController.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\OrderController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\OrderController.cs",
-              "RelativeToolTip": "WebTechnology\\Controllers\\OrderController.cs",
-              "ViewState": "AgIAAMIBAAAAAAAAAAAcwNIBAABRAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:23:53.023Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "AuthenticationConfiguration.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Configurations\\AuthenticationConfiguration.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Configurations\\AuthenticationConfiguration.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Configurations\\AuthenticationConfiguration.cs",
-              "RelativeToolTip": "WebTechnology\\Configurations\\AuthenticationConfiguration.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAQwEAAAAB5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:13:33.884Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "RoleHelper.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleHelper.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:11:48.678Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "RoleType.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\RoleType.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleType.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\RoleType.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\CoreHelpers\\Enums\\RoleType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:11:41.22Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "CustomUnauthorizedMiddleware.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Configurations\\CustomUnauthorizedMiddleware.cs",
-              "RelativeDocumentMoniker": "WebTechnology\\Configurations\\CustomUnauthorizedMiddleware.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Configurations\\CustomUnauthorizedMiddleware.cs",
-              "RelativeToolTip": "WebTechnology\\Configurations\\CustomUnauthorizedMiddleware.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:11:03.799Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "UserStatusType.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\UserStatusType.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\CoreHelpers\\Enums\\UserStatusType.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\CoreHelpers\\Enums\\UserStatusType.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\CoreHelpers\\Enums\\UserStatusType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:00:21.009Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\AuthService.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\AuthService.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\AuthService.cs",
-              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\AuthService.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAqwGAAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:00:01.722Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "ApplyVoucherRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\ApplyVoucherRepository.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\ApplyVoucherRepository.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\ApplyVoucherRepository.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Implementations\\ApplyVoucherRepository.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAgwEgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T17:31:48.859Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "20250514172936_UpdateLengthMetadata.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250514172936_UpdateLengthMetadata.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\Migrations\\20250514172936_UpdateLengthMetadata.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250514172936_UpdateLengthMetadata.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\Migrations\\20250514172936_UpdateLengthMetadata.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAzwBwAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T17:29:36.894Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "WebTech.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\WebTech.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\WebTech.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\WebTech.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\Models\\Entities\\WebTech.cs",
-              "ViewState": "AgIAAFwEAAAAAAAAAAAqwGMEAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T17:28:42.99Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "OrderService.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\OrderService.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\OrderService.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\OrderService.cs",
-              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\OrderService.cs",
-              "ViewState": "AgIAAM4CAAAAAAAAAAAcwNcCAAB6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T17:20:52.785Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "20250514171742_AddIsRootToVoucher.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250514171742_AddIsRootToVoucher.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\Migrations\\20250514171742_AddIsRootToVoucher.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250514171742_AddIsRootToVoucher.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\Migrations\\20250514171742_AddIsRootToVoucher.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T17:17:42.989Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "RedeemCouponDTO.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Coupons\\RedeemCouponDTO.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Coupons\\RedeemCouponDTO.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Coupons\\RedeemCouponDTO.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Coupons\\RedeemCouponDTO.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAowAwAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T16:59:53.194Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "20250514165521_AddCoupounToVoucher.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250514165521_AddCoupounToVoucher.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\Migrations\\20250514165521_AddCoupounToVoucher.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Migrations\\20250514165521_AddCoupounToVoucher.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\Migrations\\20250514165521_AddCoupounToVoucher.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T16:55:21.437Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "CouponService.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\CouponService.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\CouponService.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\CouponService.cs",
-              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\CouponService.cs",
-              "ViewState": "AgIAACYBAAAAAAAAAAAAALsAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T16:40:18.935Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "Voucher.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\Voucher.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\Models\\Entities\\Voucher.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Models\\Entities\\Voucher.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\Models\\Entities\\Voucher.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAkwBgAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T16:53:14.344Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
               "Title": "CouponController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CouponController.cs",
               "RelativeDocumentMoniker": "WebTechnology\\Controllers\\CouponController.cs",
               "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\CouponController.cs",
               "RelativeToolTip": "WebTechnology\\Controllers\\CouponController.cs",
-              "ViewState": "AgIAAHEAAAAAAAAAAAAswJgAAABHAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAYwGoAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T16:39:54.775Z"
-            }
-          ]
-        },
-        {
-          "DockedHeight": 105,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CartItemService.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\CartItemService.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\CartItemService.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\CartItemService.cs",
-              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\CartItemService.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAADwv2MAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T11:06:03.445Z",
+              "WhenOpened": "2025-05-17T03:34:22.083Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "VoucherRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\VoucherRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\VoucherRepository.cs",
               "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\VoucherRepository.cs",
               "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Implementations\\VoucherRepository.cs",
-              "ViewState": "AgIAANUAAAAAAAAAAAAuwNYAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAGUBAAAAAAAAAAAAACcBAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T05:00:07.419Z"
+              "WhenOpened": "2025-05-17T02:57:50.205Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "VoucherQueryRequest.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Vouchers\\VoucherQueryRequest.cs",
-              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Vouchers\\VoucherQueryRequest.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Vouchers\\VoucherQueryRequest.cs",
-              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Vouchers\\VoucherQueryRequest.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAA3wCwAAAATAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "IVoucherRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IVoucherRepository.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Interfaces\\IVoucherRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Interfaces\\IVoucherRepository.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Interfaces\\IVoucherRepository.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAmwCsAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T04:29:25.566Z"
+              "WhenOpened": "2025-05-17T02:57:15.836Z",
+              "EditorCaption": ""
             },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VoucherService.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\VoucherService.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\VoucherService.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\VoucherService.cs",
+              "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\VoucherService.cs",
+              "ViewState": "AgIAANEAAAAAAAAAAAAEwCoBAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T02:54:48.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IVoucherService.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\IVoucherService.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Interfaces\\IVoucherService.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Interfaces\\IVoucherService.cs",
+              "RelativeToolTip": "WebTechnology.Service\\Services\\Interfaces\\IVoucherService.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAkwDUAAACUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T02:54:32.972Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CustomerVoucherQueryRequest.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Vouchers\\CustomerVoucherQueryRequest.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Vouchers\\CustomerVoucherQueryRequest.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Vouchers\\CustomerVoucherQueryRequest.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Vouchers\\CustomerVoucherQueryRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T02:52:25.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CustomerVoucherQueryRequestForAdmin.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Vouchers\\CustomerVoucherQueryRequestForAdmin.cs",
+              "RelativeDocumentMoniker": "WebTechnology.Repository\\DTOs\\Vouchers\\CustomerVoucherQueryRequestForAdmin.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\DTOs\\Vouchers\\CustomerVoucherQueryRequestForAdmin.cs",
+              "RelativeToolTip": "WebTechnology.Repository\\DTOs\\Vouchers\\CustomerVoucherQueryRequestForAdmin.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwA0AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T02:52:13.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "VoucherController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\VoucherController.cs",
+              "RelativeDocumentMoniker": "WebTechnology\\Controllers\\VoucherController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Controllers\\VoucherController.cs",
+              "RelativeToolTip": "WebTechnology\\Controllers\\VoucherController.cs",
+              "ViewState": "AgIAALAAAAAAAAAAAAAawLoAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T02:50:56.587Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 105,
+          "SelectedChildIndex": -1,
+          "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"

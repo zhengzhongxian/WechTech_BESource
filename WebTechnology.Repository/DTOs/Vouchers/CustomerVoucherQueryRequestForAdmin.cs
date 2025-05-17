@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace WebTechnology.Repository.DTOs.Vouchers
 {
-    /// <summary>
-    /// DTO cho việc truy vấn danh sách voucher của khách hàng
-    /// </summary>
-    public class CustomerVoucherQueryRequest
+    public class CustomerVoucherQueryRequestForAdmin
     {
+        /// <summary>
+        /// ID của khách hàng
+        /// </summary>
+        public string CustomerId { get; set; }
+
         /// <summary>
         /// Số trang (bắt đầu từ 1)
         /// </summary>

@@ -31,12 +31,21 @@ namespace WebTechnology.API.Controllers
         }
 
         /// <summary>
-        /// Lấy danh sách voucher có phân trang
+        /// Lấy danh sách voucher gốc còn hiệu lực và còn lượt sử dụng
         /// </summary>
+        /// <remarks>
+        /// API này trả về danh sách các voucher gốc (IsRoot = true) còn hiệu lực (IsActive = true),
+        /// chưa hết hạn (EndDate > ngày hiện tại) và còn lượt sử dụng (UsedCount < UsageLimit).
+        ///
+        /// Các tham số:
+        /// - pageNumber: Số trang (bắt đầu từ 1)
+        /// - pageSize: Số lượng voucher mỗi trang
+        /// - searchTerm: Từ khóa tìm kiếm theo mã voucher
+        /// </remarks>
         [HttpGet]
-        public async Task<IActionResult> GetVouchers([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetVouchers([FromQuery] VoucherFilterRequest filterRequest)
         {
-            var response = await _voucherService.GetPaginatedVouchersAsync(pageNumber, pageSize);
+            var response = await _voucherService.GetFilteredValidVouchersAsync(filterRequest);
             return StatusCode((int)response.StatusCode, response);
         }
 
@@ -123,21 +132,31 @@ namespace WebTechnology.API.Controllers
         /// - SortBy: Sắp xếp theo trường (CreatedAt, Code, DiscountValue, StartDate, EndDate)
         /// - SortAscending: Sắp xếp tăng dần (true) hoặc giảm dần (false)
         /// </remarks>
+
+        /// <summary>
+        /// Lấy danh sách voucher của khách hàng từ metadata
+        /// </summary>
+        /// <remarks>
+        /// API này cho phép khách hàng lấy danh sách voucher của mình từ metadata với phân trang và lọc.
+        /// CustomerId được lấy tự động từ token JWT, không cần truyền vào.
+        ///
+        /// Các tham số lọc:
+        /// - SearchTerm: Tìm kiếm theo mã voucher
+        /// - IsActive: Lọc theo trạng thái hoạt động (true/false)
+        /// - DiscountType: Lọc theo loại giảm giá (0: Phần trăm, 1: Giá trị cố định)
+        /// - StartDateFrom/StartDateTo: Lọc theo khoảng thời gian bắt đầu
+        /// - EndDateFrom/EndDateTo: Lọc theo khoảng thời gian kết thúc
+        ///
+        /// Các tham số sắp xếp:
+        /// - SortBy: Sắp xếp theo trường (CreatedAt, Code, DiscountValue, StartDate, EndDate)
+        /// - SortAscending: Sắp xếp tăng dần (true) hoặc giảm dần (false)
+        /// </remarks>
         [HttpGet("customer-vouchers")]
         [Authorize(Policy = "CustomerOnly")]
         public async Task<IActionResult> GetCustomerVouchers([FromQuery] CustomerVoucherQueryRequest queryRequest)
         {
-            // Lấy customerId từ token
-            var customerId = User.FindFirst("CustomerId")?.Value;
-            if (string.IsNullOrEmpty(customerId))
-            {
-                return Unauthorized(new { Success = false, Message = "Không tìm thấy thông tin khách hàng" });
-            }
-
-            // Gán customerId từ token vào queryRequest
-            queryRequest.CustomerId = customerId;
-
-            var response = await _voucherService.GetCustomerVouchersAsync(queryRequest);
+            var token = Request.Headers["Authorization"].ToString();
+            var response = await _voucherService.GetCustomerVouchersAsync(queryRequest, token);
             return StatusCode((int)response.StatusCode, response);
         }
 
@@ -163,14 +182,9 @@ namespace WebTechnology.API.Controllers
         /// </remarks>
         [HttpGet("admin-staff/customer-vouchers")]
         [Authorize(Policy = "AdminOrStaff")]
-        public async Task<IActionResult> GetCustomerVouchersForAdmin([FromQuery] CustomerVoucherQueryRequest queryRequest)
+        public async Task<IActionResult> GetCustomerVouchersForAdmin([FromQuery] CustomerVoucherQueryRequestForAdmin queryRequest)
         {
-            if (string.IsNullOrEmpty(queryRequest.CustomerId))
-            {
-                return BadRequest(new { Success = false, Message = "ID khách hàng không được để trống" });
-            }
-
-            var response = await _voucherService.GetCustomerVouchersAsync(queryRequest);
+            var response = await _voucherService.GetCustomerVouchersForAdminAsync(queryRequest);
             return StatusCode((int)response.StatusCode, response);
         }
     }

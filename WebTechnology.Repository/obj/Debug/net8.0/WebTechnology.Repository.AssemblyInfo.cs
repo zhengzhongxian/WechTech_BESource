@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebTechnology.Repository")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+295b69b8937ca55685c62befb570164b8170dc23")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d14a8db5bc7bb39dcdc7f0bbde21c54d611e131")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebTechnology.Repository")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebTechnology.Repository")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

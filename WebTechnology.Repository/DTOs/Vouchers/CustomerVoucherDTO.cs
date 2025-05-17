@@ -71,5 +71,15 @@ namespace WebTechnology.Repository.DTOs.Vouchers
         /// Ngày khách hàng nhận được voucher
         /// </summary>
         public DateTime ReceivedDate { get; set; }
+
+        /// <summary>
+        /// Kiểm tra xem voucher đã hết hạn hay chưa
+        /// </summary>
+        public bool IsExpired { get; set; }
+
+        /// <summary>
+        /// Kiểm tra xem voucher còn lượt sử dụng hay không
+        /// </summary>
+        public bool HasAvailableUsage { get; set; }
     }
 }

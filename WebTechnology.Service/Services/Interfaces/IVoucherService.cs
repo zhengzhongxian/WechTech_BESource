@@ -23,6 +23,13 @@ namespace WebTechnology.Service.Services.Interfaces
         Task<ServiceResponse<PaginatedResult<Voucher>>> GetPaginatedVouchersAsync(int pageNumber, int pageSize);
 
         /// <summary>
+        /// Lấy danh sách voucher gốc còn hiệu lực và còn lượt sử dụng
+        /// </summary>
+        /// <param name="filterRequest">Tham số lọc và phân trang</param>
+        /// <returns>Danh sách voucher đã lọc và phân trang</returns>
+        Task<ServiceResponse<PaginatedResult<Voucher>>> GetFilteredValidVouchersAsync(VoucherFilterRequest filterRequest);
+
+        /// <summary>
         /// Lấy danh sách voucher có phân trang và lọc nâng cao dành cho Admin hoặc Staff
         /// </summary>
         /// <param name="queryRequest">Tham số truy vấn và lọc</param>
@@ -43,6 +50,7 @@ namespace WebTechnology.Service.Services.Interfaces
         /// </summary>
         /// <param name="queryRequest">Tham số truy vấn và lọc</param>
         /// <returns>Danh sách voucher của khách hàng đã lọc và phân trang</returns>
-        Task<ServiceResponse<PaginatedResult<CustomerVoucherDTO>>> GetCustomerVouchersAsync(CustomerVoucherQueryRequest queryRequest);
+        Task<ServiceResponse<PaginatedResult<CustomerVoucherDTO>>> GetCustomerVouchersAsync(CustomerVoucherQueryRequest queryRequest, string token);
+        Task<ServiceResponse<PaginatedResult<CustomerVoucherDTO>>> GetCustomerVouchersForAdminAsync(CustomerVoucherQueryRequestForAdmin queryRequest);
     }
 }

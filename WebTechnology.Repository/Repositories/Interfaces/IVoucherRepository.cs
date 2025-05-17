@@ -40,6 +40,14 @@ namespace WebTechnology.Repository.Repositories.Interfaces
         /// </summary>
         /// <param name="queryRequest">Tham số truy vấn và lọc</param>
         /// <returns>Danh sách voucher của khách hàng đã lọc và phân trang</returns>
-        Task<(IEnumerable<Voucher> Vouchers, int TotalCount)> GetCustomerVouchersAsync(CustomerVoucherQueryRequest queryRequest);
+        Task<(IEnumerable<Voucher> Vouchers, int TotalCount)> GetCustomerVouchersAsync(CustomerVoucherQueryRequest queryRequest, string customerId);
+        Task<(IEnumerable<Voucher> Vouchers, int TotalCount)> GetCustomerVouchersForAdminAsync(CustomerVoucherQueryRequestForAdmin queryRequest);
+
+        /// <summary>
+        /// Lấy danh sách voucher gốc còn hiệu lực và còn lượt sử dụng
+        /// </summary>
+        /// <param name="filterRequest">Tham số lọc và phân trang</param>
+        /// <returns>Danh sách voucher đã lọc và phân trang</returns>
+        Task<(IEnumerable<Voucher> Vouchers, int TotalCount)> GetFilteredValidVouchersAsync(VoucherFilterRequest filterRequest);
     }
 }
