@@ -47,7 +47,8 @@ namespace WebTechnology.Repository.Repositories.Implementations
         /// </summary>
         public async Task<(IEnumerable<Voucher> Vouchers, int TotalCount)> GetFilteredVouchersAsync(VoucherQueryRequest queryRequest)
         {
-            IQueryable<Voucher> query = _webTech.Vouchers;
+            // Chỉ lấy voucher không bị xóa
+            IQueryable<Voucher> query = _webTech.Vouchers.Where(v => v.IsDeleted != true);
 
             // Áp dụng các bộ lọc
             if (!string.IsNullOrWhiteSpace(queryRequest.SearchTerm))
@@ -116,7 +117,8 @@ namespace WebTechnology.Repository.Repositories.Implementations
             int pageNumber = 1,
             int pageSize = 10)
         {
-            IQueryable<Voucher> query = _webTech.Vouchers;
+            // Chỉ lấy voucher không bị xóa
+            IQueryable<Voucher> query = _webTech.Vouchers.Where(v => v.IsDeleted != true);
 
             if (filter != null)
             {
@@ -194,9 +196,19 @@ namespace WebTechnology.Repository.Repositories.Implementations
                 return (new List<Voucher>(), 0);
             }
 
-            // Lấy tất cả voucher có metadata chứa customerId
+            // Lấy ngày hiện tại
+            var currentDate = DateTime.UtcNow;
+
+            // Lấy tất cả voucher có metadata chứa customerId, không bị xóa, còn hạn và còn lượt sử dụng
             IQueryable<Voucher> query = _webTech.Vouchers
-                .Where(v => v.Metadata != null && v.Metadata.Contains(customerId));
+                // Không bị xóa
+                .Where(v => v.IsDeleted != true)
+                // Có metadata chứa customerId
+                .Where(v => v.Metadata != null && v.Metadata.Contains(customerId))
+                // Chưa hết hạn
+                .Where(v => v.EndDate > currentDate)
+                // Còn lượt sử dụng
+                .Where(v => v.UsageLimit == null || v.UsedCount < v.UsageLimit);
 
             // Áp dụng các bộ lọc
             if (!string.IsNullOrWhiteSpace(queryRequest.SearchTerm))
@@ -263,6 +275,8 @@ namespace WebTechnology.Repository.Repositories.Implementations
 
             // Tạo truy vấn cơ bản
             IQueryable<Voucher> query = _webTech.Vouchers
+                // Chỉ lấy voucher không bị xóa
+                .Where(v => v.IsDeleted != true)
                 // Chỉ lấy voucher gốc
                 .Where(v => v.IsRoot == true)
                 // Chỉ lấy voucher còn hiệu lực
@@ -300,8 +314,9 @@ namespace WebTechnology.Repository.Repositories.Implementations
                 return (new List<Voucher>(), 0);
             }
 
-            // Lấy tất cả voucher có metadata chứa customerId
+            // Lấy tất cả voucher có metadata chứa customerId và không bị xóa
             IQueryable<Voucher> query = _webTech.Vouchers
+                .Where(v => v.IsDeleted != true)
                 .Where(v => v.Metadata != null && v.Metadata.Contains(queryRequest.CustomerId));
 
             // Áp dụng các bộ lọc

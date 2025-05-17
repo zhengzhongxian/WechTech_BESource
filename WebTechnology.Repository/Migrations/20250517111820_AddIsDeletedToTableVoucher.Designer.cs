@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebTechnology.API;
 
@@ -11,9 +12,11 @@ using WebTechnology.API;
 namespace WebTechnology.Repository.Migrations
 {
     [DbContext(typeof(WebTech))]
-    partial class WebTechModelSnapshot : ModelSnapshot
+    [Migration("20250517111820_AddIsDeletedToTableVoucher")]
+    partial class AddIsDeletedToTableVoucher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

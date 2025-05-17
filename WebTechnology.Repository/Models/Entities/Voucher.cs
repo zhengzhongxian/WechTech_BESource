@@ -23,7 +23,7 @@ public partial class Voucher
 
     public decimal? MinOrder { get; set; }
     public bool? IsRoot { get; set; }
-
+    public bool? IsDeleted { get; set; }
     public decimal? MaxDiscount { get; set; }
     public int? Point { get; set; }
 

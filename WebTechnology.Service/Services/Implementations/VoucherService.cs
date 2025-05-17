@@ -118,7 +118,11 @@ namespace WebTechnology.Service.Services.Implementations
                     return ServiceResponse<bool>.NotFoundResponse("Không tìm thấy voucher nào với ID này");
                 }
 
-                await _voucherRepository.DeleteAsync(voucher);
+                // Đánh dấu voucher là đã xóa thay vì xóa thực sự
+                voucher.IsDeleted = true;
+                voucher.UpdatedAt = DateTime.UtcNow;
+
+                await _voucherRepository.UpdateAsync(voucher);
                 await _unitOfWork.SaveChangesAsync();
 
                 return ServiceResponse<bool>.SuccessResponse(true, "Xóa voucher thành công");
