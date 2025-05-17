@@ -130,14 +130,7 @@ namespace WebTechnology.API.Controllers
         public async Task<IActionResult> CheckCompletedOrder(string productId)
         {
             string token = Request.Headers["Authorization"].ToString();
-            var customerId = HttpContext.User.FindFirst("userId")?.Value;
-
-            if (string.IsNullOrEmpty(customerId))
-            {
-                return Unauthorized(new { Success = false, Message = "Không tìm thấy thông tin người dùng" });
-            }
-
-            var response = await _reviewService.HasCompletedOrder(customerId, productId);
+            var response = await _reviewService.HasCompletedOrder(token, productId);
             return StatusCode((int)response.StatusCode, response);
         }
     }

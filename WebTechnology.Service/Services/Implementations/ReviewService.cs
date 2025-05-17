@@ -393,10 +393,11 @@ namespace WebTechnology.Service.Services.Implementations
             }
         }
 
-        public async Task<ServiceResponse<bool>> HasCompletedOrder(string customerId, string productId)
+        public async Task<ServiceResponse<bool>> HasCompletedOrder(string token, string productId)
         {
             try
             {
+                var customerId = _tokenService.GetUserIdFromToken(token);
                 // Lấy tất cả đơn hàng của khách hàng
                 var orders = await _orderRepository.FindAsync(o => o.CustomerId == customerId);
 
