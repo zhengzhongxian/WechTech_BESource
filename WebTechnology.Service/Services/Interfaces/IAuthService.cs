@@ -17,5 +17,27 @@ namespace WebTechnology.Service.Services.Interfaces
         Task<ServiceResponse<string>> OTPAuthAsync(string email);
         Task<ServiceResponse<string>> RegisterAsync(RegistrationRequestDTO registrationRequest);
         Task<ServiceResponse<string>> LogoutAsync(string token);
+
+        /// <summary>
+        /// Kiểm tra xem email đã tồn tại chưa
+        /// </summary>
+        /// <param name="email">Email cần kiểm tra</param>
+        /// <returns>Kết quả kiểm tra</returns>
+        Task<ServiceResponse<bool>> CheckEmailExistsAsync(string email);
+
+        /// <summary>
+        /// Kiểm tra xem username đã tồn tại chưa
+        /// </summary>
+        /// <param name="username">Username cần kiểm tra</param>
+        /// <returns>Kết quả kiểm tra</returns>
+        Task<ServiceResponse<bool>> CheckUsernameExistsAsync(string username);
+
+        /// <summary>
+        /// Kiểm tra xem email và username đã tồn tại chưa
+        /// </summary>
+        /// <param name="email">Email cần kiểm tra</param>
+        /// <param name="username">Username cần kiểm tra</param>
+        /// <returns>Kết quả kiểm tra</returns>
+        Task<ServiceResponse<bool>> CheckEmailAndUsernameExistAsync(string email, string username);
     }
 }

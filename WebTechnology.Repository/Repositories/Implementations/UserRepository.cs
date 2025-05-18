@@ -25,8 +25,7 @@ namespace WebTechnology.Repository.Repositories.Implementations
             var user = await _context.Users
                 .Include(u => u.Role)
                 .Where(u => u.Username == username
-                            && u.IsActive == true
-                            && u.IsDeleted == false
+                            && u.IsDeleted != true
                             && u.Authenticate == true)
                 .FirstOrDefaultAsync();
 

@@ -175,12 +175,12 @@ namespace WebTechnology.Service.Services.Implementationns
 
         private async Task<ServiceResponse<string>> HandleExistingUser(User user, string email)
         {
-            if (user.Authenticate == true)
+            if (user.Authenticate == true && user.IsDeleted != true)
             {
                 return ServiceResponse<string>.FailResponse("Email đã được sử dụng");
             }
 
-            if (user.CountAuth > 3)
+            if (user.CountAuth >= 3)
             {
                 return ServiceResponse<string>.FailResponse("Bạn đã gửi yêu cầu quá nhiều");
             }
@@ -223,14 +223,13 @@ namespace WebTechnology.Service.Services.Implementationns
             {
                 await _unitOfWork.BeginTransactionAsync();
                 var user = await _userRepository.GetUserByEmailAsync(registrationRequest.Email);
-                if (user.Authenticate == true)
+                if (user.Authenticate == true && user.IsDeleted != true)
                 {
                     return ServiceResponse<string>.FailResponse("Email đã được sử dụng");
                 }
                 bool exists = await _userRepository.ExistsAsync(x =>
                     x.Username == registrationRequest.Username
-                    && x.IsActive == true
-                    && x.IsDeleted == false);
+                    && x.IsDeleted != true && user.Authenticate == true);
 
                 if (exists)
                 {
@@ -311,6 +310,134 @@ namespace WebTechnology.Service.Services.Implementationns
             {
                 await _unitOfWork.RollbackAsync();
                 return ServiceResponse<string>.ErrorResponse($"Lỗi khi đăng xuất: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Kiểm tra xem email đã tồn tại chưa
+        /// </summary>
+        /// <param name="email">Email cần kiểm tra</param>
+        /// <returns>Kết quả kiểm tra</returns>
+        public async Task<ServiceResponse<bool>> CheckEmailExistsAsync(string email)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    return ServiceResponse<bool>.ErrorResponse(
+                        "Email không được để trống");
+                }
+
+                var userByEmail = await _userRepository.GetUserByEmailAsync(email);
+                if (userByEmail != null && userByEmail.IsDeleted != true && userByEmail.Authenticate == true)
+                {
+                    return ServiceResponse<bool>.SuccessResponse(
+                        true,
+                        "Email đã tồn tại trong hệ thống");
+                }
+
+                return ServiceResponse<bool>.SuccessResponse(
+                    false,
+                    "Email chưa tồn tại trong hệ thống");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<bool>.ErrorResponse(
+                    $"Lỗi khi kiểm tra email: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Kiểm tra xem username đã tồn tại chưa
+        /// </summary>
+        /// <param name="username">Username cần kiểm tra</param>
+        /// <returns>Kết quả kiểm tra</returns>
+        public async Task<ServiceResponse<bool>> CheckUsernameExistsAsync(string username)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(username))
+                {
+                    return ServiceResponse<bool>.ErrorResponse(
+                        "Tên đăng nhập không được để trống");
+                }
+
+                bool usernameExists = await _userRepository.ExistsAsync(x =>
+                    x.Username == username &&
+                    x.IsDeleted != true &&
+                    x.Authenticate == true);
+
+                if (usernameExists)
+                {
+                    return ServiceResponse<bool>.SuccessResponse(
+                        true,
+                        "Tên đăng nhập đã tồn tại trong hệ thống");
+                }
+
+                return ServiceResponse<bool>.SuccessResponse(
+                    false,
+                    "Tên đăng nhập chưa tồn tại trong hệ thống");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<bool>.ErrorResponse(
+                    $"Lỗi khi kiểm tra tên đăng nhập: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Kiểm tra xem email và username đã tồn tại chưa
+        /// </summary>
+        /// <param name="email">Email cần kiểm tra</param>
+        /// <param name="username">Username cần kiểm tra</param>
+        /// <returns>Kết quả kiểm tra</returns>
+        public async Task<ServiceResponse<bool>> CheckEmailAndUsernameExistAsync(string email, string username)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username))
+                {
+                    return ServiceResponse<bool>.ErrorResponse(
+                        "Email và tên đăng nhập không được để trống");
+                }
+
+                // Kiểm tra email
+                var userByEmail = await _userRepository.GetUserByEmailAsync(email);
+                bool emailExists = userByEmail != null && userByEmail.IsDeleted != true && userByEmail.Authenticate == true;
+
+                // Kiểm tra username
+                bool usernameExists = await _userRepository.ExistsAsync(x =>
+                    x.Username == username &&
+                    x.IsDeleted != true &&
+                    x.Authenticate == true);
+
+                if (emailExists && usernameExists)
+                {
+                    return ServiceResponse<bool>.SuccessResponse(
+                        true,
+                        "Email và tên đăng nhập đã tồn tại trong hệ thống");
+                }
+                else if (emailExists)
+                {
+                    return ServiceResponse<bool>.SuccessResponse(
+                        true,
+                        "Email đã tồn tại trong hệ thống");
+                }
+                else if (usernameExists)
+                {
+                    return ServiceResponse<bool>.SuccessResponse(
+                        true,
+                        "Tên đăng nhập đã tồn tại trong hệ thống");
+                }
+
+                return ServiceResponse<bool>.SuccessResponse(
+                    false,
+                    "Email và tên đăng nhập chưa tồn tại trong hệ thống");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<bool>.ErrorResponse(
+                    $"Lỗi khi kiểm tra thông tin người dùng: {ex.Message}");
             }
         }
     }

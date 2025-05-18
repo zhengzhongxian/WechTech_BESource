@@ -78,5 +78,78 @@ namespace WebTechnology.API.Controllers
             var response = await _authService.LogoutAsync(token);
             return StatusCode((int)response.StatusCode, response);
         }
+
+        /// <summary>
+        /// Kiểm tra xem email đã tồn tại chưa
+        /// </summary>
+        /// <remarks>
+        /// API này cho phép kiểm tra xem email đã tồn tại trong hệ thống chưa.
+        /// Chỉ trả về true nếu tài khoản có IsDeleted != true và Authenticate == true.
+        /// </remarks>
+        /// <param name="email">Email cần kiểm tra</param>
+        /// <returns>Kết quả kiểm tra</returns>
+        /// <response code="200">Trả về kết quả kiểm tra</response>
+        /// <response code="400">Lỗi khi không cung cấp email</response>
+        /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
+        [HttpGet("check-existing")]
+        public async Task<IActionResult> CheckExistingUser([FromQuery] string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest(new { Success = false, Message = "Vui lòng cung cấp email để kiểm tra" });
+            }
+
+            var response = await _authService.CheckEmailExistsAsync(email);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        /// <summary>
+        /// Kiểm tra xem username đã tồn tại chưa
+        /// </summary>
+        /// <remarks>
+        /// API này cho phép kiểm tra xem username đã tồn tại trong hệ thống chưa.
+        /// Chỉ trả về true nếu tài khoản có IsDeleted != true và Authenticate == true.
+        /// </remarks>
+        /// <param name="username">Username cần kiểm tra</param>
+        /// <returns>Kết quả kiểm tra</returns>
+        /// <response code="200">Trả về kết quả kiểm tra</response>
+        /// <response code="400">Lỗi khi không cung cấp username</response>
+        /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
+        [HttpGet("check-existing-username")]
+        public async Task<IActionResult> CheckExistingUsername([FromQuery] string username)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                return BadRequest(new { Success = false, Message = "Vui lòng cung cấp tên đăng nhập để kiểm tra" });
+            }
+
+            var response = await _authService.CheckUsernameExistsAsync(username);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        /// <summary>
+        /// Kiểm tra xem email và username đã tồn tại chưa
+        /// </summary>
+        /// <remarks>
+        /// API này cho phép kiểm tra xem email và username đã tồn tại trong hệ thống chưa.
+        /// Chỉ trả về true nếu tài khoản có IsDeleted != true và Authenticate == true.
+        /// </remarks>
+        /// <param name="email">Email cần kiểm tra</param>
+        /// <param name="username">Username cần kiểm tra</param>
+        /// <returns>Kết quả kiểm tra</returns>
+        /// <response code="200">Trả về kết quả kiểm tra</response>
+        /// <response code="400">Lỗi khi không cung cấp email hoặc username</response>
+        /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
+        [HttpGet("check-existing-both")]
+        public async Task<IActionResult> CheckExistingBoth([FromQuery] string email, [FromQuery] string username)
+        {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username))
+            {
+                return BadRequest(new { Success = false, Message = "Vui lòng cung cấp cả email và tên đăng nhập để kiểm tra" });
+            }
+
+            var response = await _authService.CheckEmailAndUsernameExistAsync(email, username);
+            return StatusCode((int)response.StatusCode, response);
+        }
     }
 }
