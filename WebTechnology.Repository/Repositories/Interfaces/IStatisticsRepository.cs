@@ -11,5 +11,25 @@ namespace WebTechnology.Repository.Repositories.Interfaces
     {
         Task<YearlyRevenueDTO> GetMonthlyRevenueForYearAsync(int year);
         Task<MonthlySalesDTO> GetProductSalesForMonthAsync(int month, int year);
+
+        /// <summary>
+        /// Lấy số lượng khách hàng đang online
+        /// </summary>
+        Task<int> GetOnlineCustomersCountAsync();
+
+        /// <summary>
+        /// Lấy doanh thu trong ngày hôm nay
+        /// </summary>
+        Task<decimal> GetTodayRevenueAsync();
+
+        /// <summary>
+        /// Lấy số lượng sản phẩm bán được trong ngày hôm nay
+        /// </summary>
+        Task<int> GetTodaySoldProductsCountAsync();
+
+        /// <summary>
+        /// Lấy số lượng đơn hàng đang chờ xử lý (PENDING)
+        /// </summary>
+        Task<int> GetPendingOrdersCountAsync();
     }
 }

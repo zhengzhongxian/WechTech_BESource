@@ -76,6 +76,8 @@ namespace WebTechnology.Configurations
             services.AddScoped<ICouponService, CouponService>();
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IPayosService, PayosService>();
+            services.AddHttpClient();
         }
     }
 }

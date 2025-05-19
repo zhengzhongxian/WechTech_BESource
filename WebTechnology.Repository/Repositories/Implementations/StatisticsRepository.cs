@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebTechnology.API;
+using WebTechnology.Repository.CoreHelpers.Enums;
 using WebTechnology.Repository.DTOs.Statistics;
 using WebTechnology.Repository.Repositories.Interfaces;
 
@@ -257,6 +258,121 @@ namespace WebTechnology.Repository.Repositories.Implementations
                     MonthlyRevenues = new List<MonthlyRevenueDTO>(),
                     TotalRevenue = 0
                 };
+            }
+        }
+
+        /// <summary>
+        /// Lấy số lượng khách hàng đang online
+        /// </summary>
+        public async Task<int> GetOnlineCustomersCountAsync()
+        {
+            try
+            {
+                // Lấy số lượng khách hàng đang online (IsActive = true và có bản ghi trong bảng Customer)
+                var onlineCustomersCount = await _context.Users
+                    .Include(u => u.Customer)
+                    .Where(u => u.IsActive == true && u.StatusId == UserStatusType.Active.ToUserStatusIdString() &&
+                           u.Customer != null &&
+                           u.Roleid == RoleType.Customer.ToRoleIdString() &&
+                           u.IsDeleted != true)
+                    .CountAsync();
+
+                return onlineCustomersCount;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi lấy số lượng khách hàng đang online: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Lấy doanh thu trong ngày hôm nay
+        /// </summary>
+        public async Task<decimal> GetTodayRevenueAsync()
+        {
+            try
+            {
+                // Lấy ngày hiện tại
+                var today = DateTime.Today;
+                var tomorrow = today.AddDays(1);
+
+                // Lấy tất cả đơn hàng thành công trong ngày hôm nay
+                var ordersToday = await _context.Orders
+                    .Where(o => o.IsSuccess == true &&
+                           o.OrderDate.HasValue &&
+                           o.OrderDate.Value >= today &&
+                           o.OrderDate.Value < tomorrow)
+                    .ToListAsync();
+
+                // Tính tổng doanh thu
+                decimal totalRevenue = ordersToday.Sum(o => o.TotalPrice ?? 0);
+
+                return totalRevenue;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi lấy doanh thu trong ngày: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Lấy số lượng sản phẩm bán được trong ngày hôm nay
+        /// </summary>
+        public async Task<int> GetTodaySoldProductsCountAsync()
+        {
+            try
+            {
+                // Lấy ngày hiện tại
+                var today = DateTime.Today;
+                var tomorrow = today.AddDays(1);
+
+                // Lấy tất cả đơn hàng thành công trong ngày hôm nay
+                var ordersToday = await _context.Orders
+                    .Where(o => o.IsSuccess == true &&
+                           o.OrderDate.HasValue &&
+                           o.OrderDate.Value >= today &&
+                           o.OrderDate.Value < tomorrow)
+                    .Include(o => o.OrderDetails)
+                    .ToListAsync();
+
+                // Tính tổng số lượng sản phẩm bán được
+                int totalSoldProducts = ordersToday
+                    .SelectMany(o => o.OrderDetails)
+                    .Sum(od => od.Quantity ?? 0);
+
+                return totalSoldProducts;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi lấy số lượng sản phẩm bán được trong ngày: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Lấy số lượng đơn hàng đang chờ xử lý (PENDING)
+        /// </summary>
+        public async Task<int> GetPendingOrdersCountAsync()
+        {
+            try
+            {
+                // Lấy số lượng đơn hàng đang chờ xử lý (PENDING)
+                var pendingOrdersCount = await _context.Orders
+                    .Where(o => o.StatusId == OrderStatusType.PENDING.ToOrderStatusIdString())
+                    .CountAsync();
+
+                return pendingOrdersCount;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi lấy số lượng đơn hàng đang chờ xử lý: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return 0;
             }
         }
     }

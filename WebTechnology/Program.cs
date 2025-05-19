@@ -65,6 +65,9 @@ builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("Email
 // Configure Cloudinary
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
 
+// Configure Payos
+builder.Services.Configure<PayosSettings>(builder.Configuration.GetSection("Payos"));
+
 // Add background services
 builder.Services.AddHostedService<UserAuthCleanupService>();
 

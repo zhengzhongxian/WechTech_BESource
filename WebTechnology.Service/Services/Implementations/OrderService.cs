@@ -648,7 +648,9 @@ namespace WebTechnology.Service.Services.Implementationns
                 order.StatusId = statusId;
                 if (newStatus == OrderStatusType.COMPLETED)
                 {
+                    // Chỉ đặt IsSuccess = true khi trạng thái là COMPLETED
                     order.IsSuccess = true;
+                    Console.WriteLine($"Order {orderId} marked as successful (IsSuccess=true) with status COMPLETED");
 
                     // Tăng số lượng đã bán (SoldQuantity) cho từng sản phẩm trong đơn hàng
                     foreach (var detail in order.OrderDetails)
@@ -695,9 +697,11 @@ namespace WebTechnology.Service.Services.Implementationns
                         }
                     }
                 }
-                else if (newStatus == OrderStatusType.CANCELLED)
+                // Không thay đổi IsSuccess trong các trường hợp khác
+                // Chỉ log để debug
+                else
                 {
-                    order.IsSuccess = false;
+                    Console.WriteLine($"Order {orderId} status changed to {statusId}, IsSuccess remains {order.IsSuccess}");
                 }
                 await _orderRepository.UpdateAsync(order);
                 await _unitOfWork.CommitAsync();
@@ -744,7 +748,9 @@ namespace WebTechnology.Service.Services.Implementationns
                 // Xử lý các trường hợp đặc biệt
                 if (newStatus == OrderStatusType.COMPLETED)
                 {
+                    // Chỉ đặt IsSuccess = true khi trạng thái là COMPLETED
                     order.IsSuccess = true;
+                    Console.WriteLine($"Order {orderId} marked as successful (IsSuccess=true) with status COMPLETED by admin");
 
                     // Tăng số lượng đã bán (SoldQuantity) cho từng sản phẩm trong đơn hàng
                     foreach (var detail in order.OrderDetails)
@@ -793,7 +799,8 @@ namespace WebTechnology.Service.Services.Implementationns
                 }
                 else if (newStatus == OrderStatusType.CANCELLED)
                 {
-                    order.IsSuccess = false;
+                    // Không thay đổi IsSuccess, chỉ log
+                    Console.WriteLine($"Order {orderId} status changed to CANCELLED by admin, IsSuccess remains {order.IsSuccess}");
 
                     // Hoàn lại số lượng tồn kho cho từng sản phẩm trong đơn hàng
                     foreach (var detail in order.OrderDetails)
@@ -805,6 +812,11 @@ namespace WebTechnology.Service.Services.Implementationns
                             await _productRepository.UpdateAsync(product);
                         }
                     }
+                }
+                else
+                {
+                    // Không thay đổi IsSuccess trong các trường hợp khác
+                    Console.WriteLine($"Order {orderId} status changed to {statusId} by admin, IsSuccess remains {order.IsSuccess}");
                 }
 
                 // Lưu lịch sử cập nhật trạng thái
@@ -891,7 +903,8 @@ namespace WebTechnology.Service.Services.Implementationns
 
                 // Cập nhật trạng thái đơn hàng thành CANCELLED sử dụng enum
                 order.StatusId = OrderStatusType.CANCELLED.ToOrderStatusIdString();
-                order.IsSuccess = false;
+                // Không thay đổi IsSuccess
+                Console.WriteLine($"Order {orderId} cancelled by customer, IsSuccess remains {order.IsSuccess}");
 
                 await _orderRepository.UpdateAsync(order);
                 await _unitOfWork.CommitAsync();

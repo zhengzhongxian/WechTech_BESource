@@ -85,5 +85,89 @@ namespace WebTechnology.Service.Services.Implementations
                     $"Lỗi khi lấy doanh số sản phẩm theo tháng: {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Lấy số lượng khách hàng đang online
+        /// </summary>
+        public async Task<ServiceResponse<int>> GetOnlineCustomersCountAsync(string token)
+        {
+            try
+            {
+                // Lấy số lượng khách hàng đang online
+                var onlineCustomersCount = await _statisticsRepository.GetOnlineCustomersCountAsync();
+
+                return ServiceResponse<int>.SuccessResponse(
+                    onlineCustomersCount,
+                    "Lấy số lượng khách hàng đang online thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<int>.ErrorResponse(
+                    $"Lỗi khi lấy số lượng khách hàng đang online: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Lấy doanh thu trong ngày hôm nay
+        /// </summary>
+        public async Task<ServiceResponse<decimal>> GetTodayRevenueAsync(string token)
+        {
+            try
+            {
+                // Lấy doanh thu trong ngày hôm nay
+                var todayRevenue = await _statisticsRepository.GetTodayRevenueAsync();
+
+                return ServiceResponse<decimal>.SuccessResponse(
+                    todayRevenue,
+                    "Lấy doanh thu trong ngày hôm nay thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<decimal>.ErrorResponse(
+                    $"Lỗi khi lấy doanh thu trong ngày hôm nay: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Lấy số lượng sản phẩm bán được trong ngày hôm nay
+        /// </summary>
+        public async Task<ServiceResponse<int>> GetTodaySoldProductsCountAsync(string token)
+        {
+            try
+            {
+                // Lấy số lượng sản phẩm bán được trong ngày hôm nay
+                var todaySoldProductsCount = await _statisticsRepository.GetTodaySoldProductsCountAsync();
+
+                return ServiceResponse<int>.SuccessResponse(
+                    todaySoldProductsCount,
+                    "Lấy số lượng sản phẩm bán được trong ngày hôm nay thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<int>.ErrorResponse(
+                    $"Lỗi khi lấy số lượng sản phẩm bán được trong ngày hôm nay: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Lấy số lượng đơn hàng đang chờ xử lý (PENDING)
+        /// </summary>
+        public async Task<ServiceResponse<int>> GetPendingOrdersCountAsync(string token)
+        {
+            try
+            {
+                // Lấy số lượng đơn hàng đang chờ xử lý (PENDING)
+                var pendingOrdersCount = await _statisticsRepository.GetPendingOrdersCountAsync();
+
+                return ServiceResponse<int>.SuccessResponse(
+                    pendingOrdersCount,
+                    "Lấy số lượng đơn hàng đang chờ xử lý thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<int>.ErrorResponse(
+                    $"Lỗi khi lấy số lượng đơn hàng đang chờ xử lý: {ex.Message}");
+            }
+        }
     }
 }

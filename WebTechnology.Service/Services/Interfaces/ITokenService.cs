@@ -15,5 +15,7 @@ namespace WebTechnology.Service.Services.Interfaces
         string? GetUserIdFromToken(string token);
         string? GetRoleFromToken(string token);
         bool IsTokenExpired(string token);
+        string? GetEmailFromToken(string token);
+        string? GetNameFromToken(string token);
     }
 }

@@ -35,7 +35,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
                 new Claim(ClaimTypes.Role, user.Roleid),
-                new Claim("isVerified", user.Authenticate?.ToString() ?? "false")
+                new Claim("isVerified", user.Authenticate?.ToString() ?? "false"),
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor //được khuyến nghị hơn JwtSecurityToken
@@ -127,6 +127,44 @@ namespace WebTechnology.Service.Services.Implementationns
             catch
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Lấy email từ token
+        /// </summary>
+        /// <param name="token">Token cần lấy thông tin</param>
+        /// <returns>Email hoặc null nếu không tìm thấy</returns>
+        public string? GetEmailFromToken(string token)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
+                return jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Lấy tên người dùng từ token
+        /// </summary>
+        /// <param name="token">Token cần lấy thông tin</param>
+        /// <returns>Tên người dùng hoặc null nếu không tìm thấy</returns>
+        public string? GetNameFromToken(string token)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
+                return jwtToken.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+            }
+            catch
+            {
+                return null;
             }
         }
     }

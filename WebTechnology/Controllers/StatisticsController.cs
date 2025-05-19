@@ -58,5 +58,85 @@ namespace WebTechnology.API.Controllers
                 return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
             }
         }
+
+        /// <summary>
+        /// Lấy số lượng khách hàng đang online
+        /// </summary>
+        /// <returns>Số lượng khách hàng đang online</returns>
+        [HttpGet("online-customers-count")]
+        [Authorize(Policy = "AdminOrStaff")]
+        public async Task<IActionResult> GetOnlineCustomersCount()
+        {
+            try
+            {
+                string token = Request.Headers["Authorization"].ToString();
+                var response = await _statisticsService.GetOnlineCustomersCountAsync(token);
+                return StatusCode((int)response.StatusCode, response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
+            }
+        }
+
+        /// <summary>
+        /// Lấy doanh thu trong ngày hôm nay
+        /// </summary>
+        /// <returns>Doanh thu trong ngày hôm nay</returns>
+        [HttpGet("today-revenue")]
+        [Authorize(Policy = "AdminOrStaff")]
+        public async Task<IActionResult> GetTodayRevenue()
+        {
+            try
+            {
+                string token = Request.Headers["Authorization"].ToString();
+                var response = await _statisticsService.GetTodayRevenueAsync(token);
+                return StatusCode((int)response.StatusCode, response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
+            }
+        }
+
+        /// <summary>
+        /// Lấy số lượng sản phẩm bán được trong ngày hôm nay
+        /// </summary>
+        /// <returns>Số lượng sản phẩm bán được trong ngày hôm nay</returns>
+        [HttpGet("today-sold-products-count")]
+        [Authorize(Policy = "AdminOrStaff")]
+        public async Task<IActionResult> GetTodaySoldProductsCount()
+        {
+            try
+            {
+                string token = Request.Headers["Authorization"].ToString();
+                var response = await _statisticsService.GetTodaySoldProductsCountAsync(token);
+                return StatusCode((int)response.StatusCode, response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
+            }
+        }
+
+        /// <summary>
+        /// Lấy số lượng đơn hàng đang chờ xử lý (PENDING)
+        /// </summary>
+        /// <returns>Số lượng đơn hàng đang chờ xử lý</returns>
+        [HttpGet("pending-orders-count")]
+        [Authorize(Policy = "AdminOrStaff")]
+        public async Task<IActionResult> GetPendingOrdersCount()
+        {
+            try
+            {
+                string token = Request.Headers["Authorization"].ToString();
+                var response = await _statisticsService.GetPendingOrdersCountAsync(token);
+                return StatusCode((int)response.StatusCode, response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
+            }
+        }
     }
 }
