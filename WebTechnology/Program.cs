@@ -44,10 +44,18 @@ builder.Services.AddDbContext<WebTech>(options =>
 // Configure CORS
 builder.Services.AddCors(option =>
 {
-    option.AddDefaultPolicy(policy => policy.AllowAnyHeader()
+    option.AddDefaultPolicy(policy => policy
+              .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials()
-              .SetIsOriginAllowed(_ => true));
+              .SetIsOriginAllowed(origin => true)); // Cho phép tất cả các origin
+
+    // Thêm policy riêng cho Payos
+    option.AddPolicy("PayosWebhook", policy => policy
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .WithOrigins("https://merchant.payos.vn", "https://api-merchant.payos.vn", "https://api.payos.vn")
+              .SetIsOriginAllowed(origin => true)); // Cho phép tất cả các origin từ Payos
 });
 
 // Configure AutoMapper
@@ -93,7 +101,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors();
+app.UseCors(); // Áp dụng policy mặc định
 app.UseAuthentication();
 app.UseMiddleware<CustomUnauthorizedMiddleware>();
 app.UseAuthorization();

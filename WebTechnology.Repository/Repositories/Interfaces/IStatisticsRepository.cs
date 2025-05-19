@@ -13,6 +13,14 @@ namespace WebTechnology.Repository.Repositories.Interfaces
         Task<MonthlySalesDTO> GetProductSalesForMonthAsync(int month, int year);
 
         /// <summary>
+        /// Lấy doanh thu của một sản phẩm theo từng tháng trong năm
+        /// </summary>
+        /// <param name="productId">ID của sản phẩm</param>
+        /// <param name="year">Năm cần lấy doanh thu</param>
+        /// <returns>Thông tin doanh thu của sản phẩm theo từng tháng</returns>
+        Task<ProductYearlyRevenueDTO> GetProductMonthlyRevenueForYearAsync(string productId, int year);
+
+        /// <summary>
         /// Lấy số lượng khách hàng đang online
         /// </summary>
         Task<int> GetOnlineCustomersCountAsync();

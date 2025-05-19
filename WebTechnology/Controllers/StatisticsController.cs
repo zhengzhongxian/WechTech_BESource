@@ -138,5 +138,31 @@ namespace WebTechnology.API.Controllers
                 return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
             }
         }
+
+        /// <summary>
+        /// Lấy doanh thu của một sản phẩm theo từng tháng trong năm
+        /// </summary>
+        /// <param name="productId">ID của sản phẩm</param>
+        /// <param name="year">Năm cần lấy doanh thu</param>
+        /// <returns>Thông tin doanh thu của sản phẩm theo từng tháng</returns>
+        [HttpGet("product-monthly-revenue/{productId}/{year}")]
+        [Authorize(Policy = "AdminOnly")] // Chỉ Admin mới được xem
+        public async Task<IActionResult> GetProductMonthlyRevenueForYear(string productId, int year)
+        {
+            try
+            {
+                // Lấy token từ header
+                string token = Request.Headers["Authorization"].ToString();
+
+                // Gọi service để lấy doanh thu sản phẩm theo tháng
+                var response = await _statisticsService.GetProductMonthlyRevenueForYearAsync(productId, year, token);
+
+                return StatusCode((int)response.StatusCode, response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
+            }
+        }
     }
 }

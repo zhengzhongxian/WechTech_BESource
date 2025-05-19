@@ -178,6 +178,104 @@ namespace WebTechnology.Repository.Repositories.Implementations
             }
         }
 
+        /// <summary>
+        /// Lấy doanh thu của một sản phẩm theo từng tháng trong năm
+        /// </summary>
+        public async Task<ProductYearlyRevenueDTO> GetProductMonthlyRevenueForYearAsync(string productId, int year)
+        {
+            try
+            {
+                // Kiểm tra năm hợp lệ
+                if (year < 2000 || year > DateTime.Now.Year)
+                {
+                    throw new ArgumentException("Năm không hợp lệ");
+                }
+
+                // Kiểm tra sản phẩm tồn tại
+                var product = await _context.Products
+                    .Include(p => p.Images)
+                    .FirstOrDefaultAsync(p => p.Productid == productId);
+
+                if (product == null)
+                {
+                    throw new ArgumentException("Sản phẩm không tồn tại");
+                }
+
+                // Lấy tất cả đơn hàng thành công trong năm chỉ định có chứa sản phẩm này
+                var startDate = new DateTime(year, 1, 1);
+                var endDate = new DateTime(year + 1, 1, 1);
+
+                var orderDetails = await _context.OrderDetails
+                    .Where(od => od.ProductId == productId)
+                    .Include(od => od.Order)
+                    .Where(od => od.Order.IsSuccess == true &&
+                           od.Order.OrderDate.HasValue &&
+                           od.Order.OrderDate.Value >= startDate &&
+                           od.Order.OrderDate.Value < endDate)
+                    .ToListAsync();
+
+                Console.WriteLine($"Số đơn hàng chứa sản phẩm {productId} trong năm {year}: {orderDetails.Count}");
+
+                // Tạo danh sách các tháng trong năm
+                var monthlyRevenues = new List<ProductMonthlyRevenueDTO>();
+                for (int month = 1; month <= 12; month++)
+                {
+                    // Lọc chi tiết đơn hàng theo tháng
+                    var orderDetailsInMonth = orderDetails
+                        .Where(od => od.Order.OrderDate.HasValue && od.Order.OrderDate.Value.Month == month)
+                        .ToList();
+
+                    // Tính tổng doanh thu và số lượng trong tháng
+                    decimal revenue = orderDetailsInMonth.Sum(od => (od.Price ?? 0) * (od.Quantity ?? 0));
+                    int quantity = orderDetailsInMonth.Sum(od => od.Quantity ?? 0);
+
+                    // Thêm vào danh sách kết quả
+                    monthlyRevenues.Add(new ProductMonthlyRevenueDTO
+                    {
+                        Month = month,
+                        MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month),
+                        Revenue = revenue,
+                        Quantity = quantity
+                    });
+                }
+
+                // Tính tổng doanh thu và số lượng trong năm
+                decimal totalRevenue = monthlyRevenues.Sum(m => m.Revenue);
+                int totalQuantity = monthlyRevenues.Sum(m => m.Quantity);
+
+                // Lấy URL hình ảnh đầu tiên của sản phẩm (nếu có)
+                string imageUrl = product.Images.FirstOrDefault()?.ImageData ?? "";
+
+                // Trả về kết quả
+                return new ProductYearlyRevenueDTO
+                {
+                    ProductId = productId,
+                    ProductName = product.ProductName,
+                    ImageUrl = imageUrl,
+                    Year = year,
+                    MonthlyRevenues = monthlyRevenues,
+                    TotalRevenue = totalRevenue,
+                    TotalQuantity = totalQuantity
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi lấy doanh thu sản phẩm theo tháng: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+
+                // Trả về kết quả trống trong trường hợp lỗi
+                return new ProductYearlyRevenueDTO
+                {
+                    ProductId = productId,
+                    ProductName = "",
+                    Year = year,
+                    MonthlyRevenues = new List<ProductMonthlyRevenueDTO>(),
+                    TotalRevenue = 0,
+                    TotalQuantity = 0
+                };
+            }
+        }
+
         public async Task<YearlyRevenueDTO> GetMonthlyRevenueForYearAsync(int year)
         {
             try

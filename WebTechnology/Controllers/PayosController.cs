@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebTechnology.Repository.DTOs.Payments;
@@ -91,6 +92,7 @@ namespace WebTechnology.API.Controllers
         /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
         [HttpPost("webhook")]
         [AllowAnonymous]
+        [EnableCors("PayosWebhook")] // Áp dụng policy CORS riêng cho webhook
         public async Task<IActionResult> ProcessWebhook([FromBody] PayosWebhookRequest webhookRequest)
         {
             _logger.LogInformation("Received Payos webhook");
@@ -161,6 +163,56 @@ namespace WebTechnology.API.Controllers
 
             var response = await _payosService.CheckPaymentStatusAsync(paymentLinkId);
             return StatusCode((int)response.StatusCode, response);
+        }
+
+        /// <summary>
+        /// Endpoint test cho webhook Payos
+        /// </summary>
+        /// <remarks>
+        /// API này dùng để kiểm tra xem webhook có thể truy cập được không.
+        /// </remarks>
+        /// <returns>Thông báo thành công</returns>
+        [HttpPost("webhook-test")]
+        [HttpGet("webhook-test")]
+        [AllowAnonymous]
+        [EnableCors("PayosWebhook")]
+        public IActionResult TestWebhook()
+        {
+            _logger.LogInformation("Received Payos webhook test");
+
+            // Lấy thông tin request để debug
+            var headers = Request.Headers.ToDictionary(h => h.Key, h => h.Value.ToString());
+            var headersJson = Newtonsoft.Json.JsonConvert.SerializeObject(headers);
+            _logger.LogInformation("Request headers: {Headers}", headersJson);
+
+            return Ok(new { success = true, message = "Webhook endpoint is accessible" });
+        }
+
+        /// <summary>
+        /// Endpoint nhận webhook với bất kỳ dữ liệu nào
+        /// </summary>
+        /// <remarks>
+        /// API này dùng để nhận webhook từ Payos với bất kỳ dữ liệu nào.
+        /// </remarks>
+        /// <param name="data">Dữ liệu webhook</param>
+        /// <returns>Thông báo thành công</returns>
+        [HttpPost("webhook-raw")]
+        [AllowAnonymous]
+        [EnableCors("PayosWebhook")]
+        public IActionResult RawWebhook([FromBody] object data)
+        {
+            _logger.LogInformation("Received raw Payos webhook");
+
+            // Lấy thông tin request để debug
+            var headers = Request.Headers.ToDictionary(h => h.Key, h => h.Value.ToString());
+            var headersJson = Newtonsoft.Json.JsonConvert.SerializeObject(headers);
+            _logger.LogInformation("Request headers: {Headers}", headersJson);
+
+            // Log dữ liệu webhook
+            var dataJson = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+            _logger.LogInformation("Webhook data: {Data}", dataJson);
+
+            return Ok(new { success = true, message = "Raw webhook received successfully" });
         }
     }
 }

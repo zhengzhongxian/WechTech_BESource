@@ -3,6 +3,13 @@
   "WorkspaceRootPath": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|c:\\users\\admin\\desktop\\hk2-season3\\web-technology\\webtechnology\\webtechnology\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B664EB9-7D16-4600-956A-3D2FB76B9833}|WebTechnology\\WebTechnology.API.csproj|solutionrelative:webtechnology\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
@@ -34,6 +41,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Program.cs",
+              "RelativeDocumentMoniker": "WebTechnology\\Program.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology\\Program.cs",
+              "RelativeToolTip": "WebTechnology\\Program.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T15:46:04.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "secrets.json",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
+              "ToolTip": "C:\\Users\\ADMIN\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\78d8e84b-87e5-45fc-8d94-cb3f059cd169\\secrets.json",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-19T15:29:35.813Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Microsoft.Common.CurrentVersion.targets",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
@@ -46,7 +79,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "StatisticsRepository.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Repository\\Repositories\\Implementations\\StatisticsRepository.cs",
               "RelativeDocumentMoniker": "WebTechnology.Repository\\Repositories\\Implementations\\StatisticsRepository.cs",
@@ -54,12 +87,11 @@
               "RelativeToolTip": "WebTechnology.Repository\\Repositories\\Implementations\\StatisticsRepository.cs",
               "ViewState": "AgIAAKcAAAAAAAAAAAAYwL0AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-19T08:16:23.399Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-19T08:16:23.399Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "StatisticsService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\StatisticsService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\StatisticsService.cs",
@@ -67,12 +99,11 @@
               "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\StatisticsService.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAAQwA8AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-19T08:16:03.812Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-19T08:16:03.812Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "OrderService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\OrderService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\OrderService.cs",
@@ -80,12 +111,11 @@
               "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\OrderService.cs",
               "ViewState": "AgIAANgCAAAAAAAAAAAUwKADAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-19T07:05:55.369Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-19T07:05:55.369Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "PayosService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\HK2-Season3\\web-technology\\WebTechnology\\WebTechnology.Service\\Services\\Implementations\\PayosService.cs",
               "RelativeDocumentMoniker": "WebTechnology.Service\\Services\\Implementations\\PayosService.cs",
@@ -93,8 +123,7 @@
               "RelativeToolTip": "WebTechnology.Service\\Services\\Implementations\\PayosService.cs",
               "ViewState": "AgIAAGUBAAAAAAAAAAAkwIgBAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T17:00:58.645Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-18T17:00:58.645Z"
             },
             {
               "$type": "Bookmark",

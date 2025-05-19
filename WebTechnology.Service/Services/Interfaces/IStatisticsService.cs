@@ -15,6 +15,15 @@ namespace WebTechnology.Service.Services.Interfaces
         Task<ServiceResponse<MonthlySalesDTO>> GetProductSalesForMonthAsync(int month, int year, string token);
 
         /// <summary>
+        /// Lấy doanh thu của một sản phẩm theo từng tháng trong năm
+        /// </summary>
+        /// <param name="productId">ID của sản phẩm</param>
+        /// <param name="year">Năm cần lấy doanh thu</param>
+        /// <param name="token">Token xác thực</param>
+        /// <returns>Thông tin doanh thu của sản phẩm theo từng tháng</returns>
+        Task<ServiceResponse<ProductYearlyRevenueDTO>> GetProductMonthlyRevenueForYearAsync(string productId, int year, string token);
+
+        /// <summary>
         /// Lấy số lượng khách hàng đang online
         /// </summary>
         Task<ServiceResponse<int>> GetOnlineCustomersCountAsync(string token);

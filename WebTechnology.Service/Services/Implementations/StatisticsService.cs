@@ -87,6 +87,41 @@ namespace WebTechnology.Service.Services.Implementations
         }
 
         /// <summary>
+        /// Lấy doanh thu của một sản phẩm theo từng tháng trong năm
+        /// </summary>
+        public async Task<ServiceResponse<ProductYearlyRevenueDTO>> GetProductMonthlyRevenueForYearAsync(string productId, int year, string token)
+        {
+            try
+            {
+                // Kiểm tra productId
+                if (string.IsNullOrEmpty(productId))
+                {
+                    return ServiceResponse<ProductYearlyRevenueDTO>.FailResponse(
+                        "ID sản phẩm không được để trống");
+                }
+
+                // Kiểm tra năm hợp lệ
+                if (year < 2000 || year > DateTime.Now.Year)
+                {
+                    return ServiceResponse<ProductYearlyRevenueDTO>.FailResponse(
+                        "Năm không hợp lệ");
+                }
+
+                // Lấy dữ liệu doanh thu sản phẩm theo tháng
+                var productYearlyRevenue = await _statisticsRepository.GetProductMonthlyRevenueForYearAsync(productId, year);
+
+                return ServiceResponse<ProductYearlyRevenueDTO>.SuccessResponse(
+                    productYearlyRevenue,
+                    $"Lấy doanh thu sản phẩm theo tháng trong năm {year} thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<ProductYearlyRevenueDTO>.ErrorResponse(
+                    $"Lỗi khi lấy doanh thu sản phẩm theo tháng: {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// Lấy số lượng khách hàng đang online
         /// </summary>
         public async Task<ServiceResponse<int>> GetOnlineCustomersCountAsync(string token)
