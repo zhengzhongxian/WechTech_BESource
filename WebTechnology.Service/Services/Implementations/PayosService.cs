@@ -232,7 +232,7 @@ namespace WebTechnology.Service.Services.Implementations
                 if (!isValidSignature)
                 {
                     _logger.LogWarning("Invalid Payos webhook signature");
-                    return ServiceResponse<bool>.ErrorResponse("Chữ ký không hợp lệ");
+                    return ServiceResponse<bool>.FailResponse("Chữ ký không hợp lệ");
                 }
 
                 // Kiểm tra trạng thái thanh toán
@@ -274,7 +274,7 @@ namespace WebTechnology.Service.Services.Implementations
             {
                 await _unitOfWork.RollbackAsync();
                 _logger.LogError(ex, "Error processing Payos webhook");
-                return ServiceResponse<bool>.ErrorResponse($"Lỗi khi xử lý webhook: {ex.Message}");
+                return ServiceResponse<bool>.FailResponse($"Lỗi khi xử lý webhook: {ex.Message}");
             }
         }
 

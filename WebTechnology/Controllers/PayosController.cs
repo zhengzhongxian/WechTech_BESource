@@ -103,7 +103,7 @@ namespace WebTechnology.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error processing Payos webhook");
-                return StatusCode(500);
+                return StatusCode(400);
             }
         }
 
