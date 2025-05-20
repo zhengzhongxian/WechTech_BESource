@@ -184,7 +184,7 @@ namespace WebTechnology.Service.Services.Implementations
         /// </summary>
         /// <param name="webhookRequest">Dữ liệu webhook</param>
         /// <returns>Kết quả xử lý</returns>
-        public async Task<ServiceResponse<bool>> ProcessWebhookAsync(PayosWebhookRequest webhookRequest)
+        public async Task<ServiceResponse<bool>> ProcessWebhookAsync(WebhookType webhookRequest)
         {
             try
             {
@@ -199,22 +199,20 @@ namespace WebTechnology.Service.Services.Implementations
                     return ServiceResponse<bool>.ErrorResponse("Dữ liệu webhook trống");
                 }
 
-                if (webhookRequest.Data == null)
+                if (webhookRequest.data == null)
                 {
                     _logger.LogWarning("Webhook data is null");
                     return ServiceResponse<bool>.ErrorResponse("Dữ liệu webhook không hợp lệ");
                 }
 
-                _logger.LogInformation("Processing Payos webhook for order {OrderId}", webhookRequest.Data.OrderCode);
+                _logger.LogInformation("Processing Payos webhook for order {OrderId}", webhookRequest.data.orderCode);
 
                 // Xác thực chữ ký sử dụng thư viện PayOS
                 bool isValidSignature = false;
                 try {
-                    // Chuyển đổi từ PayosWebhookRequest sang WebhookType của thư viện PayOS
-                    var webhookType = PayosWebhookType.FromPayosWebhookRequest(webhookRequest);
 
                     // Sử dụng phương thức verifyPaymentWebhookData từ thư viện PayOS
-                    var webhookData = _payOS.verifyPaymentWebhookData(webhookType);
+                    var webhookData = _payOS.verifyPaymentWebhookData(webhookRequest);
                     isValidSignature = true;
                     _logger.LogInformation("Webhook signature validated successfully using PayOS library");
                 }
@@ -222,8 +220,8 @@ namespace WebTechnology.Service.Services.Implementations
                     _logger.LogWarning(ex, "Error validating webhook signature using PayOS library, falling back to custom implementation: {Message}", ex.Message);
 
                     // Fallback: Sử dụng phương thức tự triển khai để xác thực chữ ký
-                    var dataJson = JsonConvert.SerializeObject(webhookRequest.Data);
-                    var signature = webhookRequest.Signature;
+                    var dataJson = JsonConvert.SerializeObject(webhookRequest.data);
+                    var signature = webhookRequest.signature;
                     var expectedSignature = GenerateHmacSha256(dataJson, _payosSettings.ChecksumKey);
                     isValidSignature = (expectedSignature == signature);
                 }
@@ -238,13 +236,13 @@ namespace WebTechnology.Service.Services.Implementations
                 }
 
                 // Kiểm tra trạng thái thanh toán
-                if (webhookRequest.Data.Status.Equals("PAID", StringComparison.OrdinalIgnoreCase))
+                if (webhookRequest.data.code == "00")
                 {
                     // Cập nhật trạng thái đơn hàng
                     await _unitOfWork.BeginTransactionAsync();
 
                     // Lấy OrderCode từ webhook
-                    string orderCode = webhookRequest.Data.OrderCode;
+                    long orderCode = webhookRequest.data.orderCode;
                     _logger.LogInformation("Received webhook for OrderCode: {OrderCode}", orderCode);
 
                     // Tìm đơn hàng theo OrderNumber (thêm tiền tố "ORD-")

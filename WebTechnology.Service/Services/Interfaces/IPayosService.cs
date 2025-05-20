@@ -1,3 +1,4 @@
+using Net.payOS.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace WebTechnology.Service.Services.Interfaces
         /// </summary>
         /// <param name="webhookRequest">Dữ liệu webhook</param>
         /// <returns>Kết quả xử lý</returns>
-        Task<ServiceResponse<bool>> ProcessWebhookAsync(PayosWebhookRequest webhookRequest);
+        Task<ServiceResponse<bool>> ProcessWebhookAsync(WebhookType webhookRequest);
 
         /// <summary>
         /// Kiểm tra trạng thái thanh toán
