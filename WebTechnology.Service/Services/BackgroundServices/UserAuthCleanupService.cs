@@ -47,7 +47,7 @@ namespace WebTechnology.Service.Services.BackgroundServices
                         }
 
                         var unverifiedUsers = await dbContext.Users
-                            .Where(u => u.Authenticate == false &&
+                            .Where(u => u.Authenticate != true &&
                                        u.VerifiedAt != null &&
                                        u.VerifiedAt <= DateTime.UtcNow.AddHours(-3))
                             .ToListAsync();

@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,6 +14,9 @@ using WebTechnology.Repository.Repositories.Interfaces;
 using WebTechnology.Repository.UnitOfWork;
 using WebTechnology.Service.Models;
 using WebTechnology.Service.Services.Interfaces;
+using Net.payOS;
+using Net.payOS.Types;
+using Net.payOS.Errors;
 
 namespace WebTechnology.Service.Services.Implementations
 {
@@ -28,6 +30,7 @@ namespace WebTechnology.Service.Services.Implementations
         private readonly HttpClient _httpClient;
         private readonly IOrderRepository _orderRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly PayOS _payOS; // Đối tượng PayOS từ thư viện
 
         public PayosService(
             IOptions<PayosSettings> payosSettings,
@@ -42,7 +45,14 @@ namespace WebTechnology.Service.Services.Implementations
             _orderRepository = orderRepository;
             _unitOfWork = unitOfWork;
 
-            // Cấu hình HttpClient
+            // Khởi tạo đối tượng PayOS từ thư viện
+            _payOS = new PayOS(
+                _payosSettings.ClientId,
+                _payosSettings.ApiKey,
+                _payosSettings.ChecksumKey
+            );
+
+            // Cấu hình HttpClient cho các trường hợp cần sử dụng trực tiếp
             _httpClient.BaseAddress = new Uri(_payosSettings.BaseUrl);
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -68,221 +78,97 @@ namespace WebTechnology.Service.Services.Implementations
                     return ServiceResponse<PayosPaymentData>.NotFoundResponse("Không tìm thấy đơn hàng");
                 }
 
-                // Lấy số tiền và mô tả từ đơn hàng
-                int amount = (int) (order.TotalPrice + order.ShippingFee);
-
-                // Lấy OrderNumber từ đơn hàng và loại bỏ phần "ORD-" để có được số
-                string orderNumber = order.OrderNumber;
-
-                // Tạo orderCode bằng cách tách phần số từ OrderNumber
-                // OrderNumber có định dạng "ORD-12345678"
-                string orderCode;
-                if (orderNumber.StartsWith("ORD-") && orderNumber.Length > 4)
+                // Lấy số tiền từ đơn hàng
+                int amount = 0;
+                if (order.TotalPrice.HasValue)
                 {
-                    // Lấy phần sau "ORD-"
-                    orderCode = orderNumber.Substring(4);
-                    _logger.LogInformation("Extracted orderCode: {OrderCode} from OrderNumber: {OrderNumber}",
-                        orderCode, orderNumber);
+                    amount = (int)order.TotalPrice.Value;
                 }
                 else
                 {
-                    // Fallback: Nếu OrderNumber không có định dạng mong đợi, tạo số ngẫu nhiên
+                    return ServiceResponse<PayosPaymentData>.ErrorResponse("Đơn hàng không có thông tin giá");
+                }
+
+                // Lấy mã đơn hàng từ OrderNumber, bỏ tiền tố "ORD-"
+                string orderCode = order.OrderNumber?.Replace("ORD-", "") ?? DateTime.Now.Ticks.ToString();
+
+                // Chuyển đổi orderCode từ chuỗi thành số
+                int numericOrderCode;
+                if (!int.TryParse(orderCode, out numericOrderCode))
+                {
+                    // Nếu không thể chuyển đổi, sử dụng một số ngẫu nhiên
                     Random random = new Random();
-                    int randomNumber = random.Next(10000000, 99999999);
-                    orderCode = randomNumber.ToString();
-                    _logger.LogWarning("Could not extract orderCode from OrderNumber: {OrderNumber}, using random number: {OrderCode}",
-                        orderNumber, orderCode);
-                }
-
-                // Lưu mối quan hệ giữa orderCode và orderId vào log để dễ dàng tra cứu sau này
-                _logger.LogInformation("Created payment mapping: OrderCode={OrderCode}, OrderId={OrderId}, OrderNumber={OrderNumber}",
-                    orderCode, request.OrderId, orderNumber);
-
-                // Kiểm tra xem orderCode đã tồn tại chưa
-                try
-                {
-                    _logger.LogInformation("Checking if orderCode {OrderCode} already exists", orderCode);
-
-                    // Gọi API để kiểm tra orderCode
-                    var checkResponse = await _httpClient.GetAsync($"/v2/payment-requests/order-code/{orderCode}");
-
-                    // Nếu request thành công, có thể orderCode đã tồn tại
-                    if (checkResponse.IsSuccessStatusCode)
-                    {
-                        var checkContent = await checkResponse.Content.ReadAsStringAsync();
-                        _logger.LogInformation("Payos check response: {Response}", checkContent);
-
-                        dynamic checkResult = JsonConvert.DeserializeObject(checkContent);
-
-                        // Nếu code là "00", tìm thấy payment request
-                        if (checkResult != null && checkResult.code == "00" && checkResult.data != null)
-                        {
-                            string status = checkResult.data.status?.ToString();
-                            string paymentLinkId = checkResult.data.id?.ToString();
-
-                            _logger.LogInformation("Found existing Payos payment: ID={PaymentLinkId}, Status={Status}",
-                                paymentLinkId, status);
-
-                            // Tạo đối tượng PayosPaymentData từ response
-                            var paymentData = new PayosPaymentData
-                            {
-                                PaymentLinkId = paymentLinkId,
-                                CheckoutUrl = checkResult.data.checkoutUrl?.ToString(),
-                                QrCode = checkResult.data.qrCode?.ToString(),
-                                ExpiredAt = checkResult.data.expiredAt != null ? (long)checkResult.data.expiredAt : 0,
-                                OrderCode = orderCode,
-                                Amount = checkResult.data.amount != null ? (int)checkResult.data.amount : 0,
-                                Description = checkResult.data.description?.ToString(),
-                                Status = status
-                            };
-
-                            // Trả về thông tin thanh toán hiện có
-                            return ServiceResponse<PayosPaymentData>.SuccessResponse(
-                                paymentData,
-                                "Trả về thông tin thanh toán hiện có");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Nếu có lỗi khi kiểm tra, ghi log và tiếp tục tạo mới
-                    _logger.LogWarning(ex, "Error checking existing payment, will create new one");
+                    numericOrderCode = random.Next(10000000, 99999999);
+                    _logger.LogWarning("Could not parse orderCode {OrderCode} to number, using random number {RandomNumber}",
+                        orderCode, numericOrderCode);
                 }
 
                 // Giới hạn mô tả tối đa 25 ký tự
                 string description = "Thanh toán đơn hàng";
 
-                // Tạo payload
+                // Tạo item data
+                var itemName = $"Đơn hàng #{order.OrderNumber}";
+                var itemQuantity = 1;
+                var itemPrice = amount;
 
-                // Log thông tin để debug
-                _logger.LogInformation("Creating payment with OrderId: {OrderId}, OrderCode: {OrderCode}, Amount: {Amount}, Description: {Description}",
-                    request.OrderId, orderCode, amount, description);
+                var item = new ItemData(itemName, itemQuantity, itemPrice);
+                var items = new List<ItemData>();
+                items.Add(item);
 
-                // Chuyển đổi orderCode từ chuỗi thành số
-                long numericOrderCode;
-                if (!long.TryParse(orderCode, out numericOrderCode))
-                {
-                    // Nếu không thể chuyển đổi, sử dụng timestamp
-                    numericOrderCode = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                    _logger.LogWarning("Could not parse orderCode {OrderCode} to number, using timestamp {Timestamp}",
-                        orderCode, numericOrderCode);
-                }
-                else
-                {
-                    _logger.LogInformation("Successfully parsed orderCode {OrderCode} to number {NumericOrderCode}",
-                        orderCode, numericOrderCode);
-                }
-
-                // Tạo dictionary chứa tất cả các trường để tạo chữ ký
-                var signatureData = new Dictionary<string, string>
-                {
-                    { "amount", amount.ToString() },
-                    { "cancelUrl", request.CancelUrl },
-                    { "description", description },
-                    { "orderCode", numericOrderCode.ToString() },  // Sử dụng số thay vì chuỗi
-                    { "returnUrl", request.ReturnUrl }
-                };
-
-                // Thêm thông tin khách hàng nếu có
-                if (request.CustomerInfo != null)
-                {
-                    if (!string.IsNullOrEmpty(request.CustomerInfo.Name))
-                        signatureData.Add("buyerInfo.name", request.CustomerInfo.Name);
-                    if (!string.IsNullOrEmpty(request.CustomerInfo.Email))
-                        signatureData.Add("buyerInfo.email", request.CustomerInfo.Email);
-                    if (!string.IsNullOrEmpty(request.CustomerInfo.Phone))
-                        signatureData.Add("buyerInfo.phone", request.CustomerInfo.Phone);
-                }
-
-                // Tạo chữ ký
-                var signature = GenerateSignatureFromDictionary(signatureData);
-
-                // Sử dụng numericOrderCode đã chuyển đổi ở trên
-
-                var payload = new
-                {
-                    orderCode = numericOrderCode,  // Sử dụng số thay vì chuỗi
-                    amount = amount,
-                    description = description,
-                    returnUrl = request.ReturnUrl,
-                    cancelUrl = request.CancelUrl,
-                    buyerInfo = new
-                    {
-                        name = request.CustomerInfo?.Name,
-                        email = request.CustomerInfo?.Email,
-                        phone = request.CustomerInfo?.Phone
-                    },
-                    signature = signature
-                };
-
-                // Gửi request đến Payos
-                var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("/v2/payment-requests", content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorContent = await response.Content.ReadAsStringAsync();
-                    _logger.LogError("Failed to create Payos payment link: {ErrorContent}", errorContent);
-                    return ServiceResponse<PayosPaymentData>.ErrorResponse($"Lỗi khi tạo link thanh toán: {response.StatusCode}");
-                }
-
-                // Xử lý response
-                var responseContent = await response.Content.ReadAsStringAsync();
-                _logger.LogInformation("Payos response: {Response}", responseContent);
+                // Tạo payment data theo cách thư viện payOS yêu cầu
+                var paymentData = new PaymentData(
+                    (int)numericOrderCode,  // Chuyển đổi sang int theo yêu cầu của thư viện
+                    amount,
+                    description,
+                    items,
+                    request.CancelUrl,
+                    request.ReturnUrl
+                );
 
                 try
                 {
-                    // Kiểm tra xem response có phải là JSON hợp lệ không
-                    if (string.IsNullOrWhiteSpace(responseContent))
+                    // Gọi API tạo payment link với paymentData
+                    var paymentLinkResponse = await _payOS.createPaymentLink(paymentData);
+                    _logger.LogInformation("Payos response: {Response}", JsonConvert.SerializeObject(paymentLinkResponse));
+
+                    if (paymentLinkResponse == null)
                     {
-                        return ServiceResponse<PayosPaymentData>.ErrorResponse("Phản hồi từ Payos trống");
+                        _logger.LogError("Payos error: Null response");
+                        return ServiceResponse<PayosPaymentData>.ErrorResponse("Không nhận được phản hồi từ Payos");
                     }
 
-                    // Phân tích response dưới dạng dynamic để dễ dàng truy cập các trường
-                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+                    // Lưu thông tin paymentLinkId vào đơn hàng để dễ dàng tra cứu sau này
+                    order.PaymentLinkId = paymentLinkResponse.paymentLinkId?.ToString() ?? "";
+                    // Cập nhật đơn hàng
+                    await _orderRepository.UpdateAsync(order);
+                    await _unitOfWork.SaveChangesAsync();
 
-                    if (jsonResponse == null)
+                    // Log chi tiết response để debug
+                    _logger.LogInformation("PayOS response details: paymentLinkId={PaymentLinkId}, checkoutUrl={CheckoutUrl}, expiredAt={ExpiredAt}",
+                        paymentLinkResponse.paymentLinkId,
+                        paymentLinkResponse.checkoutUrl,
+                        paymentLinkResponse.expiredAt);
+
+                    // Chuyển đổi data thành PayosPaymentData, xử lý các trường có thể null
+                    var paymentResult = new PayosPaymentData
                     {
-                        return ServiceResponse<PayosPaymentData>.ErrorResponse("Không thể phân tích phản hồi từ Payos");
-                    }
-
-                    // Kiểm tra code trong response
-                    string code = jsonResponse.code?.ToString() ?? "";
-
-                    // Nếu code không phải là "00", đây là lỗi
-                    if (code != "00")
-                    {
-                        string errorMessage = jsonResponse.desc?.ToString() ?? "Lỗi không xác định từ Payos";
-                        _logger.LogError("Payos error: Code={Code}, Message={Message}", code, errorMessage);
-                        return ServiceResponse<PayosPaymentData>.ErrorResponse($"Lỗi từ Payos: {errorMessage}");
-                    }
-
-                    // Nếu không có data, đây là lỗi
-                    if (jsonResponse.data == null)
-                    {
-                        return ServiceResponse<PayosPaymentData>.ErrorResponse("Dữ liệu phản hồi từ Payos trống");
-                    }
-
-                    // Chuyển đổi data thành PayosPaymentData
-                    var paymentData = new PayosPaymentData
-                    {
-                        PaymentLinkId = jsonResponse.data.paymentLinkId?.ToString(),
-                        CheckoutUrl = jsonResponse.data.checkoutUrl?.ToString(),
-                        QrCode = jsonResponse.data.qrCode?.ToString(),
-                        ExpiredAt = jsonResponse.data.expiredAt != null ? (long)jsonResponse.data.expiredAt : 0,
-                        OrderCode = jsonResponse.data.orderCode?.ToString(),
-                        Amount = jsonResponse.data.amount != null ? (int)jsonResponse.data.amount : 0,
-                        Description = jsonResponse.data.description?.ToString(),
-                        Status = jsonResponse.data.status?.ToString()
+                        PaymentLinkId = paymentLinkResponse.paymentLinkId?.ToString() ?? "",
+                        CheckoutUrl = paymentLinkResponse.checkoutUrl ?? "",
+                        QrCode = paymentLinkResponse.qrCode ?? "",
+                        ExpiredAt = paymentLinkResponse.expiredAt.HasValue ? paymentLinkResponse.expiredAt.Value : 0,
+                        OrderCode = paymentLinkResponse.orderCode.ToString() ?? "",
+                        Amount = paymentLinkResponse.amount,
+                        Description = paymentLinkResponse.description ?? "",
+                        Status = paymentLinkResponse.status ?? "PENDING"
                     };
 
                     return ServiceResponse<PayosPaymentData>.SuccessResponse(
-                        paymentData,
+                        paymentResult,
                         "Tạo link thanh toán thành công");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error parsing Payos response: {Response}", responseContent);
+                    _logger.LogError(ex, "Error parsing Payos response: {Message}", ex.Message);
                     return ServiceResponse<PayosPaymentData>.ErrorResponse($"Lỗi khi xử lý phản hồi từ Payos: {ex.Message}");
                 }
             }
@@ -321,22 +207,35 @@ namespace WebTechnology.Service.Services.Implementations
 
                 _logger.LogInformation("Processing Payos webhook for order {OrderId}", webhookRequest.Data.OrderCode);
 
-                // Xác thực chữ ký - bỏ qua bước này trong quá trình test
-                var dataJson = JsonConvert.SerializeObject(webhookRequest.Data);
-                var expectedSignature = GenerateHmacSha256(dataJson, _payosSettings.ChecksumKey);
+                // Xác thực chữ ký sử dụng thư viện PayOS
+                bool isValidSignature = false;
+                try {
+                    // Chuyển đổi từ PayosWebhookRequest sang WebhookType của thư viện PayOS
+                    var webhookType = PayosWebhookType.FromPayosWebhookRequest(webhookRequest);
 
-                _logger.LogInformation("Webhook signature validation: Received={ReceivedSignature}, Expected={ExpectedSignature}",
-                    webhookRequest.Signature, expectedSignature);
+                    // Sử dụng phương thức verifyPaymentWebhookData từ thư viện PayOS
+                    var webhookData = _payOS.verifyPaymentWebhookData(webhookType);
+                    isValidSignature = true;
+                    _logger.LogInformation("Webhook signature validated successfully using PayOS library");
+                }
+                catch (Exception ex) {
+                    _logger.LogWarning(ex, "Error validating webhook signature using PayOS library, falling back to custom implementation: {Message}", ex.Message);
 
-                // Tạm thời bỏ qua việc kiểm tra chữ ký để test
-                // Sau khi test thành công, bạn có thể bỏ comment dòng code bên dưới
-                /*
-                if (expectedSignature != webhookRequest.Signature)
+                    // Fallback: Sử dụng phương thức tự triển khai để xác thực chữ ký
+                    var dataJson = JsonConvert.SerializeObject(webhookRequest.Data);
+                    var signature = webhookRequest.Signature;
+                    var expectedSignature = GenerateHmacSha256(dataJson, _payosSettings.ChecksumKey);
+                    isValidSignature = (expectedSignature == signature);
+                }
+
+                _logger.LogInformation("Webhook signature validation: {IsValid}", isValidSignature);
+
+                // Kiểm tra chữ ký - bắt buộc trong môi trường sản xuất
+                if (!isValidSignature)
                 {
                     _logger.LogWarning("Invalid Payos webhook signature");
                     return ServiceResponse<bool>.ErrorResponse("Chữ ký không hợp lệ");
                 }
-                */
 
                 // Kiểm tra trạng thái thanh toán
                 if (webhookRequest.Data.Status.Equals("PAID", StringComparison.OrdinalIgnoreCase))
@@ -348,66 +247,18 @@ namespace WebTechnology.Service.Services.Implementations
                     string orderCode = webhookRequest.Data.OrderCode;
                     _logger.LogInformation("Received webhook for OrderCode: {OrderCode}", orderCode);
 
-                    // Log thông tin chi tiết về orderCode
-                    _logger.LogInformation("Attempting to find order for orderCode: {OrderCode}", orderCode);
-
-                    // Thử nhiều cách khác nhau để tìm đơn hàng
-                    Order order = null;
-
-                    // Cách 1: Tìm theo OrderNumber chính xác
+                    // Tìm đơn hàng theo OrderNumber (thêm tiền tố "ORD-")
                     string exactOrderNumber = $"ORD-{orderCode}";
-                    _logger.LogInformation("Trying to find order with exact OrderNumber: {OrderNumber}", exactOrderNumber);
                     var orders = await _orderRepository.FindAsync(o => o.OrderNumber == exactOrderNumber);
-                    order = orders.FirstOrDefault();
+                    var order = orders.FirstOrDefault();
 
-                    // Cách 2: Tìm theo OrderNumber bắt đầu bằng prefix
                     if (order == null)
                     {
-                        _logger.LogInformation("No exact match, trying prefix search with: {Prefix}", $"ORD-{orderCode}");
-                        orders = await _orderRepository.FindAsync(o => o.OrderNumber.StartsWith($"ORD-{orderCode}"));
-                        order = orders.FirstOrDefault();
+                        return ServiceResponse<bool>.NotFoundResponse($"Không tìm thấy đơn hàng với mã {exactOrderNumber}");
                     }
 
-                    // Cách 3: Tìm theo OrderNumber chứa orderCode
-                    if (order == null)
-                    {
-                        _logger.LogInformation("No prefix match, trying contains search with: {OrderCode}", orderCode);
-                        orders = await _orderRepository.FindAsync(o => o.OrderNumber.Contains(orderCode));
-                        order = orders.FirstOrDefault();
-                    }
-
-                    // Cách 4: Lấy tất cả đơn hàng và tìm đơn hàng mới nhất
-                    if (order == null)
-                    {
-                        _logger.LogWarning("No order found with OrderCode: {OrderCode}, getting all orders", orderCode);
-                        var allOrders = await _orderRepository.GetAllAsync();
-
-                        // Log số lượng đơn hàng để debug
-                        _logger.LogInformation("Total orders in database: {Count}", allOrders.Count());
-
-                        // Log thông tin chi tiết về các đơn hàng
-                        foreach (var o in allOrders.Take(5))
-                        {
-                            _logger.LogInformation("Order in DB: ID={OrderId}, Number={OrderNumber}, Status={Status}, CreatedAt={CreatedAt}",
-                                o.Orderid, o.OrderNumber, o.StatusId, o.CreatedAt);
-                        }
-
-                        // Tìm đơn hàng mới nhất
-                        order = allOrders.OrderByDescending(o => o.CreatedAt).FirstOrDefault();
-
-                        if (order == null)
-                        {
-                            return ServiceResponse<bool>.NotFoundResponse($"Không tìm thấy đơn hàng nào trong hệ thống");
-                        }
-
-                        _logger.LogWarning("Using most recent order as fallback: ID={OrderId}, Number={OrderNumber}",
-                            order.Orderid, order.OrderNumber);
-                    }
-                    else
-                    {
-                        _logger.LogInformation("Found order: ID={OrderId}, Number={OrderNumber}, Status={Status}",
-                            order.Orderid, order.OrderNumber, order.StatusId);
-                    }
+                    _logger.LogInformation("Found order: ID={OrderId}, Number={OrderNumber}, Status={Status}",
+                        order.Orderid, order.OrderNumber, order.StatusId);
 
                     // Cập nhật trạng thái đơn hàng thành đã thanh toán
                     order.IsSuccess = true;
@@ -440,59 +291,36 @@ namespace WebTechnology.Service.Services.Implementations
             {
                 _logger.LogInformation("Checking payment status for Payos payment {PaymentLinkId}", paymentLinkId);
 
-                // Gửi request đến Payos
-                var response = await _httpClient.GetAsync($"/v2/payment-requests/{paymentLinkId}");
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorContent = await response.Content.ReadAsStringAsync();
-                    _logger.LogError("Failed to check Payos payment status: {ErrorContent}", errorContent);
-                    return ServiceResponse<string>.ErrorResponse($"Lỗi khi kiểm tra trạng thái thanh toán: {response.StatusCode}");
-                }
-
-                // Xử lý response
-                var responseContent = await response.Content.ReadAsStringAsync();
-                _logger.LogInformation("Payos check status response: {Response}", responseContent);
-
+                // Sử dụng thư viện payOS để kiểm tra trạng thái thanh toán
                 try
                 {
-                    // Kiểm tra xem response có phải là JSON hợp lệ không
-                    if (string.IsNullOrWhiteSpace(responseContent))
+                    // Gọi API để kiểm tra trạng thái thanh toán
+                    _logger.LogInformation("Checking payment status using payOS library for paymentLinkId: {PaymentLinkId}", paymentLinkId);
+
+                    // Chuyển đổi paymentLinkId từ string sang long
+                    if (!long.TryParse(paymentLinkId, out long orderId))
                     {
-                        return ServiceResponse<string>.ErrorResponse("Phản hồi từ Payos trống");
+                        return ServiceResponse<string>.ErrorResponse("Mã giao dịch không hợp lệ, không thể chuyển đổi sang số");
                     }
 
-                    // Phân tích response dưới dạng dynamic để dễ dàng truy cập các trường
-                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+                    var paymentResponse = await _payOS.getPaymentLinkInformation(orderId);
 
-                    if (jsonResponse == null)
+                    // Log response để debug
+                    _logger.LogInformation("Payos check status response: {Response}", JsonConvert.SerializeObject(paymentResponse));
+
+                    if (paymentResponse == null)
                     {
-                        return ServiceResponse<string>.ErrorResponse("Không thể phân tích phản hồi từ Payos");
+                        return ServiceResponse<string>.ErrorResponse("Không nhận được phản hồi từ Payos");
                     }
 
-                    // Kiểm tra code trong response
-                    string code = jsonResponse.code?.ToString() ?? "";
-
-                    // Nếu code không phải là "00", đây là lỗi
-                    if (code != "00")
-                    {
-                        string errorMessage = jsonResponse.desc?.ToString() ?? "Lỗi không xác định từ Payos";
-                        _logger.LogError("Payos error: Code={Code}, Message={Message}", code, errorMessage);
-                        return ServiceResponse<string>.ErrorResponse($"Lỗi từ Payos: {errorMessage}");
-                    }
-
-                    // Nếu không có data, đây là lỗi
-                    if (jsonResponse.data == null)
-                    {
-                        return ServiceResponse<string>.ErrorResponse("Dữ liệu phản hồi từ Payos trống");
-                    }
-
-                    string status = jsonResponse.data.status?.ToString() ?? "UNKNOWN";
+                    // PaymentLinkInformation không có thuộc tính code/message
+                    // Nếu đã nhận được response thì coi như thành công
+                    string status = paymentResponse.status ?? "UNKNOWN";
                     return ServiceResponse<string>.SuccessResponse(status, "Kiểm tra trạng thái thanh toán thành công");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error parsing Payos check status response: {Response}", responseContent);
+                    _logger.LogError(ex, "Error checking payment status using payOS library: {Message}", ex.Message);
                     return ServiceResponse<string>.ErrorResponse($"Lỗi khi xử lý phản hồi từ Payos: {ex.Message}");
                 }
             }
@@ -504,62 +332,25 @@ namespace WebTechnology.Service.Services.Implementations
         }
 
         /// <summary>
-        /// Tạo chữ ký từ dictionary theo yêu cầu của Payos
+        /// Xác nhận webhook URL với Payos
         /// </summary>
-        /// <param name="data">Dictionary chứa dữ liệu để tạo chữ ký</param>
-        /// <returns>Chữ ký</returns>
-        private string GenerateSignatureFromDictionary(Dictionary<string, string> data)
+        /// <param name="webhookUrl">URL webhook cần xác nhận</param>
+        /// <returns>Kết quả xác nhận</returns>
+        public async Task<ServiceResponse<bool>> ConfirmWebhookAsync(string webhookUrl)
         {
             try
             {
-                // Sắp xếp các trường theo thứ tự alphabet
-                var sortedData = data.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+                _logger.LogInformation("Confirming webhook URL with Payos: {WebhookUrl}", webhookUrl);
 
-                // Tạo chuỗi dữ liệu dạng key1=value1&key2=value2...
-                var queryString = string.Join("&", sortedData.Select(x => $"{x.Key}={x.Value}"));
+                // Sử dụng thư viện payOS để xác nhận webhook URL
+                await _payOS.confirmWebhook(webhookUrl);
 
-                _logger.LogInformation("Signature query string: {QueryString}", queryString);
-
-                // Sử dụng thuật toán HMAC_SHA256 với chuỗi dữ liệu và checksum_key
-                return GenerateHmacSha256(queryString, _payosSettings.ChecksumKey);
+                return ServiceResponse<bool>.SuccessResponse(true, "Xác nhận webhook URL thành công");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error generating signature from dictionary");
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Tạo chữ ký cho request (phương thức cũ, giữ lại để tương thích)
-        /// </summary>
-        /// <param name="orderId">ID đơn hàng</param>
-        /// <param name="amount">Số tiền</param>
-        /// <param name="description">Mô tả đơn hàng</param>
-        /// <returns>Chữ ký</returns>
-        private string GenerateSignature(string orderId, string amount, string description = null)
-        {
-            try
-            {
-                // Tạo dictionary chứa dữ liệu
-                var data = new Dictionary<string, string>
-                {
-                    { "orderCode", orderId },
-                    { "amount", amount }
-                };
-
-                if (!string.IsNullOrEmpty(description))
-                {
-                    data.Add("description", description);
-                }
-
-                // Sử dụng phương thức mới
-                return GenerateSignatureFromDictionary(data);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error generating signature");
-                return string.Empty;
+                _logger.LogError(ex, "Error confirming webhook URL: {Message}", ex.Message);
+                return ServiceResponse<bool>.ErrorResponse($"Lỗi khi xác nhận webhook URL: {ex.Message}");
             }
         }
 

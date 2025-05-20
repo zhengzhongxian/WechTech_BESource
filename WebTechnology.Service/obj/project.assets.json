@@ -524,6 +524,22 @@
           }
         }
       },
+      "payOS/1.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "compile": {
+          "lib/net6.0/payos-lib-backend-dotnet.dll": {
+            "related": ".runtimeconfig.json"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/payos-lib-backend-dotnet.dll": {
+            "related": ".runtimeconfig.json"
+          }
+        }
+      },
       "Pomelo.EntityFrameworkCore.MySql/8.0.3": {
         "type": "package",
         "dependencies": {
@@ -1370,7 +1386,8 @@
           "Microsoft.AspNetCore.JsonPatch": "9.0.3",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.13",
           "Microsoft.EntityFrameworkCore": "8.0.13",
-          "Pomelo.EntityFrameworkCore.MySql": "8.0.3"
+          "Pomelo.EntityFrameworkCore.MySql": "8.0.3",
+          "payOS": "1.0.9"
         },
         "compile": {
           "bin/placeholder/WebTechnology.Repository.dll": {}
@@ -2242,6 +2259,20 @@
         "lib/netstandard2.0/Newtonsoft.Json.Bson.xml",
         "newtonsoft.json.bson.1.0.2.nupkg.sha512",
         "newtonsoft.json.bson.nuspec"
+      ]
+    },
+    "payOS/1.0.9": {
+      "sha512": "LPfIWXg0Oo8mPk8l3otrqtH4iQcjaG+ughDp2DS3gS52s7bs8eEtU+uXflu32GPDCFKksfFyAAOLUoPDva4/Gw==",
+      "type": "package",
+      "path": "payos/1.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net6.0/payos-lib-backend-dotnet.dll",
+        "lib/net6.0/payos-lib-backend-dotnet.runtimeconfig.json",
+        "payos.1.0.9.nupkg.sha512",
+        "payos.nuspec"
       ]
     },
     "Pomelo.EntityFrameworkCore.MySql/8.0.3": {
@@ -4407,7 +4438,8 @@
       "CloudinaryDotNet >= 1.27.5",
       "Microsoft.IdentityModel.Tokens >= 8.7.0",
       "System.IdentityModel.Tokens.Jwt >= 8.7.0",
-      "WebTechnology.Repository >= 1.0.0"
+      "WebTechnology.Repository >= 1.0.0",
+      "payOS >= 1.0.9"
     ]
   },
   "packageFolders": {
@@ -4476,6 +4508,10 @@
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",
             "version": "[8.7.0, )"
+          },
+          "payOS": {
+            "target": "Package",
+            "version": "[1.0.9, )"
           }
         },
         "imports": [

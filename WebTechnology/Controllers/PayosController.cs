@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using WebTechnology.Repository.DTOs.Payments;
 using WebTechnology.Service.Services.Interfaces;
-using System.Security.Claims;
 
 namespace WebTechnology.API.Controllers
 {
@@ -14,16 +12,11 @@ namespace WebTechnology.API.Controllers
     {
         private readonly IPayosService _payosService;
         private readonly ILogger<PayosController> _logger;
-        private readonly ITokenService _tokenService;
 
-        public PayosController(
-            IPayosService payosService,
-            ILogger<PayosController> logger,
-            ITokenService tokenService)
+        public PayosController(IPayosService payosService, ILogger<PayosController> logger)
         {
             _payosService = payosService;
             _logger = logger;
-            _tokenService = tokenService;
         }
 
         /// <summary>
@@ -32,10 +25,10 @@ namespace WebTechnology.API.Controllers
         /// <remarks>
         /// API này tạo một link thanh toán qua cổng Payos.
         /// Thông tin khách hàng sẽ được lấy từ token, không cần truyền vào.
-        ///
+        /// 
         /// **Quyền truy cập:**
         /// - Khách hàng đã đăng nhập
-        ///
+        /// 
         /// **Cấu trúc dữ liệu trả về:**
         /// - **paymentLinkId**: ID giao dịch trong hệ thống Payos
         /// - **checkoutUrl**: URL thanh toán
@@ -51,29 +44,34 @@ namespace WebTechnology.API.Controllers
         [Authorize(Policy = "CustomerOnly")]
         public async Task<IActionResult> CreatePayment([FromBody] PayosCreatePaymentLinkRequest request)
         {
-            _logger.LogInformation("Request received to create Payos payment link");
-
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                _logger.LogInformation("Creating Payos payment for order {OrderId}", request.OrderId);
+
+                // Lấy thông tin khách hàng từ token
+                var customerEmail = User.FindFirstValue(ClaimTypes.Email);
+                var customerName = User.FindFirstValue(ClaimTypes.Name);
+                var customerPhone = User.FindFirstValue(ClaimTypes.MobilePhone);
+
+                // Thêm thông tin khách hàng vào request
+                if (!string.IsNullOrEmpty(customerEmail) && !string.IsNullOrEmpty(customerName))
+                {
+                    request.CustomerInfo = new PayosCustomerInfo
+                    {
+                        Email = customerEmail,
+                        Name = customerName,
+                        Phone = customerPhone ?? ""
+                    };
+                }
+
+                var result = await _payosService.CreatePaymentLinkAsync(request);
+                return StatusCode((int)result.StatusCode, result);
             }
-
-            // Lấy thông tin từ token
-            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            var email = _tokenService.GetEmailFromToken(token);
-            var name = _tokenService.GetNameFromToken(token);
-
-            // Thêm thông tin khách hàng từ token
-            if (request.CustomerInfo == null)
+            catch (Exception ex)
             {
-                request.CustomerInfo = new PayosCustomerInfo();
+                _logger.LogError(ex, "Error creating Payos payment");
+                return StatusCode(500, new { success = false, message = "Lỗi khi tạo link thanh toán" });
             }
-
-            request.CustomerInfo.Email = email;
-            request.CustomerInfo.Name = name;
-
-            var response = await _payosService.CreatePaymentLinkAsync(request);
-            return StatusCode((int)response.StatusCode, response);
         }
 
         /// <summary>
@@ -81,7 +79,7 @@ namespace WebTechnology.API.Controllers
         /// </summary>
         /// <remarks>
         /// API này nhận webhook từ Payos khi trạng thái thanh toán thay đổi.
-        ///
+        /// 
         /// **Quyền truy cập:**
         /// - Chỉ Payos có thể gọi API này
         /// </remarks>
@@ -92,18 +90,20 @@ namespace WebTechnology.API.Controllers
         /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
         [HttpPost("webhook")]
         [AllowAnonymous]
-        [EnableCors("PayosWebhook")] // Áp dụng policy CORS riêng cho webhook
         public async Task<IActionResult> ProcessWebhook([FromBody] PayosWebhookRequest webhookRequest)
         {
-            _logger.LogInformation("Received Payos webhook");
-
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                _logger.LogInformation("Received Payos webhook");
 
-            var response = await _payosService.ProcessWebhookAsync(webhookRequest);
-            return StatusCode((int)response.StatusCode, response);
+                var result = await _payosService.ProcessWebhookAsync(webhookRequest);
+                return StatusCode((int)result.StatusCode, result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error processing Payos webhook");
+                return StatusCode(500, new { success = false, message = "Lỗi khi xử lý webhook" });
+            }
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace WebTechnology.API.Controllers
         /// </summary>
         /// <remarks>
         /// API này kiểm tra trạng thái thanh toán của một giao dịch Payos.
-        ///
+        /// 
         /// **Quyền truy cập:**
         /// - Khách hàng đã đăng nhập
         /// </remarks>
@@ -124,15 +124,18 @@ namespace WebTechnology.API.Controllers
         [Authorize(Policy = "CustomerOnly")]
         public async Task<IActionResult> CheckPaymentStatus(string paymentLinkId)
         {
-            _logger.LogInformation("Request received to check Payos payment status");
-
-            if (string.IsNullOrEmpty(paymentLinkId))
+            try
             {
-                return BadRequest("Payment link ID is required");
-            }
+                _logger.LogInformation("Checking Payos payment status for {PaymentLinkId}", paymentLinkId);
 
-            var response = await _payosService.CheckPaymentStatusAsync(paymentLinkId);
-            return StatusCode((int)response.StatusCode, response);
+                var result = await _payosService.CheckPaymentStatusAsync(paymentLinkId);
+                return StatusCode((int)result.StatusCode, result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error checking Payos payment status");
+                return StatusCode(500, new { success = false, message = "Lỗi khi kiểm tra trạng thái thanh toán" });
+            }
         }
 
         /// <summary>
@@ -141,7 +144,7 @@ namespace WebTechnology.API.Controllers
         /// <remarks>
         /// API này được gọi từ trang callback sau khi thanh toán.
         /// Nó sẽ kiểm tra trạng thái thanh toán và cập nhật trạng thái đơn hàng nếu thanh toán thành công.
-        ///
+        /// 
         /// **Quyền truy cập:**
         /// - Không yêu cầu xác thực
         /// </remarks>
@@ -150,19 +153,22 @@ namespace WebTechnology.API.Controllers
         /// <response code="200">Trả về thông tin trạng thái thanh toán</response>
         /// <response code="400">Lỗi dữ liệu đầu vào</response>
         /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
-        [HttpGet("check-status-callback/{paymentLinkId}")]
+        [HttpGet("callback/{paymentLinkId}")]
         [AllowAnonymous]
         public async Task<IActionResult> CheckPaymentStatusCallback(string paymentLinkId)
         {
-            _logger.LogInformation("Callback received to check Payos payment status");
-
-            if (string.IsNullOrEmpty(paymentLinkId))
+            try
             {
-                return BadRequest("Payment link ID is required");
-            }
+                _logger.LogInformation("Callback for Payos payment {PaymentLinkId}", paymentLinkId);
 
-            var response = await _payosService.CheckPaymentStatusAsync(paymentLinkId);
-            return StatusCode((int)response.StatusCode, response);
+                var result = await _payosService.CheckPaymentStatusAsync(paymentLinkId);
+                return StatusCode((int)result.StatusCode, result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in Payos callback");
+                return StatusCode(500, new { success = false, message = "Lỗi khi xử lý callback" });
+            }
         }
 
         /// <summary>
@@ -172,47 +178,43 @@ namespace WebTechnology.API.Controllers
         /// API này dùng để kiểm tra xem webhook có thể truy cập được không.
         /// </remarks>
         /// <returns>Thông báo thành công</returns>
-        [HttpPost("webhook-test")]
-        [HttpGet("webhook-test")]
+        [HttpGet("test-webhook")]
         [AllowAnonymous]
-        [EnableCors("PayosWebhook")]
         public IActionResult TestWebhook()
         {
-            _logger.LogInformation("Received Payos webhook test");
-
-            // Lấy thông tin request để debug
-            var headers = Request.Headers.ToDictionary(h => h.Key, h => h.Value.ToString());
-            var headersJson = Newtonsoft.Json.JsonConvert.SerializeObject(headers);
-            _logger.LogInformation("Request headers: {Headers}", headersJson);
-
             return Ok(new { success = true, message = "Webhook endpoint is accessible" });
         }
 
         /// <summary>
-        /// Endpoint nhận webhook với bất kỳ dữ liệu nào
+        /// Xác nhận webhook URL với Payos
         /// </summary>
         /// <remarks>
-        /// API này dùng để nhận webhook từ Payos với bất kỳ dữ liệu nào.
+        /// API này xác nhận webhook URL với Payos.
+        /// 
+        /// **Quyền truy cập:**
+        /// - Admin
         /// </remarks>
-        /// <param name="data">Dữ liệu webhook</param>
-        /// <returns>Thông báo thành công</returns>
-        [HttpPost("webhook-raw")]
-        [AllowAnonymous]
-        [EnableCors("PayosWebhook")]
-        public IActionResult RawWebhook([FromBody] object data)
+        /// <param name="webhookUrl">URL webhook cần xác nhận</param>
+        /// <returns>Kết quả xác nhận</returns>
+        /// <response code="200">Xác nhận webhook URL thành công</response>
+        /// <response code="400">Lỗi dữ liệu đầu vào</response>
+        /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
+        [HttpPost("confirm-webhook")]
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> ConfirmWebhook([FromBody] string webhookUrl)
         {
-            _logger.LogInformation("Received raw Payos webhook");
+            try
+            {
+                _logger.LogInformation("Confirming webhook URL: {WebhookUrl}", webhookUrl);
 
-            // Lấy thông tin request để debug
-            var headers = Request.Headers.ToDictionary(h => h.Key, h => h.Value.ToString());
-            var headersJson = Newtonsoft.Json.JsonConvert.SerializeObject(headers);
-            _logger.LogInformation("Request headers: {Headers}", headersJson);
-
-            // Log dữ liệu webhook
-            var dataJson = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-            _logger.LogInformation("Webhook data: {Data}", dataJson);
-
-            return Ok(new { success = true, message = "Raw webhook received successfully" });
+                var result = await _payosService.ConfirmWebhookAsync(webhookUrl);
+                return StatusCode((int )result.StatusCode, result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error confirming webhook URL");
+                return StatusCode(500, new { success = false, message = "Lỗi khi xác nhận webhook URL" });
+            }
         }
     }
 }

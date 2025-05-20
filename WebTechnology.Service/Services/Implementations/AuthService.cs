@@ -205,6 +205,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 Email = email,
                 Otp = otp,
                 CountAuth = 1,
+                Authenticate = false, 
                 VerifiedAt = DateTime.UtcNow.AddMinutes(5)
             };
 
@@ -229,7 +230,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 }
                 bool exists = await _userRepository.ExistsAsync(x =>
                     x.Username == registrationRequest.Username
-                    && x.IsDeleted != true && user.Authenticate == true);
+                    && x.IsDeleted != true && x.Authenticate == true);
 
                 if (exists)
                 {

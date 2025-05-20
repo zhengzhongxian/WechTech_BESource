@@ -19,6 +19,7 @@ namespace WebTechnology.Repository.DTOs.Orders
         public DateTime? CreatedAt { get; set; }
         public string? StatusId { get; set; }
         public bool? IsSuccess { get; set; }
+        public string? PaymentLinkId { get; set; }
         public List<OrderDetailResponseDTO> OrderDetails { get; set; } = new List<OrderDetailResponseDTO>();
         public List<AppliedVoucherDTO> AppliedVouchers { get; set; } = new List<AppliedVoucherDTO>();
     }

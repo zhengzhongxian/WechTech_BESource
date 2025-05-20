@@ -33,6 +33,8 @@ public partial class Order
 
     public bool? IsSuccess { get; set; }
 
+    public string? PaymentLinkId { get; set; }
+
     public virtual ICollection<ApplyVoucher> ApplyVouchers { get; set; } = new List<ApplyVoucher>();
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();

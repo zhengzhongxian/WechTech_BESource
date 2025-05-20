@@ -33,5 +33,12 @@ namespace WebTechnology.Service.Services.Interfaces
         /// <param name="paymentLinkId">ID giao dịch trong hệ thống Payos</param>
         /// <returns>Thông tin trạng thái thanh toán</returns>
         Task<ServiceResponse<string>> CheckPaymentStatusAsync(string paymentLinkId);
+
+        /// <summary>
+        /// Xác nhận webhook URL với Payos
+        /// </summary>
+        /// <param name="webhookUrl">URL webhook cần xác nhận</param>
+        /// <returns>Kết quả xác nhận</returns>
+        Task<ServiceResponse<bool>> ConfirmWebhookAsync(string webhookUrl);
     }
 }
