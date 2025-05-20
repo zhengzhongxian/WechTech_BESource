@@ -98,12 +98,12 @@ namespace WebTechnology.API.Controllers
                 _logger.LogInformation("Received Payos webhook");
 
                 var result = await _payosService.ProcessWebhookAsync(webhookRequest);
-                return StatusCode((int)result.StatusCode, result);
+                return StatusCode((int)result.StatusCode);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error processing Payos webhook");
-                return StatusCode(500, new { success = false, message = "Lỗi khi xử lý webhook" });
+                return StatusCode(500);
             }
         }
 
