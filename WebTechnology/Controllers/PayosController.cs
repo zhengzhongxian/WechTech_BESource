@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Net.payOS.Types;
 using System.Security.Claims;
 using WebTechnology.Repository.DTOs.Payments;
 using WebTechnology.Service.Services.Interfaces;
@@ -90,7 +91,7 @@ namespace WebTechnology.API.Controllers
         /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
         [HttpPost("webhook")]
         [AllowAnonymous]
-        public async Task<IActionResult> ProcessWebhook([FromBody] PayosWebhookRequest webhookRequest)
+        public async Task<IActionResult> ProcessWebhook([FromBody] WebhookType webhookRequest)
         {
             try
             {
