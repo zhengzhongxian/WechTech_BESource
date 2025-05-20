@@ -196,13 +196,13 @@ namespace WebTechnology.Service.Services.Implementations
                 if (webhookRequest == null)
                 {
                     _logger.LogWarning("Webhook request is null");
-                    return ServiceResponse<bool>.ErrorResponse("Dữ liệu webhook trống");
+                    return ServiceResponse<bool>.SuccessResponse("Dữ liệu webhook trống");
                 }
 
                 if (webhookRequest.data == null)
                 {
                     _logger.LogWarning("Webhook data is null");
-                    return ServiceResponse<bool>.ErrorResponse("Dữ liệu webhook không hợp lệ");
+                    return ServiceResponse<bool>.SuccessResponse("Dữ liệu webhook không hợp lệ");
                 }
 
                 _logger.LogInformation("Processing Payos webhook for order {OrderId}", webhookRequest.data.orderCode);
@@ -232,7 +232,7 @@ namespace WebTechnology.Service.Services.Implementations
                 if (!isValidSignature)
                 {
                     _logger.LogWarning("Invalid Payos webhook signature");
-                    return ServiceResponse<bool>.FailResponse("Chữ ký không hợp lệ");
+                    return ServiceResponse<bool>.SuccessResponse("Chữ ký không hợp lệ");
                 }
 
                 // Kiểm tra trạng thái thanh toán
@@ -252,7 +252,7 @@ namespace WebTechnology.Service.Services.Implementations
 
                     if (order == null)
                     {
-                        return ServiceResponse<bool>.NotFoundResponse($"Không tìm thấy đơn hàng với mã {exactOrderNumber}");
+                        return ServiceResponse<bool>.SuccessResponse($"Không tìm thấy đơn hàng với mã {exactOrderNumber}");
                     }
 
                     _logger.LogInformation("Found order: ID={OrderId}, Number={OrderNumber}, Status={Status}",
