@@ -5,11 +5,249 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using System.Net;
 
 namespace WebTechnology.Service.CoreHelpers
 {
     public static class MailBody
     {
+        public static string GetPasswordResetEmailBody(string recipientName, string resetToken, string resetUrl)
+        {
+            // Tạo URL đầy đủ với token
+            var fullResetUrl = $"{resetUrl}?token={WebUtility.UrlEncode(resetToken)}";
+
+            return $@"
+<!DOCTYPE html>
+<html lang=""vi"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
+    <title>Đặt lại mật khẩu từ MilkStore</title>
+    <style>
+        /* Reset styles */
+        body, html {{
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', 'Google Sans', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #202124;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }}
+
+        * {{
+            box-sizing: border-box;
+        }}
+
+        /* Email container */
+        .email-container {{
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }}
+
+        /* Header */
+        .header {{
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            background: linear-gradient(135deg, #0070f3 0%, #00c6ff 100%);
+            justify-content: center;
+        }}
+
+        .logo {{
+            display: inline-block;
+        }}
+
+        .logo img {{
+            height: 40px;
+            width: auto;
+        }}
+
+        /* Content */
+        .content {{
+            padding: 40px 32px;
+            background-color: #ffffff;
+        }}
+
+        .greeting {{
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #202124;
+            font-weight: 500;
+        }}
+
+        .message {{
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            color: #5f6368;
+        }}
+
+        .reset-button {{
+            text-align: center;
+            margin: 32px 0;
+        }}
+
+        .btn {{
+            display: inline-block;
+            color: white;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            border: none;
+            color: #56e1d7;
+            border: 2px solid #56e1d7;
+        }}
+
+        .expiry-note {{
+            margin-top: 16px;
+            font-size: 14px;
+            color: #5f6368;
+            text-align: center;
+        }}
+
+        .warning {{
+            margin-top: 28px;
+            padding: 16px 20px;
+            background-color: #fef7e0;
+            border-radius: 8px;
+            color: #3c4043;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid #fbbc04;
+        }}
+
+        .warning-icon {{
+            color: #ea8600;
+            margin-right: 10px;
+            font-size: 16px;
+        }}
+
+        /* Footer */
+        .footer {{
+            padding: 28px 24px;
+            text-align: center;
+            color: #5f6368;
+            font-size: 13px;
+            border-top: 1px solid #f1f3f4;
+            background-color: #f8f9fa;
+        }}
+
+        .footer p {{
+            margin: 4px 0;
+        }}
+
+        .divider {{
+            height: 1px;
+            background-color: #f1f3f4;
+            margin: 24px 0;
+        }}
+
+        /* Responsive */
+        @media screen and (max-width: 480px) {{
+            .content {{
+                padding: 24px 16px;
+            }}
+        }}
+
+        /* Logo styling */
+        .brand-logo {{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }}
+
+        .brand-icon {{
+            font-size: 32px;
+            margin-right: 12px;
+        }}
+
+        .brand-name {{
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }}
+
+        .brand-primary {{
+            color: #ffffff;
+        }}
+
+        .brand-secondary {{
+            color: #ffffff;
+        }}
+
+        .help-text {{
+            margin-top: 24px;
+            font-size: 13px;
+            color: #5f6368;
+        }}
+
+        .reset-link {{
+            word-break: break-all;
+            color: #56e1d7;
+            text-decoration: none;
+        }}
+    </style>
+</head>
+<body>
+    <div class=""email-container"">
+        <div class=""header"">
+            <div class=""brand-logo"">
+                <span class=""brand-icon"">🥛</span>
+                <span class=""brand-name"">MilkStore</span>
+            </div>
+        </div>
+
+        <div class=""content"">
+            <div class=""greeting"">Xin chào <strong>{recipientName}</strong>,</div>
+
+            <div class=""message"">
+                Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn. Vui lòng nhấn vào nút bên dưới để đặt lại mật khẩu:
+            </div>
+
+            <div class=""reset-button"">
+                <a href=""{fullResetUrl}"" class=""btn"">Đặt lại mật khẩu</a>
+                <div class=""expiry-note"">Liên kết này sẽ hết hạn sau <strong>15 phút</strong>.</div>
+            </div>
+
+            <div class=""message"">
+                Nếu nút không hoạt động, bạn có thể sao chép và dán liên kết sau vào trình duyệt:
+                <br><br>
+                <a href=""{fullResetUrl}"" class=""reset-link"">{fullResetUrl}</a>
+            </div>
+
+            <div class=""warning"">
+                <span class=""warning-icon"">⚠️</span> Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này hoặc liên hệ với chúng tôi nếu bạn có thắc mắc.
+            </div>
+
+            <div class=""divider""></div>
+
+            <div class=""message"">
+                Cảm ơn bạn đã sử dụng dịch vụ của MilkStore!
+            </div>
+        </div>
+
+        <div class=""footer"">
+            <p>© 2025 MilkStore. Tất cả các quyền được bảo lưu.</p>
+            <p>Đây là email tự động, vui lòng không trả lời email này.</p>
+            <p>MilkStore - Địa chỉ: 123 Đường Nguyễn Văn Linh, Quận 7, TP. Hồ Chí Minh</p>
+        </div>
+    </div>
+</body>
+</html>
+";
+        }
+
         public static string GetOtpEmailBody(string otpCode, string recipientName)
         {
             return $@"
@@ -180,15 +418,15 @@ namespace WebTechnology.Service.CoreHelpers
         /* Button style */
         .btn {{
             display: inline-block;
-            background-color: #1a73e8;
+            background-color: #0070f3;
             color: white;
             font-family: 'Google Sans', Roboto, Arial, sans-serif;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
             text-decoration: none;
             padding: 10px 24px;
             border-radius: 4px;
-            margin-top: 16px;
+            border: none;
         }}
 
         .help-text {{
@@ -203,9 +441,7 @@ namespace WebTechnology.Service.CoreHelpers
         <div class=""header"">
             <div class=""brand-logo"">
                 <span class=""brand-icon"">🥛</span>
-                <span class=""brand-name"">
-                    <span class=""brand-primary"">Milk</span><span class=""brand-secondary"">Store</span>
-                </span>
+                <span class=""brand-name"">MilkStore</span>
             </div>
         </div>
 

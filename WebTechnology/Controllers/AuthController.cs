@@ -12,10 +12,11 @@ namespace WebTechnology.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-
-        public AuthController(IAuthService authService)
+        private readonly IConfiguration _configuration;
+        public AuthController(IAuthService authService, IConfiguration configuration)
         {
             _authService = authService;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -149,6 +150,71 @@ namespace WebTechnology.API.Controllers
             }
 
             var response = await _authService.CheckEmailAndUsernameExistAsync(email, username);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        /// <summary>
+        /// Đổi mật khẩu cho người dùng đã đăng nhập
+        /// </summary>
+        /// <remarks>
+        /// API này cho phép người dùng đã đăng nhập đổi mật khẩu.
+        /// Yêu cầu người dùng cung cấp mật khẩu hiện tại và mật khẩu mới.
+        /// </remarks>
+        /// <param name="changePasswordDTO">Thông tin mật khẩu cũ và mới</param>
+        /// <returns>Kết quả thay đổi mật khẩu</returns>
+        /// <response code="200">Đổi mật khẩu thành công</response>
+        /// <response code="400">Lỗi khi mật khẩu hiện tại không đúng hoặc thông tin không hợp lệ</response>
+        /// <response code="401">Lỗi khi token không hợp lệ hoặc đã hết hạn</response>
+        /// <response code="404">Lỗi khi không tìm thấy người dùng</response>
+        /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
+        [Authorize]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDTO changePasswordDTO)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var response = await _authService.ChangePasswordAsync(token, changePasswordDTO);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        /// <summary>
+        /// Gửi email đặt lại mật khẩu cho người dùng quên mật khẩu
+        /// </summary>
+        /// <remarks>
+        /// API này cho phép người dùng quên mật khẩu yêu cầu đặt lại mật khẩu.
+        /// Hệ thống sẽ gửi email chứa liên kết đặt lại mật khẩu đến địa chỉ email được cung cấp.
+        /// </remarks>
+        /// <param name="forgotPasswordDTO">Thông tin email</param>
+        /// <returns>Kết quả gửi email</returns>
+        /// <response code="200">Gửi email thành công (hoặc email không tồn tại)</response>
+        /// <response code="400">Lỗi khi gửi quá nhiều yêu cầu</response>
+        /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDTO forgotPasswordDTO)
+        {
+            // Lấy URL cơ sở từ request
+            var baseUrl = _configuration["UrlResetPassWord"];
+            // URL trang đặt lại mật khẩu (frontend sẽ xử lý)
+            var resetUrl = $"{baseUrl}/reset-password";
+
+            var response = await _authService.ForgotPasswordAsync(forgotPasswordDTO, resetUrl);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        /// <summary>
+        /// Đặt lại mật khẩu cho người dùng quên mật khẩu
+        /// </summary>
+        /// <remarks>
+        /// API này cho phép người dùng đặt lại mật khẩu bằng token được gửi qua email.
+        /// </remarks>
+        /// <param name="resetPasswordDTO">Thông tin mật khẩu mới và token</param>
+        /// <returns>Kết quả đặt lại mật khẩu</returns>
+        /// <response code="200">Đặt lại mật khẩu thành công</response>
+        /// <response code="400">Lỗi khi token không hợp lệ hoặc đã hết hạn</response>
+        /// <response code="500">Lỗi server khi xử lý yêu cầu</response>
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDTO)
+        {
+            var response = await _authService.ResetPasswordAsync(resetPasswordDTO);
             return StatusCode((int)response.StatusCode, response);
         }
     }

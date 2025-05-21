@@ -27,6 +27,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 EnableSsl = _emailSetting.Smtp.EnableSsl
             };
         }
+
         public async Task SendOtpEmailAsync(string recipientEmail, string recipientName, string otpCode)
         {
             var mailMessage = new MailMessage
@@ -34,6 +35,21 @@ namespace WebTechnology.Service.Services.Implementationns
                 From = new MailAddress(_emailSetting.FromEmailAddress, _emailSetting.FromDisplayName),
                 Subject = "Mã OTP xác thực",
                 Body = MailBody.GetOtpEmailBody(otpCode, recipientName),
+                IsBodyHtml = true
+            };
+
+            mailMessage.To.Add(recipientEmail);
+
+            await _smtpClient.SendMailAsync(mailMessage);
+        }
+
+        public async Task SendPasswordResetEmailAsync(string recipientEmail, string recipientName, string resetToken, string resetUrl)
+        {
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress(_emailSetting.FromEmailAddress, _emailSetting.FromDisplayName),
+                Subject = "Đặt lại mật khẩu",
+                Body = MailBody.GetPasswordResetEmailBody(recipientName, resetToken, resetUrl),
                 IsBodyHtml = true
             };
 

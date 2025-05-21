@@ -205,7 +205,7 @@ namespace WebTechnology.Service.Services.Implementationns
                 Email = email,
                 Otp = otp,
                 CountAuth = 1,
-                Authenticate = false, 
+                Authenticate = false,
                 VerifiedAt = DateTime.UtcNow.AddMinutes(5)
             };
 
@@ -383,6 +383,171 @@ namespace WebTechnology.Service.Services.Implementationns
             {
                 return ServiceResponse<bool>.ErrorResponse(
                     $"Lỗi khi kiểm tra tên đăng nhập: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Đổi mật khẩu cho người dùng đã đăng nhập
+        /// </summary>
+        /// <param name="token">Token xác thực của người dùng</param>
+        /// <param name="changePasswordDTO">Thông tin mật khẩu cũ và mới</param>
+        /// <returns>Kết quả thay đổi mật khẩu</returns>
+        public async Task<ServiceResponse<string>> ChangePasswordAsync(string token, ChangePasswordDTO changePasswordDTO)
+        {
+            try
+            {
+                // Kiểm tra token
+                if (string.IsNullOrEmpty(token))
+                {
+                    return ServiceResponse<string>.FailResponse("Token không hợp lệ");
+                }
+
+                if (_tokenService.IsTokenExpired(token))
+                {
+                    return ServiceResponse<string>.FailResponse("Token đã hết hạn");
+                }
+
+                // Lấy thông tin người dùng từ token
+                var userId = _tokenService.GetUserIdFromToken(token);
+                if (userId == null)
+                {
+                    return ServiceResponse<string>.FailResponse("Không tìm thấy thông tin người dùng");
+                }
+
+                // Lấy thông tin người dùng từ database
+                var user = await _userRepository.GetByIdAsync(userId);
+                if (user == null)
+                {
+                    return ServiceResponse<string>.NotFoundResponse("Người dùng không tồn tại");
+                }
+
+                // Kiểm tra mật khẩu hiện tại
+                if (!BCrypt.Net.BCrypt.Verify(changePasswordDTO.CurrentPassword, user.Password))
+                {
+                    return ServiceResponse<string>.FailResponse("Mật khẩu hiện tại không đúng");
+                }
+
+                // Cập nhật mật khẩu mới
+                user.Password = BCrypt.Net.BCrypt.HashPassword(changePasswordDTO.NewPassword);
+                user.UpdatedAt = DateTime.UtcNow;
+
+                await _userRepository.UpdateAsync(user);
+                await _unitOfWork.SaveChangesAsync();
+
+                return ServiceResponse<string>.SuccessResponse("Đổi mật khẩu thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<string>.ErrorResponse($"Lỗi khi đổi mật khẩu: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Gửi email đặt lại mật khẩu cho người dùng quên mật khẩu
+        /// </summary>
+        /// <param name="forgotPasswordDTO">Thông tin email</param>
+        /// <param name="resetUrl">URL trang đặt lại mật khẩu</param>
+        /// <returns>Kết quả gửi email</returns>
+        public async Task<ServiceResponse<string>> ForgotPasswordAsync(ForgotPasswordDTO forgotPasswordDTO, string resetUrl)
+        {
+            try
+            {
+                // Kiểm tra email có tồn tại không
+                var user = await _userRepository.GetUserByEmailAsync(forgotPasswordDTO.Email);
+                if (user == null || user.IsDeleted == true || user.Authenticate != true)
+                {
+                    // Trả về thành công để tránh lộ thông tin về việc email có tồn tại hay không
+                    return ServiceResponse<string>.SuccessResponse("Nếu email tồn tại trong hệ thống, chúng tôi sẽ gửi hướng dẫn đặt lại mật khẩu");
+                }
+
+                // Kiểm tra số lần yêu cầu đặt lại mật khẩu
+                if (user.CountAuth >= 3)
+                {
+                    return ServiceResponse<string>.FailResponse("Bạn đã gửi yêu cầu quá nhiều lần. Vui lòng thử lại sau.");
+                }
+
+                // Tạo token đặt lại mật khẩu
+                var resetToken = GenerateResetToken.Generate();
+
+                // Cập nhật thông tin người dùng
+                user.PasswordResetToken = resetToken;
+                user.VerifiedAt = DateTime.UtcNow.AddMinutes(15); // Token có hiệu lực trong 15 phút
+                user.CountAuth++; // Tăng số lần yêu cầu
+                user.UpdatedAt = DateTime.UtcNow;
+
+                await _userRepository.UpdateAsync(user);
+
+                // Gửi email đặt lại mật khẩu
+                string recipientName = user.Username ?? forgotPasswordDTO.Email.Split('@')[0];
+                await _emailService.SendPasswordResetEmailAsync(
+                    forgotPasswordDTO.Email,
+                    recipientName,
+                    resetToken,
+                    resetUrl
+                );
+
+                await _unitOfWork.SaveChangesAsync();
+
+                return ServiceResponse<string>.SuccessResponse("Hướng dẫn đặt lại mật khẩu đã được gửi đến email của bạn");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<string>.ErrorResponse($"Lỗi khi xử lý yêu cầu đặt lại mật khẩu: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Đặt lại mật khẩu cho người dùng quên mật khẩu
+        /// </summary>
+        /// <param name="resetPasswordDTO">Thông tin mật khẩu mới và token</param>
+        /// <returns>Kết quả đặt lại mật khẩu</returns>
+        public async Task<ServiceResponse<string>> ResetPasswordAsync(ResetPasswordDTO resetPasswordDTO)
+        {
+            try
+            {
+                // Kiểm tra xem có người dùng nào có token đặt lại mật khẩu này không
+                var exists = await _userRepository.ExistsAsync(u =>
+                    u.PasswordResetToken == resetPasswordDTO.Token &&
+                    u.IsDeleted != true &&
+                    u.Authenticate == true);
+
+                if (!exists)
+                {
+                    return ServiceResponse<string>.FailResponse("Token không hợp lệ hoặc đã hết hạn");
+                }
+
+                // Lấy tất cả người dùng và tìm người dùng có token phù hợp
+                var users = await _userRepository.GetAllAsync();
+                var user = users.FirstOrDefault(u =>
+                    u.PasswordResetToken == resetPasswordDTO.Token &&
+                    u.IsDeleted != true &&
+                    u.Authenticate == true);
+
+                if (user == null)
+                {
+                    return ServiceResponse<string>.FailResponse("Token không hợp lệ hoặc đã hết hạn");
+                }
+
+                // Kiểm tra thời gian hiệu lực của token
+                if (user.VerifiedAt < DateTime.UtcNow)
+                {
+                    return ServiceResponse<string>.FailResponse("Token đã hết hạn");
+                }
+
+                // Cập nhật mật khẩu mới
+                user.Password = BCrypt.Net.BCrypt.HashPassword(resetPasswordDTO.NewPassword);
+                user.PasswordResetToken = null; // Xóa token sau khi sử dụng
+                user.UpdatedAt = DateTime.UtcNow;
+                user.CountAuth = 0; // Reset số lần yêu cầu
+
+                await _userRepository.UpdateAsync(user);
+                await _unitOfWork.SaveChangesAsync();
+
+                return ServiceResponse<string>.SuccessResponse("Đặt lại mật khẩu thành công");
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse<string>.ErrorResponse($"Lỗi khi đặt lại mật khẩu: {ex.Message}");
             }
         }
 
