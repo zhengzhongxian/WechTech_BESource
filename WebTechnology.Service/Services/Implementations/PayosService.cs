@@ -123,6 +123,10 @@ namespace WebTechnology.Service.Services.Implementations
                 items.Add(item);
 
                 // Tạo payment data theo cách thư viện payOS yêu cầu
+                // Tính toán thời gian hết hạn là 15 phút (900 giây) từ thời điểm hiện tại
+                long currentTimeSeconds = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                long expiredAtTimestamp = currentTimeSeconds + 900L; // Thêm 900 giây (15 phút)
+
                 var paymentData = new PaymentData(
                     (int)numericOrderCode,  // Chuyển đổi sang int theo yêu cầu của thư viện
                     amount,
@@ -130,7 +134,7 @@ namespace WebTechnology.Service.Services.Implementations
                     items,
                     request.CancelUrl,
                     request.ReturnUrl,
-                    expiredAt: 900L
+                    expiredAt: expiredAtTimestamp
                 );
 
                 try
