@@ -17,6 +17,7 @@ using WebTechnology.Service.Services.Interfaces;
 using Net.payOS;
 using Net.payOS.Types;
 using Net.payOS.Errors;
+using WebTechnology.Repository.CoreHelpers.Enums;
 
 namespace WebTechnology.Service.Services.Implementations
 {
@@ -78,6 +79,12 @@ namespace WebTechnology.Service.Services.Implementations
                     return ServiceResponse<PayosPaymentData>.NotFoundResponse("Không tìm thấy đơn hàng");
                 }
 
+                // Kiểm tra phương thức thanh toán có phải là PAYOS không
+                if (order.PaymentMethod != "PAYOS")
+                {
+                    return ServiceResponse<PayosPaymentData>.ErrorResponse("Phương thức thanh toán không phải là PAYOS");
+                }
+
                 // Lấy số tiền từ đơn hàng
                 int amount = 0;
                 if (order.TotalPrice.HasValue)
@@ -122,7 +129,8 @@ namespace WebTechnology.Service.Services.Implementations
                     description,
                     items,
                     request.CancelUrl,
-                    request.ReturnUrl
+                    request.ReturnUrl,
+                    expiredAt: 900L
                 );
 
                 try
@@ -260,7 +268,7 @@ namespace WebTechnology.Service.Services.Implementations
 
                     // Cập nhật trạng thái đơn hàng thành đã thanh toán
                     order.IsSuccess = true;
-
+                    order.StatusId = OrderStatusType.PROCESSING.ToOrderStatusIdString();
                     await _orderRepository.UpdateAsync(order);
                     await _unitOfWork.CommitAsync();
 
@@ -274,7 +282,7 @@ namespace WebTechnology.Service.Services.Implementations
             {
                 await _unitOfWork.RollbackAsync();
                 _logger.LogError(ex, "Error processing Payos webhook");
-                return ServiceResponse<bool>.FailResponse($"Lỗi khi xử lý webhook: {ex.Message}");
+                return ServiceResponse<bool>.SuccessResponse($"Lỗi khi xử lý webhook: {ex.Message}");
             }
         }
 

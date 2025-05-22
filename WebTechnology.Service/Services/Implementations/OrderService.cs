@@ -356,6 +356,10 @@ namespace WebTechnology.Service.Services.Implementationns
                         if (voucher.UsageLimit.HasValue && voucher.UsedCount >= voucher.UsageLimit)
                             continue;
 
+                        // Chỉ áp dụng voucher không phải là voucher gốc (IsRoot = false)
+                        if (voucher.IsRoot == true)
+                            continue;
+
                         // Tính giảm giá
                         decimal discount = 0;
                         if (voucher.DiscountType == DiscountType.Percentage)

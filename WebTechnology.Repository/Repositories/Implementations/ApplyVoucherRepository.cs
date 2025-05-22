@@ -62,6 +62,12 @@ namespace WebTechnology.Repository.Repositories.Implementations
                     return false; // Voucher ha alcanzado su límite de uso
                 }
 
+                // Verificar si el voucher no es un voucher raíz (IsRoot = false)
+                if (voucher.IsRoot == true)
+                {
+                    return false; // No se puede aplicar un voucher raíz
+                }
+
                 // Crear nueva aplicación de voucher
                 var applyVoucher = new ApplyVoucher
                 {

@@ -108,6 +108,10 @@ namespace WebTechnology.Service.Services.Implementations
                     if (!selectedVoucher.Point.HasValue || selectedVoucher.Point <= 0)
                         return ServiceResponse<RedeemCouponResponseDTO>.FailResponse("Voucher này không thể đổi bằng điểm coupon");
 
+                    // Kiểm tra xem voucher có phải là voucher gốc không (IsRoot = true)
+                    if (selectedVoucher.IsRoot != true)
+                        return ServiceResponse<RedeemCouponResponseDTO>.FailResponse("Voucher không hợp lệ");
+
                     // Kiểm tra số điểm coupon
                     if (customer.Coupoun == null || customer.Coupoun < selectedVoucher.Point)
                         return ServiceResponse<RedeemCouponResponseDTO>.FailResponse("Số điểm coupon không đủ để đổi voucher này");
